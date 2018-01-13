@@ -15,8 +15,14 @@
 <script type="text/javascript">
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 function preload() {
+    game.load.image('background', 'assets/level1Background.png');
 }
 function create() {
+     //  We're going to be using physics, so enable the Arcade Physics system
+     game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    //  A simple background for our game
+    game.add.tileSprite(0, 0,800,600, 'background');
 }
 function update() {
 }
