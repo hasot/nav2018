@@ -4,8 +4,11 @@
 	<meta charset="UTF-8" />
 	<title>Phaser - Making your first game, part 1</title>
     <script src="js/phaser.min.js"></script>
-    <script src="js/enemy.js"></script>
+<<<<<<< HEAD
     <script src="js/player.js"></script>
+=======
+    <script src="js/enemy.js"></script>
+>>>>>>> e3e6e380b8a55214ffd2b58468b29de151a87a39
     <style type="text/css">
         body {
             margin: 0;
@@ -20,11 +23,16 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create
 function preload() {
     game.load.image('background', 'assets/level1Background.png');
     game.load.image('ground', 'assets/platform.png');
+<<<<<<< HEAD
     game.load.image('player', 'assets/player.png');
-    game.load.image('enemy', 'assets/enemy.png');
 
 }
 var player;
+=======
+    game.load.image('enemy', 'assets/enemy.png');
+}
+>>>>>>> e3e6e380b8a55214ffd2b58468b29de151a87a39
+
 function create() {
      //  We're going to be using physics, so enable the Arcade Physics system
      game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -47,7 +55,7 @@ function create() {
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(300, 300, 'ground');
+    var ledge = platforms.create(288, 288, 'ground');
 
     ledge.body.immovable = true;
 
@@ -56,26 +64,28 @@ function create() {
     ledge = platforms.create(-200, 300, 'ground');
 
     ledge.body.immovable = true;
-
     ledge = platforms.create(-150, 150, 'ground');
-
     ledge.body.immovable = true;
+<<<<<<< HEAD
     player =  player();
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
-    enemy = new Enemy(	
-			384, 224, 
-   			288, 448, 
-			game);    
-    
+}
+function update() {
    
-     
+       keyPlayer(player);
+=======
+
+	enemy = new Enemy(
+					384, 224, 
+					288, 448, 
+					game);    
 }
 
 function update() 
 {
 	enemy.update();
-  	keyPlayer(player);
+>>>>>>> e3e6e380b8a55214ffd2b58468b29de151a87a39
 }
 
 function render () 
