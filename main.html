@@ -59,6 +59,10 @@ function create() {
     ledge = platforms.create(-150, 150, 'ground');
     ledge.body.immovable = true;
 
+    ledge = platforms.create(608, 288, 'ground');
+    ledge.body.immovable = true;
+    ledge.scale.setTo(0.25, 5);
+
     player =  player();
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
@@ -68,7 +72,7 @@ function create() {
    			288, 448, 
 			game);    
 
-    bullets = []
+    bullets = [];
     enemy1 = new ShotingEnemy(288, 352, bullets);
 }
 
@@ -76,8 +80,7 @@ function update()
 {
 	enemy.update();
 	enemy1.update();
-	for (var i = 0; i < bullets.length; ++i)
-		bullets[i].update();
+	updateEnemyBullets();
 
   	keyPlayer(player);
 }
