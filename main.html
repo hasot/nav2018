@@ -7,6 +7,7 @@
     <script src="js/enemy.js"></script>
     <script src="js/shotingEnemy.js"></script>
     <script src="js/player.js"></script>
+    <script src="js/money.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -23,7 +24,8 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('player', 'assets/player.png');
     game.load.image('enemy', 'assets/enemy.png');
-    game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
+    game.load.image('money', 'assets/money.png');    
+game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
 }
 var player;
@@ -51,14 +53,16 @@ function create() {
     //  Now let's create two ledges
     var ledge = platforms.create(300, 288, 'ground');
     ledge.body.immovable = true;
+
     ledge.scale.setTo(0.5, 1);
 
     ledge = platforms.create(-200, 300, 'ground');
+
     ledge.body.immovable = true;
 
     ledge = platforms.create(-150, 150, 'ground');
-    ledge.body.immovable = true;
 
+    ledge.body.immovable = true;
     ledge = platforms.create(608, 288, 'ground');
     ledge.body.immovable = true;
     ledge.scale.setTo(0.25, 5);
@@ -70,7 +74,8 @@ function create() {
     enemy = new Enemy(	
 			384, 224, 
    			288, 448, 
-			game);    
+			game); 
+    money();   
 
     bullets = [];
     enemy1 = new ShotingEnemy(288, 352, bullets);
@@ -78,11 +83,16 @@ function create() {
 
 function update() 
 {
-	enemy.update();
+    game.physics.arcade.collide(moneys, platforms);
+    game.physics.arcade.overlap(player, moneys, collectStar, null, this);
+     	
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    keyPlayer();
+    	enemy.update();
 	enemy1.update();
 	updateEnemyBullets();
 
-  	keyPlayer(player);
+
 }
 
 function render () 

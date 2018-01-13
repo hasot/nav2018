@@ -1,6 +1,6 @@
 
 var facing = 'left';
-var jumpTimer = 0;
+var fightTimer = 0;
 var cursors;
 var jumpButton;
 
@@ -15,14 +15,13 @@ function player(player) {
          player.body.bounce.y = 0.2;
          player.body.gravity.y = 300;
          player.body.collideWorldBounds = true;
-
                 //  Our two animations, walking left and right.
         player.animations.add('left', [0, 1, 2, 3], 10, true);
         player.animations.add('right', [5, 6, 7, 8], 10, true);
 
         return player;
 }
-function keyPlayer(player) {
+function keyPlayer() {
    //  Collide the player and the stars with the platforms
    var hitPlatform = game.physics.arcade.collide(player, platforms);
    
@@ -52,10 +51,19 @@ function keyPlayer(player) {
         if (cursors.up.isDown && player.body.touching.down && hitPlatform)
         {
             console.log("jump")
-            player.body.velocity.y = -300;
+            //  Let gravity do its thing
+            player.body.velocity.y = -400;
+            player.body.gravity.y = 500;
         }
+      
         if (fightButton.isDown)
         {
-            console.log("Z")
+            if (fightTimer == 0 ){
+                console.log("Z");
+                fightTimer = 20;
+            }
+        }
+        if (fightTimer > 0 ){
+            fightTimer -= 1;
         }
 }
