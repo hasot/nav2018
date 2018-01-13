@@ -1,5 +1,3 @@
-var EnemyWidth = 32;
-var EnemyHeight = 64;
 var EnemySpeed = 70;
 
 Enemy = function(x, y, minX, maxX, game)
