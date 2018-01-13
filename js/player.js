@@ -21,6 +21,19 @@ function player(player) {
 
         return player;
 }
+function fight(x,y) {
+    if (discover == "right") {
+        shot = game.add.sprite(x + 32, y+32, 'enemyBullet');
+    } else {
+        shot = game.add.sprite(x - 32, y+32, 'enemyBullet');
+    };
+  
+    game.physics.arcade.enable(shot);
+    setTimeout(function (){
+        shot.kill();
+    }, 50)
+}
+var discover = "right";
 function keyPlayer() {
    //  Collide the player and the stars with the platforms
    var hitPlatform = game.physics.arcade.collide(player, platforms);
@@ -31,20 +44,20 @@ function keyPlayer() {
         if (cursors.left.isDown)
         {
             //  Move to the left
+            discover = "left";
             player.body.velocity.x = -150;
     
         }
         else if (cursors.right.isDown)
         {
             //  Move to the right
+            discover = "right";
             player.body.velocity.x = 150;
     
         }
         else
         {
             //  Stand still
-
-    
             player.frame = 4;
         }
         //  Allow the player to jump if they are touching the ground.
@@ -60,7 +73,10 @@ function keyPlayer() {
         {
             if (fightTimer == 0 ){
                 console.log("Z");
+                
+                fight(player.body.x, player.body.y);
                 fightTimer = 20;
+                
             }
         }
         if (fightTimer > 0 ){
