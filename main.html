@@ -6,6 +6,7 @@
     <script src="js/phaser.min.js"></script>
     <script src="js/enemy.js"></script>
     <script src="js/player.js"></script>
+    <script src="js/money.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -22,6 +23,7 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.image('player', 'assets/player.png');
     game.load.image('enemy', 'assets/enemy.png');
+    game.load.image('money', 'assets/money.png');
 
 }
 var player;
@@ -67,15 +69,18 @@ function create() {
 			384, 224, 
    			288, 448, 
 			game);    
-    
-   
-     
+    money();
 }
 
 function update() 
 {
-	enemy.update();
-  	keyPlayer(player);
+    game.physics.arcade.collide(moneys, platforms);
+    game.physics.arcade.overlap(player, moneys, collectStar, null, this);
+     	
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+    keyPlayer();
+    enemy.update();
+
 }
 
 function render () 
