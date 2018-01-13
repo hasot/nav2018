@@ -4,6 +4,7 @@
 	<meta charset="UTF-8" />
 	<title>Phaser - Making your first game, part 1</title>
     <script src="js/phaser.min.js"></script>
+    <script src="js/enemy.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -14,11 +15,13 @@
 
 <script type="text/javascript">
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
 function preload() {
     game.load.image('background', 'assets/level1Background.png');
     game.load.image('ground', 'assets/platform.png');
-
+    game.load.image('enemy', 'assets/enemy.png');
 }
+
 function create() {
      //  We're going to be using physics, so enable the Arcade Physics system
      game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -45,6 +48,8 @@ function create() {
 
     ledge.body.immovable = true;
 
+    ledge.scale.setTo(0.5, 1);
+
     ledge = platforms.create(-200, 300, 'ground');
 
     ledge.body.immovable = true;
@@ -52,8 +57,13 @@ function create() {
     ledge = platforms.create(-150, 150, 'ground');
 
     ledge.body.immovable = true;
+
+	enemy = new Enemy(460, 235, 320, 460, game);    
 }
-function update() {
+
+function update() 
+{
+	enemy.update();
 }
 </script>
 
