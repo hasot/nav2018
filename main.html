@@ -44,7 +44,7 @@ function create() {
     ground.body.immovable = true;
 
     //  Now let's create two ledges
-    var ledge = platforms.create(300, 300, 'ground');
+    var ledge = platforms.create(288, 288, 'ground');
 
     ledge.body.immovable = true;
 
@@ -58,7 +58,10 @@ function create() {
 
     ledge.body.immovable = true;
 
-	enemy = new Enemy(460, 300-64, 300, 500-32, game);    
+	enemy = new Enemy(
+					384, 224, 
+					288, 448, 
+					game);    
 }
 
 function update() 
@@ -69,7 +72,12 @@ function update()
 function render () 
 {
 	var mousePoint = game.input.mousePointer;
+
     game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
+
+    var divX = Math.floor(mousePoint.x / 32) * 32;
+    var divY = Math.floor(mousePoint.y / 32) * 32;
+    game.debug.text(divX + ' ' + divY, 32, 64);
 }
 
 </script>

@@ -1,3 +1,7 @@
+var EnemyWidth = 32;
+var EnemyHeight = 64;
+var EnemySpeed = 70;
+
 Enemy = function(x, y, minX, maxX, game)
 {
     this.minX = minX;   
@@ -8,7 +12,6 @@ Enemy = function(x, y, minX, maxX, game)
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
     this.direction = -1;
-    this.speed = 70;
 };
 
 Enemy.prototype.update = function() 
@@ -18,5 +21,5 @@ Enemy.prototype.update = function()
     else if (this.sprite.body.x > this.maxX)
         this.direction = -1;
 
-    this.sprite.body.velocity.x = this.speed * this.direction;
+    this.sprite.body.velocity.x = EnemySpeed * this.direction;
 };
