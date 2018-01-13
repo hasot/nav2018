@@ -14,7 +14,7 @@
 <body>
 
 <script type="text/javascript">
-var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
     game.load.image('background', 'assets/level1Background.png');
@@ -58,13 +58,20 @@ function create() {
 
     ledge.body.immovable = true;
 
-	enemy = new Enemy(460, 235, 320, 460, game);    
+	enemy = new Enemy(460, 300-64, 300, 500-32, game);    
 }
 
 function update() 
 {
 	enemy.update();
 }
+
+function render () 
+{
+	var mousePoint = game.input.mousePointer;
+    game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
+}
+
 </script>
 
 </body>
