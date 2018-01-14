@@ -47,23 +47,23 @@ EnemyBullet = function(x, y, direction)
     this.direction = direction;
 }
 
-EnemyBullet.prototype.update = function(platforms, player) 
+EnemyBullet.prototype.update = function(layer, player) 
 {   
     this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
 };
 
-EnemyBullet.prototype.isCollidesWith = function(platforms, player)
+EnemyBullet.prototype.isCollidesWith = function(layer, player)
 {
     var x = this.sprite.body.x;
     var isOutOfCamera = x  < game.camera.view.x 
                         || x > game.camera.view.x + game.camera.view.width;
-    var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
+    var collideWithlayer =  game.physics.arcade.collide(this.sprite, layer);
     var collideWithPlayer = !isPlayerDamaged() 
                             && game.physics.arcade.collide(this.sprite, player);
     if (collideWithPlayer)
         hitPlayer();
 
-    var res = isOutOfCamera || collideWithPlatforms || collideWithPlayer;
+    var res = isOutOfCamera || collideWithlayer || collideWithPlayer;
 
     return res;
 };

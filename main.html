@@ -30,55 +30,47 @@ function preload() {
     game.load.image('player', 'assets/player.png');
     game.load.image('enemy', 'assets/enemy.png');
     game.load.image('money', 'assets/money.png');    
-	game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
+game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
     game.load.image('flyingEnemy', 'assets/flyingEnemy.png');
     game.load.image('heavyEnemy', 'assets/heavyEnemy.png');
     game.load.image('heavyEnemyShield', 'assets/heavyEnemyShield.png');
     game.load.image('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png');
+   game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles-1', 'assets/tiles-1.png');
 }
 var player;
+var map;
+var tileset;
+var layer;
 function create() {
-     //  We're going to be using physics, so enable the Arcade Physics system
-     game.physics.startSystem(Phaser.Physics.ARCADE);
+
 
     //  A simple background for our game
-    game.add.tileSprite(0, 0, 800,600, 'background');
+    bg = game.add.tileSprite(0, 0, 640,480, 'background');
+    bg.fixedToCamera = true;
 
-    platforms = game.add.group();
+    map = game.add.tilemap('level1');
 
-    //  We will enable physics for any object that is created in this group
-    platforms.enableBody = true;
+    map.addTilesetImage('tiles-1');
 
-    // Here we create the ground.
-    var ground = platforms.create(0, game.world.height - 64, 'ground');
+    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
 
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(2, 2);
+    layer = map.createLayer('Tile Layer 1');
 
-    //  This stops it from falling away when you jump on it
-    ground.body.immovable = true;
+    //  Un-comment this on to see the collision tiles
+    // layer.debug = true;
 
-    //  Now let's create two ledges
-    var ledge = platforms.create(300, 288, 'ground');
-    ledge.body.immovable = true;
+    layer.resizeWorld();
 
-    ledge.scale.setTo(0.5, 1);
-
-    ledge = platforms.create(-200, 300, 'ground');
-
-    ledge.body.immovable = true;
-
-    ledge = platforms.create(-150, 150, 'ground');
-
-    ledge.body.immovable = true;
-    ledge = platforms.create(608, 288, 'ground');
-    ledge.body.immovable = true;
-    ledge.scale.setTo(0.25, 5);
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
 
     player =  player();
+    game.camera.follow(player);
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+
 
     money();   
 
@@ -101,11 +93,12 @@ function create() {
 
 function update() 
 {
-    game.physics.arcade.collide(moneys, platforms);
+    game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectStar, null, this);
-     	
+     	   //  Collide the player and the stars with the platforms
+   var hitPlatform = game.physics.arcade.collide(player, layer);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    keyPlayer();
+    keyPlayer(hitPlatform);
 
 	updateEnemyBullets(bullets, friendBullets);
 	updateEnemies(player);
