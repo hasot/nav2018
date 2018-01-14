@@ -6,8 +6,9 @@ var jumpButton;
 var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
-var startHp = 1000;
+var startHp = 1;
 var hp = startHp;
+var playerDead = false;
 
 function createPlayer() {
      // The player and its settings
@@ -36,12 +37,14 @@ function updatePreviousPos(player)
     prevPos = new Phaser.Point(player.x, player.y);
 }
 
-function fight(x,y) {
-    if (discover == "right") {
-        playerFootHit = game.add.sprite(x + 32, y+32, 'enemyBullet');
-    } else {
-        playerFootHit = game.add.sprite(x - 32, y+32, 'enemyBullet');
-    };
+function fight(x,y) 
+{
+    playerFootHit = game.add.sprite(
+                        discover == "right" ? x : x -32, 
+                        y, 
+                        'playerFoot');
+    player.animations.stop();
+    playerFootHit.frame = discover == "right" ? 0 : 1;
   
     game.physics.arcade.enable(playerFootHit);
     
@@ -50,10 +53,12 @@ function fight(x,y) {
         playerFootHit = null;
     }, 50)
 }
+
 var discover = "right";
 var jumpTimer = 0;
 function keyPlayer(hitPlatform) 
 {
+    if (playerDead) return;
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
     if (cursors.left.isDown)
@@ -91,6 +96,12 @@ function keyPlayer(hitPlatform)
         player.frame = discover == "right" ? 0 : 11;
     }
 
+    if (playerFootHit != null)
+    {
+        player.animations.stop();
+        player.frame = discover == "right" ? 1 : 10;
+    }
+
     //  Allow the player to jump if they are touching the ground.
     if (cursors.up.isDown && player.body.onFloor() && game.time.now > jumpTimer)
     {
@@ -116,6 +127,8 @@ function keyPlayer(hitPlatform)
 
 function updatePlayer(enemies)
 {
+    if (playerDead) return;
+
     if (playerDamageInterval <= 0)
     {
         player.visible = true;
@@ -151,8 +164,16 @@ function hitPlayer()
     hp -= 1;
     if (hp <= 0)
     {
-        restart();
+        var playerCorpse = new Corpse(
+                                player.x, player.y, 
+                                discover == "right" ? 1 : -1, 
+                                'player', 
+                                discover == "right" ? 12 : 13);
+        corpses.push(playerCorpse);
+
+        playerDead = true;
+        player.kill();
     }
     else
-    playerDamageInterval = 50;
+        playerDamageInterval = 50;
 }

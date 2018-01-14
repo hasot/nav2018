@@ -13,6 +13,7 @@
     <script src="js/flyingEnemy.js"></script>
     <script src="js/enemyFactory.js"></script>
     <script src="js/heavyEnemy.js"></script>
+    <script src="js/corpse.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -23,6 +24,12 @@
 
 <script type="text/javascript">
 var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+
+var bullets;
+var friendBullets;
+var enemies;
+var deadEnemies;
+var corpses;
 
 function preload() {
     game.load.image('background', 'assets/level1Background.png');
@@ -38,13 +45,21 @@ function preload() {
     game.load.image('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png');
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
+    game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
 }
 var player;
 var map;
 var tileset;
 var layer;
-function create() {
-
+function create() 
+{
+	bullets = []
+	friendBullets = [];
+	enemies = [];
+	deadEnemies = [];
+	corpses = [];
+	hp = startHp;
+	playerDead = false;
 
     //  A simple background for our game
     bg = game.add.tileSprite(0, 0, 640,480, 'background');
@@ -90,7 +105,9 @@ function create() {
     	create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 }
+
 var score = 0;
+
 function update() 
 {
     game.physics.arcade.collide(moneys, layer);
@@ -108,14 +125,37 @@ function update()
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
 	updatePreviousPos(player);
+
+	updateCorpses();
+}
+
+function updateCorpses()
+{
+	var i = 0;
+	while (i < corpses.length)
+	{
+		var corpse = corpses[i];
+
+		var bottomPos = game.camera.view.y + game.camera.view.height
+
+		var needKill = corpse.sprite.y > bottomPos;
+		if (needKill)
+		{
+			if (corpse.sprite.key == 'player')
+			{
+				restart();
+			}
+
+			corpse.sprite.kill();
+			corpses.splice(i, 1);
+			console.log('dead');
+		}
+		else i += 1;
+	}
 }
 
 function restart()
 {
-	bullets = []
-	friendBullets = [];
-	enemies = [];
-	hp = startHp;
 	create();
 }
 

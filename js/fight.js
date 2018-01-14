@@ -27,6 +27,13 @@ function killEnemy(enemy)
 	if (enemy.isHeavy)
     	killHeavyEnemy(enemy);
 
+    var corpse = new Corpse(
+    					enemy.sprite.x, enemy.sprite.y, 
+    					enemy.direction, 
+    					enemy.sprite.key, 
+    					0);
+    corpses.push(corpse);
+
     enemy.sprite.kill();
     enemy.isAlive = false;
 }
