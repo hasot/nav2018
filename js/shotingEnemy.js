@@ -1,4 +1,4 @@
-var EnemyBulletSpeed = 100;
+var EnemyBulletSpeed = 200;
 var EnemyShotTimeout = 100;
 
 ShotingEnemy = function(x, y, bullets)
@@ -20,19 +20,25 @@ ShotingEnemy.prototype.update = function()
     if (player.body.x < this.sprite.body.x)
         this.direction = -1;
     else this.direction = 1;
-    
-    if (this.shotWaitingInterval == 0)
-    {
-        var bullet = new EnemyBullet(this.sprite.body.x, this.sprite.body.y, this.direction); 
-        this.bullets.push(bullet);
 
-        this.shotWaitingInterval = EnemyShotTimeout;
-    }
-    else if (this.shotWaitingInterval > 0)
-    {
-        this.shotWaitingInterval -= 1;
-    }
+    tryShotFor(this);  
 };
+
+function tryShotFor(enemy)
+{
+    if (enemy.shotWaitingInterval == 0)
+    {
+        var location = enemy.sprite;
+        var bullet = new EnemyBullet(location.x, location.y, enemy.direction); 
+        enemy.bullets.push(bullet);
+
+        enemy.shotWaitingInterval = EnemyShotTimeout;
+    }
+    else if (enemy.shotWaitingInterval > 0)
+    {
+        enemy.shotWaitingInterval -= 1;
+    }
+}
 
 EnemyBullet = function(x, y, direction)
 {
@@ -58,49 +64,3 @@ EnemyBullet.prototype.isCollidesWith = function(platforms, player)
 
     return res;
 };
-
-FriendBullet = function(x, y, direction)
-{
-    this.sprite = game.add.sprite(x, y, 'enemyBullet');
-    game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
-    this.direction = direction * (-1);
-}
-
-FriendBullet.prototype.update = function(platforms, player) 
-{   
-    this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
-};
-
-FriendBullet.prototype.isCollidesWith = function(platforms)
-{
-    var x = this.sprite.body.x;
-    var isOutOfCamera = x  < game.camera.view.x 
-                        || x > game.camera.view.x + game.camera.view.width;
-    var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
-
-    var res = isOutOfCamera || collideWithPlatforms;
-
-    return res;
-};
-
-FriendBullet.prototype.isCollidesWithEnemy = function(enemies)
-{
-    var i = 0;
-    // console.log(i + ' ' enemies.length);
-    while (i < enemies.length)
-    {  
-        var enemy = enemies[i];
-        var bulletHit = game.physics.arcade.collide(this.sprite, enemy.sprite);
-        
-        if (bulletHit)
-        {
-            killEnemy(enemy);
-
-            enemies.splice(i, 1);
-            return true;
-        }
-        else i += 1;
-    }
-
-    return false;
-}

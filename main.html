@@ -9,6 +9,8 @@
     <script src="js/player.js"></script>
     <script src="js/money.js"></script>
     <script src="js/fight.js"></script>
+    <script src="js/friendBullet.js"></script>
+    <script src="js/flyingEnemy.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -28,6 +30,7 @@ function preload() {
     game.load.image('money', 'assets/money.png');    
 	game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
+    game.load.image('flyingEnemy', 'assets/flyingEnemy.png');
 }
 var player;
 function create() {
@@ -73,18 +76,15 @@ function create() {
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
 
     money();   
+
     bullets = [];
     friendBullets = [];
-    enemies = []
-
-    enemy = new Enemy(	
-			384, 224, 
-   			288, 448, 
-			game); 
-    enemy1 = new ShotingEnemy(288, 352, bullets);
-
-    enemies.push(enemy);
-    enemies.push(enemy1);
+    enemies = [
+    	new Enemy(384, 224, 288, 448, game),
+    	new ShotingEnemy(288, 352, bullets),
+    	new FlyingEnemy(416, 96, 256, 480, 'horizontal', bullets, game),
+    	new FlyingEnemy(544, 160, 32, 288, 'vertical', bullets, game),
+    	];
 }
 
 function killEnemy(enemy)
