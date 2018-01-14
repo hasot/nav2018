@@ -48,11 +48,8 @@ function fight(x,y) {
 var discover = "right";
 var jumpTimer = 0;
 function keyPlayer(hitPlatform) {
-
-   
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
-    
         if (cursors.left.isDown)
         {
             //  Move to the left
@@ -73,11 +70,12 @@ function keyPlayer(hitPlatform) {
             player.frame = 4;
         }
         //  Allow the player to jump if they are touching the ground.
-        if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+        if (cursors.up.isDown && player.body.onFloor() && game.time.now > jumpTimer)
         {
             //  Let gravity do its thing
             player.body.velocity.y = -400;
             player.body.gravity.y = 500;
+            jumpTimer = game.time.now + 750;
         }
       
         if (fightButton.isDown)

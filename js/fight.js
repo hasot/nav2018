@@ -68,7 +68,7 @@ function updateEnemyBullets(bullets, friendBullets)
     	var bullet = bullets[i];
 		bullet.update();
 
-		var needDestroy = bullet.isCollidesWith(platforms, player);
+		var needDestroy = bullet.isCollidesWith(layer, player);
 		var needRevert = isNeedReverseBullet(bullet);
 
         if (needDestroy || needRevert)

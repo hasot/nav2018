@@ -36,7 +36,7 @@ game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('heavyEnemy', 'assets/heavyEnemy.png');
     game.load.image('heavyEnemyShield', 'assets/heavyEnemyShield.png');
     game.load.image('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png');
-}   game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+   game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
 }
 var player;
@@ -93,15 +93,12 @@ function create() {
 
 function update() 
 {
-    game.physics.arcade.collide(moneys, platforms);
+    game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectStar, null, this);
      	   //  Collide the player and the stars with the platforms
    var hitPlatform = game.physics.arcade.collide(player, layer);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     keyPlayer(hitPlatform);
-    enemy.update();
-	enemy1.update();
-	updateEnemyBullets();
 
     updateFriendBullets(friendBullets, enemies);
 	updateEnemyBullets(bullets, friendBullets);

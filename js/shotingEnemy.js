@@ -13,25 +13,31 @@ ShotingEnemy = function(x, y, bullets)
 };
 
 ShotingEnemy.prototype.update = function() 
-{
-    if (!this.isAlive) return;
+{ 
+if (!this.isAlive) return; 
 
-    if (player.body.x < this.sprite.body.x)
-        this.direction = -1;
-    else this.direction = 1;
-    
-    if (this.shotWaitingInterval == 0)
-    {
-        var bullet = new EnemyBullet(this.sprite.body.x, this.sprite.body.y, this.direction); 
-        this.bullets.push(bullet);
+if (player.body.x < this.sprite.body.x) 
+this.direction = -1; 
+else this.direction = 1; 
 
-        this.shotWaitingInterval = EnemyShotTimeout;
-    }
-    else if (this.shotWaitingInterval > 0)
-    {
-        this.shotWaitingInterval -= 1;
-    }
-};
+tryShotFor(this); 
+}; 
+
+function tryShotFor(enemy) 
+{ 
+if (enemy.shotWaitingInterval == 0) 
+{ 
+var location = enemy.sprite; 
+var bullet = new EnemyBullet(location.x, location.y, enemy.direction); 
+enemy.bullets.push(bullet); 
+
+enemy.shotWaitingInterval = EnemyShotTimeout; 
+} 
+else if (enemy.shotWaitingInterval > 0) 
+{ 
+enemy.shotWaitingInterval -= 1; 
+} 
+}
 
 EnemyBullet = function(x, y, direction)
 {
