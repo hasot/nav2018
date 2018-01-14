@@ -6,6 +6,7 @@
     <script src="js/phaser.min.js"></script>
     <script src="js/enemy.js"></script>
     <script src="js/shotingEnemy.js"></script>
+    <script src="js/helicopter.js"></script>
     <script src="js/player.js"></script>
     <script src="js/money.js"></script>
     <script src="js/fight.js"></script>
@@ -36,6 +37,9 @@ function preload() {
     game.load.image('ground', 'assets/platform.png');
     game.load.spritesheet('player', 'assets/player.png', 32, 64);
     game.load.image('enemy', 'assets/enemy.png');
+
+    game.load.image('helicopter', 'assets/helicopter.png', 32,32);
+
     game.load.image('money', 'assets/money.png');    
 	game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
@@ -85,6 +89,7 @@ function create()
     game.camera.follow(player);
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
+    copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
 
     money();   
@@ -124,7 +129,8 @@ function update()
 
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
-	updatePreviousPos(player);
+    updatePreviousPos(player);
+    enemies = updateCopter(layer, player, enemies);
 
 	updateCorpses();
 }

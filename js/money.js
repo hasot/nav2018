@@ -12,7 +12,7 @@ function money(){
         for (var i = 0; i < 30; i++)
         {
             //  Create a star inside of the 'stars' group
-            var money = moneys.create(i * 70, 0, 'money');
+            var money = moneys.create(i * 50, 0, 'money');
     
             //  Let gravity do its thing
             money.body.gravity.y = 1000;
