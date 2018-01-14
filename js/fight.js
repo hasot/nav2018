@@ -9,7 +9,7 @@ function updateEnemies(player)
 		var isJumpToEnemy = isPlayerHitJumpTo(enemy);	
 		var enemyNeedToDie = isJumpToEnemy 
 							 || isPlayerFootHit(enemy)
-		if (enemyNeedToDie)
+		if (!isPlayerDamaged() && enemyNeedToDie)
 		{
 			killEnemy(enemy);
 
@@ -69,7 +69,7 @@ function updateEnemyBullets(bullets, friendBullets)
 		bullet.update();
 
 		var needDestroy = bullet.isCollidesWith(layer, player);
-		var needRevert = isNeedReverseBullet(bullet);
+		var needRevert = !isPlayerDamaged() && isNeedReverseBullet(bullet);
 
         if (needDestroy || needRevert)
     	{
@@ -101,7 +101,7 @@ function updateFriendBullets(bullets, enemies)
     	var bullet = bullets[i];
 		bullet.update();
 
-		var collidesWithPlatforms = bullet.isCollidesWith(platforms);
+		var collidesWithPlatforms = bullet.isCollidesWith(layer);
 		var collidesWithEnemies = bullet.isCollidesWithEnemy(enemies);
 
         if (collidesWithEnemies || collidesWithPlatforms)

@@ -6,8 +6,10 @@ var jumpButton;
 var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
+var startHp = 1000;
+var hp = startHp;
 
-function player() {
+function createPlayer() {
      // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'player');
      
@@ -127,5 +129,11 @@ function isPlayerDamaged()
 
 function hitPlayer()
 {
-    playerDamageInterval = 200;
+    hp -= 1;
+    if (hp <= 0)
+    {
+        restart();
+    }
+    else
+    playerDamageInterval = 50;
 }
