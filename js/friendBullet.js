@@ -8,7 +8,7 @@ FriendBullet = function(x, y, direction)
 
 FriendBullet.prototype.update = function(platforms, player) 
 {   
-    this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
+    this.sprite.body.velocity.x = 400 * this.direction;
 };
 
 FriendBullet.prototype.isCollidesWith = function(platforms)

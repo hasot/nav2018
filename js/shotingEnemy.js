@@ -40,7 +40,7 @@ function tryShotFor(enemy)
     if (enemy.shotWaitingInterval == 0)
     {
         var location = enemy.sprite;
-        var bullet = new EnemyBullet(location.x, location.y, enemy.direction); 
+        var bullet = new EnemyBullet(location.x, location.y + 16, enemy.direction); 
         enemy.bullets.push(bullet);
 
         enemy.shotWaitingInterval = EnemyShotTimeout;
@@ -56,11 +56,15 @@ EnemyBullet = function(x, y, direction)
     this.sprite = game.add.sprite(x, y, 'enemyBullet');
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     this.direction = direction;
+
+    this.sprite.body.gravity.y = 300;
+    this.sprite.body.velocity.y = -200;
 }
 
 EnemyBullet.prototype.update = function(layer, player) 
 {   
     this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
+    this.sprite.rotation += 0.01;
 };
 
 EnemyBullet.prototype.isCollidesWith = function(layer, player)
