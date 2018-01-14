@@ -44,9 +44,9 @@ function preload() {
 	game.load.spritesheet('shotingEnemy', 'assets/shotingEnemy.png', 32, 64);
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
     game.load.spritesheet('flyingEnemy', 'assets/flyingEnemy.png', 32, 64);
-    game.load.image('heavyEnemy', 'assets/heavyEnemy.png');
-    game.load.image('heavyEnemyShield', 'assets/heavyEnemyShield.png');
-    game.load.image('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png');
+    game.load.spritesheet('heavyEnemy', 'assets/heavyEnemy.png', 32, 64);
+    game.load.spritesheet('heavyEnemyShield', 'assets/heavyEnemyShield.png', 32, 64);
+    game.load.spritesheet('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png', 32, 64);
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
     game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
@@ -154,7 +154,6 @@ function updateCorpses()
 
 			corpse.sprite.kill();
 			corpses.splice(i, 1);
-			console.log('dead');
 		}
 		else i += 1;
 	}
