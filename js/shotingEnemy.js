@@ -38,17 +38,17 @@ EnemyBullet = function(x, y, direction)
     this.direction = direction;
 }
 
-EnemyBullet.prototype.update = function(platforms, player) 
+EnemyBullet.prototype.update = function(layer, player) 
 {   
     this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
 };
 
-EnemyBullet.prototype.checkCollisions = function(platforms, player)
+EnemyBullet.prototype.checkCollisions = function(layer, player)
 {
     var x = this.sprite.body.x;
     var isOutOfCamera = x  < game.camera.view.x 
                         || x > game.camera.view.x + game.camera.view.width;
-    var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
+    var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, layer);
     var collideWithPlayer = game.physics.arcade.collide(this.sprite, player);
 
     if (isOutOfCamera || collideWithPlatforms || collideWithPlayer)
@@ -67,7 +67,7 @@ function updateEnemyBullets()
     while (currentIndex < bullets.length)
     {
         var bullet = bullets[currentIndex];
-        if (bullet.checkCollisions(platforms, player))
+        if (bullet.checkCollisions(layer, player))
             bullets.splice(currentIndex, 1);
         else
             currentIndex += 1;

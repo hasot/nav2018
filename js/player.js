@@ -34,9 +34,9 @@ function fight(x,y) {
     }, 50)
 }
 var discover = "right";
-function keyPlayer() {
-   //  Collide the player and the stars with the platforms
-   var hitPlatform = game.physics.arcade.collide(player, platforms);
+var jumpTimer = 0;
+function keyPlayer(hitPlatform) {
+
    
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
@@ -61,14 +61,18 @@ function keyPlayer() {
             player.frame = 4;
         }
         //  Allow the player to jump if they are touching the ground.
-        if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+        // if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+        // {
+        //     console.log("jump")
+        //     //  Let gravity do its thing
+        //     player.body.velocity.y = -400;
+        //     player.body.gravity.y = 500;
+        // }
+        if (cursors.up.isDown && player.body.onFloor() && game.time.now > jumpTimer)
         {
-            console.log("jump")
-            //  Let gravity do its thing
-            player.body.velocity.y = -400;
-            player.body.gravity.y = 500;
+            player.body.velocity.y = -250;
+            jumpTimer = game.time.now + 750;
         }
-      
         if (fightButton.isDown)
         {
             if (fightTimer == 0 ){
