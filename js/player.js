@@ -27,8 +27,8 @@ function createPlayer() {
             //  Our two animations, walking left and right.
     player.animations.add('playerRunR', [2, 3], 5, true);
     player.animations.add('playerRunL', [8, 9], 5, true);
-    player.animations.add('playerStandR', [4, 5], 1, true);
-    player.animations.add('playerStandL', [6, 7], 1, true);
+    player.animations.add('playerStandR', [4, 5], 3, true);
+    player.animations.add('playerStandL', [6, 7], 3, true);
 
     updatePreviousPos(player);
 

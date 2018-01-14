@@ -2,6 +2,8 @@ var copter;
 function helicopter(){
     copter = game.add.sprite(580, 40, 'helicopter');
     game.physics.enable(copter, Phaser.Physics.ARCADE);
+    copter.animations.add('anim', [0, 1], 20, true);
+    copter.animations.play('anim');
 }
 
 
