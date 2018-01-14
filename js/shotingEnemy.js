@@ -14,6 +14,8 @@ ShotingEnemy = function(x, y, bullets)
 
 ShotingEnemy.prototype.update = function() 
 {
+    if (!this.isAlive) return;
+
     if (player.body.x < this.sprite.body.x)
         this.direction = -1;
     else this.direction = 1;
@@ -43,7 +45,7 @@ EnemyBullet.prototype.update = function(layer, player)
     this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
 };
 
-EnemyBullet.prototype.checkCollisions = function(layer, player)
+EnemyBullet.prototype.isCollidesWith = function(layer, player)
 {
     var x = this.sprite.body.x;
     var isOutOfCamera = x  < game.camera.view.x 
@@ -51,29 +53,7 @@ EnemyBullet.prototype.checkCollisions = function(layer, player)
     var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, layer);
     var collideWithPlayer = game.physics.arcade.collide(this.sprite, player);
 
-    if (isOutOfCamera || collideWithPlatforms || collideWithPlayer)
-    {
-        this.sprite.kill();
-        return true;
-    }
+    var res = isOutOfCamera || collideWithPlatforms || collideWithPlayer;
 
-    return false;
-}
-
-function updateEnemyBullets()
-{
-    //--- collisions
-    var currentIndex = 0;
-    while (currentIndex < bullets.length)
-    {
-        var bullet = bullets[currentIndex];
-        if (bullet.checkCollisions(layer, player))
-            bullets.splice(currentIndex, 1);
-        else
-            currentIndex += 1;
-    }
-
-    //--- movement
-    for (var i = 0; i < bullets.length; ++i)
-        bullets[i].update();
-}
+    return res;
+};
