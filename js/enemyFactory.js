@@ -53,3 +53,57 @@ FlyingItem1.prototype.thatMovesVerticalOn = function(minValue, maxValue)
 					'vertical', 
 					this.factory.bullets, this.factory.game);
 };
+
+EnemyFactory.prototype.heavyOn = function(x, y)
+{
+	return new HeavyItem1(x, y, this);
+}
+
+HeavyItem1 = function(x, y, factory)
+{
+	this.x = x;
+	this.y = y;
+	this.factory = factory;
+}
+
+HeavyItem1.prototype.thatMovesOn = function(minX, maxX)
+{
+	return new HeavyItem2(minX, maxX, this);
+}
+
+HeavyItem2 = function(minX, maxX, item)
+{
+	this.minX = minX;
+	this.maxX = maxX;
+	this.item = item;
+}
+
+HeavyItem2.prototype.withHelmet = function()
+{
+	return new HeavyEnemy(
+				this.item.x, this.item.y,
+				this.minX, this.maxX,
+				true,
+				false,
+				this.item.factory.game);
+}
+
+HeavyItem2.prototype.withShield = function()
+{
+	return new HeavyEnemy(
+				this.item.x, this.item.y,
+				this.minX, this.maxX,
+				false,
+				true,
+				this.item.factory.game);
+}
+
+HeavyItem2.prototype.withFullArmor = function()
+{
+	return new HeavyEnemy(
+				this.item.x, this.item.y,
+				this.minX, this.maxX,
+				true,
+				true,
+				this.item.factory.game);
+}

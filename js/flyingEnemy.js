@@ -11,7 +11,7 @@ FlyingEnemy = function(x, y, minValue, maxValue, orientaion, bullets, game)
     this.direction = -1;
     this.movementDirection = -1;
 
-    this.shotWaitingInterval = 0;
+    this.shotWaitingInterval = getRandomInt(0, EnemyShotTimeout);;
     this.isAlive = true;
 };
 

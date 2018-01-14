@@ -22,15 +22,33 @@ function updateEnemies(player)
 	}
 }
 
+function killEnemy(enemy)
+{
+	if (enemy.isHeavy)
+    	killHeavyEnemy(enemy);
+
+    enemy.sprite.kill();
+    enemy.isAlive = false;
+}
+
 function isPlayerFootHit(enemy)
 {
 	if (playerFootHit == null) return false;
 
-	return game.physics.arcade.collide(playerFootHit, enemy.sprite);
+	var hit = game.physics.arcade.collide(playerFootHit, enemy.sprite);
+
+	var playerDirection = discover == 'right' ? 1 : -1;
+	var enemyProtected = enemy.isHeavy
+						 && enemy.useShield
+						 && playerDirection != enemy.direction;
+
+	return hit && !(enemyProtected);
 }
 
 function isPlayerHitJumpTo(enemy)
 {
+	if (enemy.isHeavy && enemy.useHelmet) return false;
+
 	var vertDist = Math.abs(player.y - enemy.sprite.y);
 	var horDist = Math.abs(player.x - enemy.sprite.x);
 	var playerFalls = player.y > prevPos.y;
