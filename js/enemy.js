@@ -21,3 +21,9 @@ Enemy.prototype.update = function()
 
     this.sprite.body.velocity.x = EnemySpeed * this.direction;
 };
+
+function killEnemy(enemy)
+{
+    enemy.sprite.kill();
+    enemy.isAlive = false;
+}

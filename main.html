@@ -11,6 +11,7 @@
     <script src="js/fight.js"></script>
     <script src="js/friendBullet.js"></script>
     <script src="js/flyingEnemy.js"></script>
+    <script src="js/enemyFactory.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -79,18 +80,15 @@ function create() {
 
     bullets = [];
     friendBullets = [];
-    enemies = [
-    	new Enemy(384, 224, 288, 448, game),
-    	new ShotingEnemy(288, 352, bullets),
-    	new FlyingEnemy(416, 96, 256, 480, 'horizontal', bullets, game),
-    	new FlyingEnemy(544, 160, 32, 288, 'vertical', bullets, game),
-    	];
-}
 
-function killEnemy(enemy)
-{
-	enemy.sprite.kill();
-	enemy.isAlive = false;
+	var create = new EnemyFactory(game, bullets);
+
+    enemies = [
+    	create.simpleOn(384, 224).thatMovesOn(288, 488),
+    	create.shotingOn(288, 352),
+    	create.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
+    	create.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
+    	];
 }
 
 function update() 
