@@ -32,5 +32,9 @@ FlyingEnemy.prototype.update = function()
     else
         this.sprite.body.velocity.y = velocity;
 
+    if (player.body.x < this.sprite.body.x)
+        this.direction = -1;
+    else this.direction = 1;
+
     tryShotFor(this);
 };

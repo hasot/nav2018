@@ -1,4 +1,4 @@
-var EnemyBulletSpeed = 100;
+var EnemyBulletSpeed = 200;
 var EnemyShotTimeout = 100;
 
 ShotingEnemy = function(x, y, bullets)
@@ -9,34 +9,35 @@ ShotingEnemy = function(x, y, bullets)
 
     this.direction = -1;
 
-    this.shotWaitingInterval = 0;
+    this.shotWaitingInterval = getRandomInt(0, EnemyShotTimeout);
+    this.isAlive = true;
 };
 
 ShotingEnemy.prototype.update = function() 
-{ 
-if (!this.isAlive) return; 
+{
+    if (!this.isAlive) return;
 
-if (player.body.x < this.sprite.body.x) 
-this.direction = -1; 
-else this.direction = 1; 
+    if (player.body.x < this.sprite.body.x)
+        this.direction = -1;
+    else this.direction = 1;
 
-tryShotFor(this); 
-}; 
+    tryShotFor(this);  
+};
 
-function tryShotFor(enemy) 
-{ 
-if (enemy.shotWaitingInterval == 0) 
-{ 
-var location = enemy.sprite; 
-var bullet = new EnemyBullet(location.x, location.y, enemy.direction); 
-enemy.bullets.push(bullet); 
+function tryShotFor(enemy)
+{
+    if (enemy.shotWaitingInterval == 0)
+    {
+        var location = enemy.sprite;
+        var bullet = new EnemyBullet(location.x, location.y, enemy.direction); 
+        enemy.bullets.push(bullet);
 
-enemy.shotWaitingInterval = EnemyShotTimeout; 
-} 
-else if (enemy.shotWaitingInterval > 0) 
-{ 
-enemy.shotWaitingInterval -= 1; 
-} 
+        enemy.shotWaitingInterval = EnemyShotTimeout;
+    }
+    else if (enemy.shotWaitingInterval > 0)
+    {
+        enemy.shotWaitingInterval -= 1;
+    }
 }
 
 EnemyBullet = function(x, y, direction)
@@ -56,10 +57,13 @@ EnemyBullet.prototype.isCollidesWith = function(layer, player)
     var x = this.sprite.body.x;
     var isOutOfCamera = x  < game.camera.view.x 
                         || x > game.camera.view.x + game.camera.view.width;
-    var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, layer);
-    var collideWithPlayer = game.physics.arcade.collide(this.sprite, player);
+    var collideWithlayer =  game.physics.arcade.collide(this.sprite, layer);
+    var collideWithPlayer = !isPlayerDamaged() 
+                            && game.physics.arcade.collide(this.sprite, player);
+    if (collideWithPlayer)
+        hitPlayer();
 
-    var res = isOutOfCamera || collideWithPlatforms || collideWithPlayer;
+    var res = isOutOfCamera || collideWithlayer || collideWithPlayer;
 
     return res;
 };

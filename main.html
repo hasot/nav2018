@@ -102,10 +102,11 @@ function update()
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     keyPlayer(hitPlatform);
 
-    updateFriendBullets(friendBullets, enemies);
 	updateEnemyBullets(bullets, friendBullets);
 	updateEnemies(player);
 
+	updateFriendBullets(friendBullets, enemies);
+	updatePlayer(enemies);
 	updatePreviousPos(player);
 }
 
@@ -119,6 +120,8 @@ function render ()
     var divX = Math.floor(mousePoint.x / 32) * 32;
     var divY = Math.floor(mousePoint.y / 32) * 32;
     game.debug.text(divX + ' ' + divY, 32, 64);
+
+    game.debug.text(playerDamageInterval, 128, 64);
 }
 
 function getRandomInt(min, max) 
