@@ -66,7 +66,7 @@ function create() {
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    player =  player();
+    player =  createPlayer();
     game.camera.follow(player);
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
@@ -110,8 +110,19 @@ function update()
 	updatePreviousPos(player);
 }
 
-function render () 
+function restart()
 {
+	bullets = []
+	friendBullets = [];
+	enemies = [];
+	hp = startHp;
+	create();
+}
+
+function render () 
+{	
+	game.debug.text('HP: ' + hp, 10, 10);
+
 	var mousePoint = game.input.mousePointer;
 
     game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
