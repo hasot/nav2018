@@ -9,13 +9,13 @@ function money(){
         moneys.enableBody = true;
     
         //  Here we'll create 12 of them evenly spaced apart
-        for (var i = 0; i < 2; i++)
+        for (var i = 0; i < 30; i++)
         {
             //  Create a star inside of the 'stars' group
             var money = moneys.create(i * 70, 0, 'money');
     
             //  Let gravity do its thing
-            money.body.gravity.y = 70;
+            money.body.gravity.y = 1000;
     
             //  This just gives each star a slightly random bounce value
             money.body.bounce.y = 0.3 + Math.random() * 0.02;
