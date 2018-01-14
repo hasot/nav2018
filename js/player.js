@@ -6,9 +6,12 @@ var jumpButton;
 var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
-var startHp = 10;
+
+var startHp = 5;
 var hp = startHp;
+
 var playerDead = false;
+var helicopterTimer = 0;
 
 function createPlayer() {
      // The player and its settings
@@ -122,6 +125,19 @@ function keyPlayer(hitPlatform)
     }
     if (fightTimer > 0 ){
         fightTimer -= 1;
+    }
+
+    if (copterButton.isDown)
+    {
+        if (helicopterTimer == 0 )
+        {    
+            callHelicopter();
+            helicopterTimer = 50;
+            
+        }
+    }
+    if (helicopterTimer > 0 ){
+        helicopterTimer -= 1;
     }
 }
 
