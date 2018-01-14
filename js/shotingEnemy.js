@@ -8,7 +8,7 @@ ShotingEnemy = function(x, y, bullets)
     this.bullets = bullets;
 
     this.direction = -1;
-
+    
     this.shotWaitingInterval = getRandomInt(0, EnemyShotTimeout);
     this.isAlive = true;
 };

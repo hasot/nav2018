@@ -1,6 +1,7 @@
 
 var facing = 'left';
 var fightTimer = 0;
+var helicopterTimer = 0;
 var cursors;
 var jumpButton;
 var prevPos;
@@ -93,6 +94,19 @@ function keyPlayer(hitPlatform) {
         if (fightTimer > 0 ){
             fightTimer -= 1;
         }
+        
+        if (copterButton.isDown)
+        {
+            if (helicopterTimer == 0 )
+            {    
+                callHelicopter();
+                helicopterTimer = 50;
+                
+            }
+        }
+        if (helicopterTimer > 0 ){
+            helicopterTimer -= 1;
+        }
 }
 
 function updatePlayer(enemies)
@@ -137,3 +151,5 @@ function hitPlayer()
     else
     playerDamageInterval = 50;
 }
+
+
