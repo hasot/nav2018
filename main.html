@@ -27,16 +27,16 @@ var game = new Phaser.Game(640, 480, Phaser.AUTO, '', { preload: preload, create
 function preload() {
     game.load.image('background', 'assets/level1Background.png');
     game.load.image('ground', 'assets/platform.png');
-    game.load.image('player', 'assets/player.png');
+    game.load.spritesheet('player', 'assets/player.png', 32, 64);
     game.load.image('enemy', 'assets/enemy.png');
     game.load.image('money', 'assets/money.png');    
-game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
+	game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
     game.load.image('flyingEnemy', 'assets/flyingEnemy.png');
     game.load.image('heavyEnemy', 'assets/heavyEnemy.png');
     game.load.image('heavyEnemyShield', 'assets/heavyEnemyShield.png');
     game.load.image('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png');
-   game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
 }
 var player;
@@ -132,7 +132,7 @@ function render ()
     var divY = Math.floor(mousePoint.y / 32) * 32;
     game.debug.text(divX + ' ' + divY, 32, 64);
 
-    game.debug.text(playerDamageInterval, 128, 64);
+    game.debug.text(player.animations.name, 128, 64);
 }
 
 function getRandomInt(min, max) 

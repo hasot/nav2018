@@ -21,8 +21,10 @@ function createPlayer() {
     player.body.gravity.y = 300;
     player.body.collideWorldBounds = true;
             //  Our two animations, walking left and right.
-    player.animations.add('left', [0, 1, 2, 3], 10, true);
-    player.animations.add('right', [5, 6, 7, 8], 10, true);
+    player.animations.add('playerRunR', [2, 3], 5, true);
+    player.animations.add('playerRunL', [8, 9], 5, true);
+    player.animations.add('playerStandR', [4, 5], 1, true);
+    player.animations.add('playerStandL', [6, 7], 1, true);
 
     updatePreviousPos(player);
 
@@ -50,49 +52,66 @@ function fight(x,y) {
 }
 var discover = "right";
 var jumpTimer = 0;
-function keyPlayer(hitPlatform) {
+function keyPlayer(hitPlatform) 
+{
     //  Reset the players velocity (movement)
     player.body.velocity.x = 0;
-        if (cursors.left.isDown)
+    if (cursors.left.isDown)
+    {
+        if (player.frame != 8 && player.frame != 9)
         {
-            //  Move to the left
-            discover = "left";
-            player.body.velocity.x = -150;
-    
+            player.animations.play('playerRunL');
         }
-        else if (cursors.right.isDown)
+        //  Move to the left
+        discover = "left";
+        player.body.velocity.x = -150;
+
+    }
+    else if (cursors.right.isDown)
+    {
+        if (player.frame != 2 && player.frame != 3)
         {
-            //  Move to the right
-            discover = "right";
-            player.body.velocity.x = 150;
-    
+            player.animations.play('playerRunR');
         }
-        else
-        {
-            //  Stand still
-            player.frame = 4;
+        //  Move to the right
+        discover = "right";
+        player.body.velocity.x = 150;
+
+    }
+    else
+    {
+        player.animations.play(discover == "left" 
+                               ? 'playerStandL' 
+                               : 'playerStandR');
+    }
+
+    if (!player.body.onFloor())
+    {
+        player.animations.stop();
+        player.frame = discover == "right" ? 0 : 11;
+    }
+
+    //  Allow the player to jump if they are touching the ground.
+    if (cursors.up.isDown && player.body.onFloor() && game.time.now > jumpTimer)
+    {
+        //  Let gravity do its thing
+        player.body.velocity.y = -400;
+        player.body.gravity.y = 500;
+        jumpTimer = game.time.now + 750;
+    }
+  
+    if (fightButton.isDown)
+    {
+        if (fightTimer == 0 )
+        {    
+            fight(player.body.x, player.body.y);
+            fightTimer = 20;
+            
         }
-        //  Allow the player to jump if they are touching the ground.
-        if (cursors.up.isDown && player.body.onFloor() && game.time.now > jumpTimer)
-        {
-            //  Let gravity do its thing
-            player.body.velocity.y = -400;
-            player.body.gravity.y = 500;
-            jumpTimer = game.time.now + 750;
-        }
-      
-        if (fightButton.isDown)
-        {
-            if (fightTimer == 0 )
-            {    
-                fight(player.body.x, player.body.y);
-                fightTimer = 20;
-                
-            }
-        }
-        if (fightTimer > 0 ){
-            fightTimer -= 1;
-        }
+    }
+    if (fightTimer > 0 ){
+        fightTimer -= 1;
+    }
 }
 
 function updatePlayer(enemies)
