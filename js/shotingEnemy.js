@@ -58,7 +58,10 @@ EnemyBullet.prototype.isCollidesWith = function(platforms, player)
     var isOutOfCamera = x  < game.camera.view.x 
                         || x > game.camera.view.x + game.camera.view.width;
     var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
-    var collideWithPlayer = game.physics.arcade.collide(this.sprite, player);
+    var collideWithPlayer = !isPlayerDamaged() 
+                            && game.physics.arcade.collide(this.sprite, player);
+    if (collideWithPlayer)
+        hitPlayer();
 
     var res = isOutOfCamera || collideWithPlatforms || collideWithPlayer;
 

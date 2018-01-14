@@ -5,6 +5,7 @@ var cursors;
 var jumpButton;
 var prevPos;
 var playerFootHit;
+var playerDamageInterval = 0;
 
 function player() {
      // The player and its settings
@@ -92,4 +93,41 @@ function keyPlayer() {
         if (fightTimer > 0 ){
             fightTimer -= 1;
         }
+}
+
+function updatePlayer(enemies)
+{
+    if (playerDamageInterval <= 0)
+    {
+        player.visible = true;
+        for (var i = 0; i < enemies.length; ++i)
+        {
+            var enemy = enemies[i];
+            var vertDist = Math.abs(player.y - enemy.sprite.y);
+            var horDist = Math.abs(player.x - enemy.sprite.x);
+
+            var hit = vertDist < 64 && horDist < 32;
+
+            if (hit)
+            {
+                hitPlayer();
+                break;
+            }
+        }
+    }
+    else
+    {
+        playerDamageInterval -= 1;
+        player.visible = !player.visible;
+    }
+}
+
+function isPlayerDamaged()
+{
+    return playerDamageInterval > 0;
+}
+
+function hitPlayer()
+{
+    playerDamageInterval = 200;
 }
