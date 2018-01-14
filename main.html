@@ -26,7 +26,7 @@ function preload() {
     game.load.image('player', 'assets/player.png');
     game.load.image('enemy', 'assets/enemy.png');
     game.load.image('money', 'assets/money.png');    
-game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
+	game.load.image('shotingEnemy', 'assets/shotingEnemy.png');
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
 }
 var player;
@@ -95,7 +95,7 @@ function update()
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     keyPlayer();
 
-	updateEnemyBullets();
+	updateEnemyBullets(bullets);
 	updateEnemies(player);
 
 	updatePreviousPos(player);

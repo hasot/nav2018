@@ -3,21 +3,31 @@ function updateEnemies(player)
 	var i = 0;
 	while (i < enemies.length)
 	{
-		enemies[i].update();
+		var enemy = enemies[i];
+		enemy.update();
 
-		if (isPlayerHitJumpTo(enemies[i]))
+		var isJumpToEnemy = isPlayerHitJumpTo(enemy);	
+		var enemyNeedToDie = isJumpToEnemy 
+							 || isPlayerFootHit(enemy)
+		if (enemyNeedToDie)
 		{
-			enemies[i].isAlive = false;
-			enemies[i].sprite.kill();
+			enemy.isAlive = false;
+			enemy.sprite.kill();
+
+			if (isJumpToEnemy)
+				player.body.velocity.y = -200;
+
 			enemies.splice(i, 1);
-
-			player.body.velocity.y = -200;
 		}
-		else
-		{
-			i += 1;
-		}
+		else i += 1;
 	}
+}
+
+function isPlayerFootHit(enemy)
+{
+	if (playerFootHit == null) return false;
+
+	return game.physics.arcade.collide(playerFootHit, enemy.sprite);
 }
 
 function isPlayerHitJumpTo(enemy)
@@ -33,17 +43,21 @@ function isPlayerHitJumpTo(enemy)
 	return res;
 }
 
-function updateEnemyBullets()
+function updateEnemyBullets(bullets)
 {
-    var currentIndex = 0;
-    while (currentIndex < bullets.length)
+    var i = 0;
+    while (i < bullets.length)
     {
-		bullets[currentIndex].update();
+    	var bullet = bullets[i];
 
-        var bullet = bullets[currentIndex];
-        if (bullet.checkCollisions(platforms, player))
-            bullets.splice(currentIndex, 1);
-        else
-            currentIndex += 1;
+		bullet.update();
+
+        if (bullet.isCollidesWith(platforms, player))
+    	{
+    		bullet.sprite.kill();
+
+        	bullets.splice(i, 1);
+        }
+        else i += 1;
     }
 };

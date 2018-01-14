@@ -4,8 +4,9 @@ var fightTimer = 0;
 var cursors;
 var jumpButton;
 var prevPos;
+var playerFootHit;
 
-function player(player) {
+function player() {
      // The player and its settings
     player = game.add.sprite(32, game.world.height - 150, 'player');
      
@@ -32,14 +33,16 @@ function updatePreviousPos(player)
 
 function fight(x,y) {
     if (discover == "right") {
-        shot = game.add.sprite(x + 32, y+32, 'enemyBullet');
+        playerFootHit = game.add.sprite(x + 32, y+32, 'enemyBullet');
     } else {
-        shot = game.add.sprite(x - 32, y+32, 'enemyBullet');
+        playerFootHit = game.add.sprite(x - 32, y+32, 'enemyBullet');
     };
   
-    game.physics.arcade.enable(shot);
+    game.physics.arcade.enable(playerFootHit);
+    
     setTimeout(function (){
-        shot.kill();
+        playerFootHit.kill();
+        playerFootHit = null;
     }, 50)
 }
 var discover = "right";
@@ -72,7 +75,6 @@ function keyPlayer() {
         //  Allow the player to jump if they are touching the ground.
         if (cursors.up.isDown && player.body.touching.down && hitPlatform)
         {
-            console.log("jump")
             //  Let gravity do its thing
             player.body.velocity.y = -400;
             player.body.gravity.y = 500;
@@ -80,9 +82,8 @@ function keyPlayer() {
       
         if (fightButton.isDown)
         {
-            if (fightTimer == 0 ){
-                console.log("Z");
-                
+            if (fightTimer == 0 )
+            {    
                 fight(player.body.x, player.body.y);
                 fightTimer = 20;
                 

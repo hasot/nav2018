@@ -46,7 +46,7 @@ EnemyBullet.prototype.update = function(platforms, player)
     this.sprite.body.velocity.x = EnemyBulletSpeed * this.direction;
 };
 
-EnemyBullet.prototype.checkCollisions = function(platforms, player)
+EnemyBullet.prototype.isCollidesWith = function(platforms, player)
 {
     var x = this.sprite.body.x;
     var isOutOfCamera = x  < game.camera.view.x 
@@ -54,11 +54,7 @@ EnemyBullet.prototype.checkCollisions = function(platforms, player)
     var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
     var collideWithPlayer = game.physics.arcade.collide(this.sprite, player);
 
-    if (isOutOfCamera || collideWithPlatforms || collideWithPlayer)
-    {
-        this.sprite.kill();
-        return true;
-    }
+    var res = isOutOfCamera || collideWithPlatforms || collideWithPlayer;
 
-    return false;
+    return res;
 };
