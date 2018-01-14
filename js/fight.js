@@ -31,7 +31,7 @@ function killEnemy(enemy)
     					enemy.sprite.x, enemy.sprite.y, 
     					enemy.direction, 
     					enemy.sprite.key, 
-    					0);
+    					enemy.direction == 1 ? 0 : 1);
     corpses.push(corpse);
 
     enemy.sprite.kill();

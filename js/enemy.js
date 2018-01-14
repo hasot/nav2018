@@ -1,4 +1,4 @@
-var EnemySpeed = 70;
+var EnemySpeed = 40;
 
 Enemy = function(x, y, minX, maxX, game)
 {
@@ -10,14 +10,24 @@ Enemy = function(x, y, minX, maxX, game)
 
     this.direction = -1;
     this.isAlive = true;
+
+    this.sprite.animations.add('enemyRunR', [2, 3], 3, true);
+    this.sprite.animations.add('enemyRunL', [4, 5], 3, true);
+    this.sprite.animations.play('enemyRunL');
 };
 
 Enemy.prototype.update = function() 
 {
     if (this.sprite.body.x < this.minX)
+    {
+        this.sprite.animations.play('enemyRunR');
         this.direction = 1;
+    }
     else if (this.sprite.body.x > this.maxX)
+    {
+        this.sprite.animations.play('enemyRunL');
         this.direction = -1;
+    }
 
     this.sprite.body.velocity.x = EnemySpeed * this.direction;
 };

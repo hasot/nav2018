@@ -6,7 +6,7 @@ var jumpButton;
 var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
-var startHp = 1;
+var startHp = 10;
 var hp = startHp;
 var playerDead = false;
 

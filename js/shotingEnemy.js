@@ -11,6 +11,10 @@ ShotingEnemy = function(x, y, bullets)
     
     this.shotWaitingInterval = getRandomInt(0, EnemyShotTimeout);
     this.isAlive = true;
+
+    this.sprite.animations.add('standR', [2, 3, 4, 5], 10, true);
+    this.sprite.animations.add('standL', [6, 7, 8, 9], 10, true);
+    this.sprite.animations.play('standL');
 };
 
 ShotingEnemy.prototype.update = function() 
@@ -18,8 +22,15 @@ ShotingEnemy.prototype.update = function()
     if (!this.isAlive) return;
 
     if (player.body.x < this.sprite.body.x)
+    {
+        this.sprite.animations.play('standL');
         this.direction = -1;
-    else this.direction = 1;
+    }
+    else
+    {
+        this.sprite.animations.play('standR');
+        this.direction = 1;
+    } 
 
     tryShotFor(this);  
 };
