@@ -10,10 +10,13 @@ ShotingEnemy = function(x, y, bullets)
     this.direction = -1;
 
     this.shotWaitingInterval = 0;
+    this.isAlive = true;
 };
 
 ShotingEnemy.prototype.update = function() 
 {
+    if (!this.isAlive) return;
+
     if (player.body.x < this.sprite.body.x)
         this.direction = -1;
     else this.direction = 1;
@@ -58,22 +61,4 @@ EnemyBullet.prototype.checkCollisions = function(platforms, player)
     }
 
     return false;
-}
-
-function updateEnemyBullets()
-{
-    //--- collisions
-    var currentIndex = 0;
-    while (currentIndex < bullets.length)
-    {
-        var bullet = bullets[currentIndex];
-        if (bullet.checkCollisions(platforms, player))
-            bullets.splice(currentIndex, 1);
-        else
-            currentIndex += 1;
-    }
-
-    //--- movement
-    for (var i = 0; i < bullets.length; ++i)
-        bullets[i].update();
-}
+};

@@ -10,6 +10,7 @@ Enemy = function(x, y, minX, maxX, game)
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
     this.direction = -1;
+    this.isAlive = true;
 };
 
 Enemy.prototype.update = function() 

@@ -8,6 +8,7 @@
     <script src="js/shotingEnemy.js"></script>
     <script src="js/player.js"></script>
     <script src="js/money.js"></script>
+    <script src="js/fight.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -71,14 +72,19 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
 
+    money();   
+    bullets = [];
+
+    enemies = []
+
     enemy = new Enemy(	
 			384, 224, 
    			288, 448, 
 			game); 
-    money();   
-
-    bullets = [];
     enemy1 = new ShotingEnemy(288, 352, bullets);
+
+    enemies.push(enemy);
+    enemies.push(enemy1);
 }
 
 function update() 
@@ -88,10 +94,11 @@ function update()
      	
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     keyPlayer();
-    enemy.update();
-	enemy1.update();
-	updateEnemyBullets();
 
+	updateEnemyBullets();
+	updateEnemies(player);
+
+	updatePreviousPos(player);
 }
 
 function render () 
