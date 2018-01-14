@@ -74,7 +74,7 @@ function create() {
 
     money();   
     bullets = [];
-
+    friendBullets = [];
     enemies = []
 
     enemy = new Enemy(	
@@ -87,6 +87,12 @@ function create() {
     enemies.push(enemy1);
 }
 
+function killEnemy(enemy)
+{
+	enemy.sprite.kill();
+	enemy.isAlive = false;
+}
+
 function update() 
 {
     game.physics.arcade.collide(moneys, platforms);
@@ -95,7 +101,8 @@ function update()
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     keyPlayer();
 
-	updateEnemyBullets(bullets);
+    updateFriendBullets(friendBullets, enemies);
+	updateEnemyBullets(bullets, friendBullets);
 	updateEnemies(player);
 
 	updatePreviousPos(player);

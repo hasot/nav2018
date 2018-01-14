@@ -11,8 +11,7 @@ function updateEnemies(player)
 							 || isPlayerFootHit(enemy)
 		if (enemyNeedToDie)
 		{
-			enemy.isAlive = false;
-			enemy.sprite.kill();
+			killEnemy(enemy);
 
 			if (isJumpToEnemy)
 				player.body.velocity.y = -200;
@@ -43,21 +42,55 @@ function isPlayerHitJumpTo(enemy)
 	return res;
 }
 
-function updateEnemyBullets(bullets)
+function updateEnemyBullets(bullets, friendBullets)
 {
     var i = 0;
     while (i < bullets.length)
     {
     	var bullet = bullets[i];
-
 		bullet.update();
 
-        if (bullet.isCollidesWith(platforms, player))
-    	{
-    		bullet.sprite.kill();
+		var needDestroy = bullet.isCollidesWith(platforms, player);
+		var needRevert = isNeedReverseBullet(bullet);
 
-        	bullets.splice(i, 1);
+        if (needDestroy || needRevert)
+    	{
+    		if (needRevert)
+    		{
+    			var friendBullet = new FriendBullet(bullet.sprite.x, bullet.sprite.y, bullet.direction);
+    			friendBullets.push(friendBullet);
+    		}
+
+    		bullet.sprite.kill();
+    		bullets.splice(i, 1);
         }
         else i += 1;
     }
 };
+
+function isNeedReverseBullet(bullet)
+{
+	if (playerFootHit == null) return false;
+
+	return game.physics.arcade.collide(playerFootHit, bullet.sprite);	
+}
+
+function updateFriendBullets(bullets, enemies)
+{
+	var i = 0;
+    while (i < bullets.length)
+    {
+    	var bullet = bullets[i];
+		bullet.update();
+
+		var collidesWithPlatforms = bullet.isCollidesWith(platforms);
+		var collidesWithEnemies = bullet.isCollidesWithEnemy(enemies);
+
+        if (collidesWithEnemies || collidesWithPlatforms)
+    	{
+    		bullet.sprite.kill();
+    		bullets.splice(i, 1);
+        }
+        else i += 1;
+    }
+}
