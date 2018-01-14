@@ -19,9 +19,7 @@ function money(){
     
             //  This just gives each star a slightly random bounce value
             money.body.bounce.y = 0.3 + Math.random() * 0.02;
-        }
-    scoreText = game.add.text(480, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
-            
+        }    
 }
 function collectStar (player, money) {
     
@@ -29,6 +27,9 @@ function collectStar (player, money) {
         money.kill();
         //  Add and update the score
         score += 10;
-        scoreText.text = 'Score: ' + score;
     
+}
+
+function getScore(){
+    return score;
 }

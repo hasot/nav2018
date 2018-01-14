@@ -90,11 +90,13 @@ function create() {
     	create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 }
-
+var score = 0;
 function update() 
 {
     game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectStar, null, this);
+
+    score = getScore();
      	   //  Collide the player and the stars with the platforms
    var hitPlatform = game.physics.arcade.collide(player, layer);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
@@ -112,6 +114,7 @@ function render ()
 	var mousePoint = game.input.mousePointer;
 
     game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
+    game.debug.text('Score: ' + score, 320, 64, 'black' ,{ fontSize: '32px', fill: '#000' });
 
     var divX = Math.floor(mousePoint.x / 32) * 32;
     var divY = Math.floor(mousePoint.y / 32) * 32;
