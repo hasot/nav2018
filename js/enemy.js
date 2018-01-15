@@ -1,4 +1,4 @@
-var EnemySpeed = 40;
+
 
 Enemy = function(x, y, minX, maxX, game)
 {
@@ -28,6 +28,5 @@ Enemy.prototype.update = function()
         this.sprite.animations.play('enemyRunL');
         this.direction = -1;
     }
-
     this.sprite.body.velocity.x = EnemySpeed * this.direction;
 };
