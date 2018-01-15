@@ -12,7 +12,6 @@ function updateEnemies(player)
 		if (!isPlayerDamaged() && enemyNeedToDie)
 		{
 			killEnemy(enemy);
-
 			if (isJumpToEnemy)
 				player.body.velocity.y = -200;
 

@@ -15,6 +15,7 @@
     <script src="js/enemyFactory.js"></script>
     <script src="js/heavyEnemy.js"></script>
     <script src="js/corpse.js"></script>
+    <script src="js/boom.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -38,11 +39,14 @@ function preload() {
     game.load.spritesheet('player', 'assets/player.png', 32, 64);
     game.load.spritesheet('enemy', 'assets/enemy.png', 32, 64);
     game.load.spritesheet('helicopter', 'assets/helicopter.png', 99, 64);
-    game.load.image('money', 'assets/money.png');    
+    game.load.spritesheet('money', 'assets/money.png', 32, 32);    
 	game.load.spritesheet('shotingEnemy', 'assets/shotingEnemy.png', 32, 64);
     game.load.image('enemyBullet', 'assets/enemyBullet.png');
     game.load.spritesheet('flyingEnemy', 'assets/flyingEnemy.png', 32, 64);
     game.load.spritesheet('heavyEnemy', 'assets/heavyEnemy.png', 32, 64);
+
+    game.load.spritesheet('boom', 'assets/explode.png', 128, 128, 18);
+
     game.load.spritesheet('heavyEnemyShield', 'assets/heavyEnemyShield.png', 32, 64);
     game.load.spritesheet('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png', 32, 64);
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -53,6 +57,7 @@ var player;
 var map;
 var tileset;
 var layer;
+var EnemySpeed = 40;
 function create() 
 {
 	bullets = []
@@ -114,23 +119,30 @@ var score = 0;
 function update() 
 {
     game.physics.arcade.collide(moneys, layer);
-    game.physics.arcade.overlap(player, moneys, collectStar, null, this);
+    game.physics.arcade.overlap(player, moneys, collectMoney, null, this);
 
     score = getScore();
      	   //  Collide the player and the stars with the platforms
    var hitPlatform = game.physics.arcade.collide(player, layer);
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    keyPlayer(hitPlatform);
+    //  Checks to see if the player overlaps with any of the stars, if he does call the collectMoney function
 
-	updateEnemyBullets(bullets, friendBullets);
-	updateEnemies(player);
+    copterAttack = updateCopter(layer, player, enemies);
+    if (copterAttack) {
+        keyPlayer(hitPlatform);
+    }
+    updateEnemyBullets(bullets, friendBullets);
+    updateEnemies(player);
+
+  
+
 
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
     updatePreviousPos(player);
-    enemies = updateCopter(layer, player, enemies);
 
-	updateCorpses();
+
+    updateCorpses();
+  
 }
 
 function updateCorpses()
