@@ -7,7 +7,7 @@ var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
 
-var startHp = 5;
+var startHp = 15;
 var hp = startHp;
 
 var playerDead = false;
@@ -191,5 +191,5 @@ function hitPlayer()
         player.kill();
     }
     else
-        playerDamageInterval = 50;
+        playerDamageInterval = 10;
 }

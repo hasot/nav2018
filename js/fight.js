@@ -99,8 +99,10 @@ function updateEnemyBullets(bullets, friendBullets)
 function isNeedReverseBullet(bullet)
 {
 	if (playerFootHit == null) return false;
+	if (!bullet.canRevert) return false;
 
-	return game.physics.arcade.collide(playerFootHit, bullet.sprite);	
+	var needRevert = game.physics.arcade.collide(playerFootHit, bullet.sprite);
+	return needRevert;
 }
 
 function updateFriendBullets(bullets, enemies)

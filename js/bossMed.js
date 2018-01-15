@@ -1,6 +1,7 @@
 BossMed = function(x, y)
 {
 	this.sprite = game.add.sprite(x, y, 'bossMed');
+	game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
 	this.groundPos = 401;
 	this.landingDist = 35;
@@ -24,21 +25,68 @@ BossMed = function(x, y)
 	this.subState = 'stand';
 	this.targetPos = new Phaser.Point(0, 0);
 	this.prevPosIndex = -1;
+	this.shotCount = 0;
+	this.maxShotCount = 10;
 }
 
 BossMed.prototype.update = function() 
+{
+	this.updateState();
+	this.checkHit();
+	this.checkPlayerDamage();
+};
+
+BossMed.prototype.updateState = function()
 {
 	if (this.state == 'stand')
 		this.standState();
 	else if (this.state == 'walk')
 		this.walkState();
-};
+	else if (this.state == 'shot')
+		this.shotState();
+}
+
+BossMed.prototype.checkHit = function() 
+{
+	var i = 0;
+	while (i < friendBullets.length)
+	{
+		var bullet = friendBullets[i];
+		var hit = game.physics.arcade.collide(this.sprite, bullet.sprite);
+
+		if (hit)
+		{
+			console.log('HIT!');
+			this.sprite.body.velocity.x = 0;
+			this.sprite.body.velocity.y = 0;
+
+			bullet.sprite.kill();
+			friendBullets.splice(i, 1);
+		}
+		else i += 1;
+	}
+}
+
+BossMed.prototype.checkPlayerDamage = function()
+{
+	if (isPlayerDamaged()) return;
+
+	var playerHit = game.physics.arcade.collide(player, this.sprite);
+	if (playerHit)
+	{
+		this.sprite.body.velocity.x = 0;
+		this.sprite.body.velocity.y = 0;
+		hitPlayer();
+	}
+}
 
 BossMed.prototype.standState = function() 
 {
 	var waitingEnds = this.timer <= 0;
 	if (waitingEnds)
+	{
 		this.startChangePosition();	
+	}
 	else
 		this.timer -= 1;
 };
@@ -74,7 +122,7 @@ BossMed.prototype.walkSubState = function()
 	if (onXTargetPos)
 	{
 		if (this.onTargetYPos())
-			this.startStand();
+			this.startShot();
 		else
 			this.subState = 'up';
 	}
@@ -111,7 +159,7 @@ BossMed.prototype.upSubState = function()
 BossMed.prototype.landingSubState = function()
 {
 	if (this.onTargetYPos())
-		this.startStand();
+		this.startShot();
 	else
 		this.sprite.y += this.downSpeed;
 }
@@ -129,4 +177,44 @@ BossMed.prototype.startStand = function()
 	this.sprite.y = this.targetPos.y;
 	this.state = 'stand';
 	this.timer = 50;
+}
+
+BossMed.prototype.startShot = function()
+{
+	this.sprite.x = this.targetPos.x;
+	this.sprite.y = this.targetPos.y;
+	this.state = 'shot';
+	this.shotCount = 0;
+	this.timer = 0;
+}
+
+BossMed.prototype.shotState = function()
+{
+	if (this.timer <= 0)
+	{
+		this.tryShot();
+	}	
+	else
+	{
+		this.timer -= 1;
+	}
+}
+
+BossMed.prototype.tryShot = function()
+{
+	if (this.shotCount < this.maxShotCount)
+	{
+		var shotDirection = Math.sign(player.x - this.sprite.x);
+		var canRevert = getRandomInt(0, 4) == 0;
+		var spriteKey = canRevert ? 'enemyBullet' : 'bossMedBullet';
+		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, canRevert, spriteKey);
+		bullets.push(bullet);
+
+		this.shotCount += 1;
+		this.timer = 50;
+	}
+	else
+	{
+		this.startStand();
+	}
 }
