@@ -3,7 +3,7 @@ BossMed = function(x, y)
 	this.sprite = game.add.sprite(x, y, 'bossMed');
 	game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
 
-	this.groundPos = 401;
+	this.groundPos = 402;
 	this.landingDist = 35;
 
 	this.downSpeed = 4;
@@ -11,11 +11,11 @@ BossMed = function(x, y)
 	this.upSpeed = 8;
 
 	this.shotPositions = [
-		new Phaser.Point(220, 113),
-		new Phaser.Point(403, 113),
-		new Phaser.Point(116, 258),
+		new Phaser.Point(220, 114),
+		new Phaser.Point(403, 114),
+		new Phaser.Point(132, 258),
 		new Phaser.Point(315, 258),
-		new Phaser.Point(503, 258),
+		new Phaser.Point(480, 258),
 		new Phaser.Point(220, 401),
 		new Phaser.Point(403, 401),
 		];
@@ -29,11 +29,21 @@ BossMed = function(x, y)
 	this.maxShotCount = 10;
 	this.hp = 12;
 	this.enemyCreationTimer = 0;
+
+	this.sprite.animations.add('runL', [10, 11], 3, true);
+	this.sprite.animations.add('runR', [4, 5], 3, true);
+	this.sprite.animations.add('shotL', [8, 9], 5, true);
+	this.sprite.animations.add('shotR', [6, 7], 5, true);
+	this.sprite.animations.add('standL', [13, 14, 15, 14], 3, true);
+	this.sprite.animations.add('standR', [0, 1, 2, 1], 3, true);
+
+	this.sprite.frame = 12;
 }
 
 BossMed.prototype.update = function() 
 {
 	this.updateState();
+
 	this.checkHit();
 	this.checkPlayerDamage();
 	this.checkEnemyCreation();
@@ -92,12 +102,12 @@ BossMed.prototype.tryCreateShoting = function()
 
 BossMed.prototype.updateState = function()
 {
+	if (this.state == 'walk')
+		this.walkState();
+	if (this.state == 'shot')
+		this.shotState();
 	if (this.state == 'stand')
 		this.standState();
-	else if (this.state == 'walk')
-		this.walkState();
-	else if (this.state == 'shot')
-		this.shotState();
 }
 
 BossMed.prototype.checkHit = function() 
@@ -113,6 +123,7 @@ BossMed.prototype.checkHit = function()
 			this.hp -= 1;
 			this.sprite.body.velocity.x = 0;
 			this.sprite.body.velocity.y = 0;
+			this.startStand();
 
 			bullet.sprite.kill();
 			friendBullets.splice(i, 1);
@@ -143,6 +154,12 @@ BossMed.prototype.standState = function()
 	}
 	else
 		this.timer -= 1;
+
+	if (this.sprite.animations.name != 'standL' && this.sprite.animations.name != 'standR')
+	{
+		var name = this.sprite.x > player.x ? 'standL' : 'standR';
+		this.sprite.animations.play(name);
+	}
 };
 
 BossMed.prototype.startChangePosition = function() 
@@ -156,6 +173,9 @@ BossMed.prototype.startChangePosition = function()
 
 	this.state = 'walk';
 	this.subState = 'down';
+
+	this.sprite.animations.stop();
+	this.sprite.frame = this.sprite.x > this.targetPos.y ? 12 : 3;
 };
 
 BossMed.prototype.walkState = function()
@@ -178,7 +198,11 @@ BossMed.prototype.walkSubState = function()
 		if (this.onTargetYPos())
 			this.startShot();
 		else
+		{
 			this.subState = 'up';
+			this.sprite.animations.stop();
+			this.sprite.frame = this.sprite.x > this.targetPos.y ? 12 : 3;
+		}
 	}
 	else
 	{
@@ -194,6 +218,9 @@ BossMed.prototype.downSubState = function()
 	{
 		this.sprite.y = this.groundPos;
 		this.subState = 'walk';
+
+		var left = this.targetPos.x <= this.sprite.x;
+		this.sprite.animations.play(left ? 'runL' : 'runR');
 	}
 	else
 	{
@@ -230,7 +257,7 @@ BossMed.prototype.startStand = function()
 	this.sprite.x = this.targetPos.x;
 	this.sprite.y = this.targetPos.y;
 	this.state = 'stand';
-	this.timer = 50;
+	this.timer = 150;
 }
 
 BossMed.prototype.startShot = function()
@@ -252,6 +279,15 @@ BossMed.prototype.shotState = function()
 	{
 		this.timer -= 1;
 	}
+
+	var left = this.sprite.x > player.x;
+	if (left && this.sprite.animations.key != 'shotL')
+	{
+		this.sprite.animations.play('shotL');
+	}
+
+	if (!left && this.sprite.animations.key != 'shotR')
+		this.sprite.animations.play('shotR');
 }
 
 BossMed.prototype.tryShot = function()

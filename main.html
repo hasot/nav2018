@@ -54,8 +54,8 @@ function preload() {
     game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
     game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
-    game.load.image('bossMed', 'assets/bossMed.png');
-    game.load.image('bossMedBullet', 'assets/bossMedBullet.png');
+    game.load.spritesheet('bossMed', 'assets/bossMed.png', 48, 78);
+    game.load.image('bossMedBullet', 'assets/bossMedBullet.png', );
 }
 var player;
 var map;
@@ -198,7 +198,8 @@ function render ()
 
     // var divX = Math.floor(mousePoint.x / 32) * 32;
     // var divY = Math.floor(mousePoint.y / 32) * 32;
-    game.debug.text(boss.subState, 32, 64);
+    if (boss.sprite.animations != undefined)
+    game.debug.text(boss.sprite.animations.name, 32, 64);
 
     game.debug.text(boss.state, 128, 64);
     game.debug.text(boss.hp, 128, 74);
