@@ -58,7 +58,7 @@ EnemyBullet = function(x, y, direction)
     this.direction = direction;
 
     this.sprite.body.gravity.y = 300;
-    this.sprite.body.velocity.y = -200;
+    this.sprite.body.velocity.y = -200 - (getRandomInt(0, 50));
 }
 
 EnemyBullet.prototype.update = function(layer, player) 

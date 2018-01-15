@@ -8,5 +8,5 @@ Corpse = function(x, y, direction, spriteName, frame)
 
 	this.direction = -1;
 	this.sprite.body.velocity.y = -150;
-	this.sprite.body.gravity.y = 300;
+	this.sprite.body.gravity.y = 600;
 }
