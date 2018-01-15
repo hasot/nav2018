@@ -7,7 +7,7 @@ var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
 
-var startHp = 15;
+var startHp = 12;
 var hp = startHp;
 
 var playerDead = false;
@@ -54,7 +54,7 @@ function fight(x,y)
     setTimeout(function (){
         playerFootHit.kill();
         playerFootHit = null;
-    }, 50)
+    }, 100)
 }
 
 var discover = "right";
@@ -145,6 +145,12 @@ function updatePlayer(enemies)
 {
     if (playerDead) return;
 
+    if (playerFootHit != null)
+    {
+        playerFootHit.x = discover == "right" ? player.x : player.x -32;
+        playerFootHit.y = player.y;
+    }
+
     if (playerDamageInterval <= 0)
     {
         player.visible = true;
@@ -191,5 +197,5 @@ function hitPlayer()
         player.kill();
     }
     else
-        playerDamageInterval = 10;
+        playerDamageInterval = 50;
 }

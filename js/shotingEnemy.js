@@ -1,4 +1,4 @@
-var EnemyBulletSpeed = 200;
+var EnemyBulletSpeed = 250;
 var EnemyShotTimeout = 100;
 
 ShotingEnemy = function(x, y, bullets)
@@ -59,7 +59,7 @@ EnemyBullet = function(x, y, direction, canRevert, spriteKey)
     this.canRevert = canRevert;
 
     this.sprite.body.gravity.y = 300;
-    this.sprite.body.velocity.y = -200 - (getRandomInt(0, 50));
+    this.sprite.body.velocity.y = -150 - (getRandomInt(0, 50));
 }
 
 EnemyBullet.prototype.update = function(layer, player) 
@@ -75,7 +75,8 @@ EnemyBullet.prototype.isCollidesWith = function(layer, player)
                         || x > game.camera.view.x + game.camera.view.width;
     var collideWithlayer =  game.physics.arcade.collide(this.sprite, layer);
     var collideWithPlayer = !isPlayerDamaged() 
-                            && game.physics.arcade.collide(this.sprite, player);
+                            && game.physics.arcade.collide(this.sprite, player)
+                            && playerFootHit == null;
     if (collideWithPlayer)
         hitPlayer();
 

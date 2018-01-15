@@ -27,6 +27,8 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 10;
+	this.hp = 12;
+	this.enemyCreationTimer = 0;
 }
 
 BossMed.prototype.update = function() 
@@ -34,7 +36,59 @@ BossMed.prototype.update = function()
 	this.updateState();
 	this.checkHit();
 	this.checkPlayerDamage();
+	this.checkEnemyCreation();
 };
+
+BossMed.prototype.checkEnemyCreation = function()
+{
+	var needCreateEnemy = this.hp <= 4
+						  && enemies.length < 5 
+						  && this.enemyCreationTimer <= 0;
+
+    if (needCreateEnemy)
+    	this.tryCreateEnemy();
+    else if (this.enemyCreationTimer > 0)
+    	this.enemyCreationTimer -= 1;
+}
+
+BossMed.prototype.tryCreateEnemy = function()
+{
+	var createShoting = getRandomInt(0, 2) == 0;
+
+	var enemy = createShoting
+				? this.tryCreateShoting()
+				: this.tryCreateHeavy();
+	if (enemy == null) return;
+
+	enemies.push(enemy);
+	this.enemyCreationTimer = 500;
+}
+
+BossMed.prototype.tryCreateHeavy = function()
+{
+	var x = getRandomInt(30, 550);
+	var y = 417;
+
+	return createEnemy
+					.heavyOn(x, y)
+					.thatMovesOn(30, 550)
+					.withFullArmor();
+}
+
+BossMed.prototype.tryCreateShoting = function()
+{
+	var index = getRandomInt(0, this.shotPositions.length - 2);
+	var pos = this.shotPositions[index];
+	for (var i = 0; i < enemies.length; ++i)
+	{
+		var enemyExists = Math.abs(enemies[i].sprite.x - pos.x) < 50
+						  && Math.abs(enemies[i].sprite.y - pos.y) < 50;
+
+		if (enemyExists) return null;		
+	}
+
+	return createEnemy.shotingOn(pos.x, pos.y + 15);
+}
 
 BossMed.prototype.updateState = function()
 {
@@ -56,7 +110,7 @@ BossMed.prototype.checkHit = function()
 
 		if (hit)
 		{
-			console.log('HIT!');
+			this.hp -= 1;
 			this.sprite.body.velocity.x = 0;
 			this.sprite.body.velocity.y = 0;
 
@@ -118,7 +172,7 @@ BossMed.prototype.walkState = function()
 
 BossMed.prototype.walkSubState = function()
 {
-	var onXTargetPos = this.sprite.x == this.targetPos.x;
+	var onXTargetPos = Math.abs(this.sprite.x - this.targetPos.x) < 5;
 	if (onXTargetPos)
 	{
 		if (this.onTargetYPos())
@@ -205,7 +259,7 @@ BossMed.prototype.tryShot = function()
 	if (this.shotCount < this.maxShotCount)
 	{
 		var shotDirection = Math.sign(player.x - this.sprite.x);
-		var canRevert = getRandomInt(0, 4) == 0;
+		var canRevert = this.shotDuck();
 		var spriteKey = canRevert ? 'enemyBullet' : 'bossMedBullet';
 		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, canRevert, spriteKey);
 		bullets.push(bullet);
@@ -217,4 +271,11 @@ BossMed.prototype.tryShot = function()
 	{
 		this.startStand();
 	}
+}
+
+BossMed.prototype.shotDuck = function()
+{
+	return this.hp >= 8
+		   ? true
+		   : getRandomInt(0, 4) == 0;
 }
