@@ -3,16 +3,20 @@ BossMed = function(x, y)
 	this.sprite = game.add.sprite(x, y, 'bossMed');
 
 	this.groundPos = 401;
-	this.landingDist = 140;
+	this.landingDist = 35;
 
 	this.downSpeed = 4;
 	this.horSpeed = 1;
 	this.upSpeed = 8;
 
 	this.shotPositions = [
-		new Phaser.Point(384, 210),
-		new Phaser.Point(277, 315),
-		new Phaser.Point(553, 371),
+		new Phaser.Point(220, 113),
+		new Phaser.Point(403, 113),
+		new Phaser.Point(116, 258),
+		new Phaser.Point(315, 258),
+		new Phaser.Point(503, 258),
+		new Phaser.Point(220, 401),
+		new Phaser.Point(403, 401),
 		];
 
 	this.timer = 0;
@@ -44,7 +48,7 @@ BossMed.prototype.startChangePosition = function()
 	var index = getRandomInt(0, this.shotPositions.length);
 	if (index == this.prevPosIndex)
 		index = (index + 1) % this.shotPositions.length;
-	
+
 	this.targetPos = this.shotPositions[index];
 	this.prevPosIndex = index;
 
@@ -69,7 +73,10 @@ BossMed.prototype.walkSubState = function()
 	var onXTargetPos = this.sprite.x == this.targetPos.x;
 	if (onXTargetPos)
 	{
-		this.subState = 'up';
+		if (this.onTargetYPos())
+			this.startStand();
+		else
+			this.subState = 'up';
 	}
 	else
 	{
@@ -103,15 +110,23 @@ BossMed.prototype.upSubState = function()
 
 BossMed.prototype.landingSubState = function()
 {
+	if (this.onTargetYPos())
+		this.startStand();
+	else
+		this.sprite.y += this.downSpeed;
+}
+
+BossMed.prototype.onTargetYPos = function()
+{
 	var targetDist = Math.abs(this.sprite.y - this.targetPos.y);
 	var onTargetPos = targetDist <= this.downSpeed;
-	if (onTargetPos)
-	{
-		this.state = 'stand';
-		this.timer = 50;
-	}
-	else
-	{
-		this.sprite.y += this.downSpeed;
-	}
+	return onTargetPos;
+}
+
+BossMed.prototype.startStand = function()
+{
+	this.sprite.x = this.targetPos.x;
+	this.sprite.y = this.targetPos.y;
+	this.state = 'stand';
+	this.timer = 50;
 }
