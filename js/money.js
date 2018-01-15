@@ -14,7 +14,7 @@ function money(){
             //  Create a star inside of the 'stars' group
             var money = moneys.create(game.world.randomX, game.world.randomY, 'money', 0);
             //  Let gravity do its thing
-            money.body.gravity.y = 1000;
+            money.body.gravity.y = 0;
             //  This just gives each star a slightly random bounce value
             money.body.bounce.y = 0.3 + Math.random() * 0.02;
         }
