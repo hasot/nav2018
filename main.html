@@ -73,7 +73,6 @@ function create()
     bg.fixedToCamera = true;
 
     map = game.add.tilemap('level1');
-
     map.addTilesetImage('tiles-1');
 
     map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
@@ -93,7 +92,6 @@ function create()
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
-
 
     money();   
 
@@ -135,14 +133,9 @@ function update()
     updateEnemyBullets(bullets, friendBullets);
     updateEnemies(player);
 
-  
-
-
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
     updatePreviousPos(player);
-
-
     updateCorpses();
   
 }
@@ -179,7 +172,6 @@ function restart()
 function render () 
 {	
 	game.debug.text('HP: ' + hp, 10, 10);
-
 	var mousePoint = game.input.mousePointer;
 
     game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);

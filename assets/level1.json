@@ -1,4 +1,4 @@
-{ "height":1,
+{ "height":128,
  "layers":[
         {
          "data":[
@@ -183,8 +183,8 @@
         {
          "firstgid":0,
          "image":"tiles-1.png",
-         "imageheight":64,
-         "imagewidth":272,
+         "imageheight":256,
+         "imagewidth":320,
          "margin":0,
          "name":"tiles-1",
          "properties":
@@ -197,5 +197,5 @@
         }],
  "tilewidth":16,
  "version":1,
- "width":32
+ "width":128
 }
