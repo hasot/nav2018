@@ -100,6 +100,8 @@ function create()
     bullets = [];
     friendBullets = [];
 
+    this.game.make.image(100, 100, 'helicopter');
+
 	var create = new EnemyFactory(game, bullets);
 
     enemies = [
@@ -186,7 +188,6 @@ function render ()
     var divX = Math.floor(mousePoint.x / 32) * 32;
     var divY = Math.floor(mousePoint.y / 32) * 32;
     game.debug.text(divX + ' ' + divY, 32, 64);
-
     game.debug.text(player.animations.name, 128, 64);
 }
 
