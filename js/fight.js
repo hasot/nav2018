@@ -53,17 +53,21 @@ function isPlayerFootHit(enemy)
 
 function isPlayerHitJumpTo(enemy)
 {
-	if (enemy.isHeavy && enemy.useHelmet) return false;
-
 	var vertDist = Math.abs(player.y - enemy.sprite.y);
 	var horDist = Math.abs(player.x - enemy.sprite.x);
 	var playerFalls = player.y > prevPos.y;
 
-	var res = vertDist < 65 && vertDist > 50
+	var hit = vertDist < 65 && vertDist > 50
 			  && horDist < 32
 			  && playerFalls;
 
-	return res;
+	if (hit && enemy.isHeavy && enemy.useHelmet)
+	{
+		player.body.velocity.y = -200;
+		return false;
+	}
+
+	return hit;
 }
 
 function updateEnemyBullets(bullets, friendBullets)
@@ -95,8 +99,10 @@ function updateEnemyBullets(bullets, friendBullets)
 function isNeedReverseBullet(bullet)
 {
 	if (playerFootHit == null) return false;
+	if (!bullet.canRevert) return false;
 
-	return game.physics.arcade.collide(playerFootHit, bullet.sprite);	
+	var needRevert = game.physics.arcade.collide(playerFootHit, bullet.sprite);
+	return needRevert;
 }
 
 function updateFriendBullets(bullets, enemies)

@@ -16,6 +16,7 @@
     <script src="js/heavyEnemy.js"></script>
     <script src="js/corpse.js"></script>
     <script src="js/boom.js"></script>
+    <script src="js/bossMed.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -50,14 +51,20 @@ function preload() {
     game.load.spritesheet('heavyEnemyShield', 'assets/heavyEnemyShield.png', 32, 64);
     game.load.spritesheet('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png', 32, 64);
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
     game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
+    game.load.spritesheet('bossMed', 'assets/bossMed.png', 48, 78);
+    game.load.image('bossMedBullet', 'assets/bossMedBullet.png', );
 }
 var player;
 var map;
 var tileset;
 var layer;
 var EnemySpeed = 40;
+var boss = null;
+var createEnemy;
+
 function create() 
 {
 	bullets = []
@@ -72,7 +79,8 @@ function create()
     bg = game.add.tileSprite(0, 0, 640,480, 'background');
     bg.fixedToCamera = true;
 
-    map = game.add.tilemap('level1');
+    map = game.add.tilemap('level1Boss');
+
     map.addTilesetImage('tiles-1');
 
     map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
@@ -93,6 +101,7 @@ function create()
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
+
     money();   
 
     bullets = [];
@@ -100,18 +109,20 @@ function create()
 
     this.game.make.image(100, 100, 'helicopter');
 
-	var create = new EnemyFactory(game, bullets);
+	createEnemy = new EnemyFactory(game, bullets);
 
     enemies = [
-    	create.simpleOn(384, 224).thatMovesOn(288, 488),
-    	create.shotingOn(608, 224),
-    	create.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
-    	create.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
+    	// create.simpleOn(384, 224).thatMovesOn(288, 488),
+    	// create.shotingOn(608, 224),
+    	// create.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
+    	// create.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
 
-    	create.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
-    	create.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
-    	create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
+    	// create.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
+    	// create.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
+    	// create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
+
+    boss = new BossMed(384, 210);
 }
 
 var score = 0;
@@ -133,11 +144,18 @@ function update()
     updateEnemyBullets(bullets, friendBullets);
     updateEnemies(player);
 
+  
+
+
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
     updatePreviousPos(player);
+
+
     updateCorpses();
   
+    if (boss != null)
+        boss.update();
 }
 
 function updateCorpses()
@@ -172,15 +190,19 @@ function restart()
 function render () 
 {	
 	game.debug.text('HP: ' + hp, 10, 10);
+
 	var mousePoint = game.input.mousePointer;
 
     game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
     game.debug.text('Score: ' + score, 550, 20, 'black' ,{ fontSize: '32px', fill: '#000' });
 
-    var divX = Math.floor(mousePoint.x / 32) * 32;
-    var divY = Math.floor(mousePoint.y / 32) * 32;
-    game.debug.text(divX + ' ' + divY, 32, 64);
-    game.debug.text(player.animations.name, 128, 64);
+    // var divX = Math.floor(mousePoint.x / 32) * 32;
+    // var divY = Math.floor(mousePoint.y / 32) * 32;
+    if (boss.sprite.animations != undefined)
+    game.debug.text(boss.sprite.animations.name, 32, 64);
+
+    game.debug.text(boss.state, 128, 64);
+    game.debug.text(boss.hp, 128, 74);
 }
 
 function getRandomInt(min, max) 

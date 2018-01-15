@@ -1,5 +1,3 @@
-
-
 Enemy = function(x, y, minX, maxX, game)
 {
     this.minX = minX;   
