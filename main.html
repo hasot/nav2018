@@ -63,6 +63,7 @@ var EnemySpeed = 40;
 var boss = null;
 var createEnemy;
 
+var level;
 function create() 
 {
 	bullets = []
@@ -77,11 +78,15 @@ function create()
     bg = game.add.tileSprite(0, 0, 640,480, 'background');
     bg.fixedToCamera = true;
 
-    map = game.add.tilemap('level1Boss');
-
+//    map = game.add.tilemap('level1Boss');
+    if (level == null) { map = game.add.tilemap('level1'); } 
+    else {
+        map = game.add.tilemap(level);
+    }
+    
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+    map.setCollisionByExclusion([ 273,274,293,294,277,278,297,298,317,318 ]);
 
     layer = map.createLayer('Tile Layer 1');
 
