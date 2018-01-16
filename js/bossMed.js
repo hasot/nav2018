@@ -29,7 +29,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 5;
-	this.hp = 9;
+	this.hp = 12;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -45,6 +45,9 @@ BossMed = function(x, y)
 	this.smoke.visible = false;
 	this.smoke.animations.add('smoke', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, false);
 	this.nextEnemy = null;
+
+	this.damageTimer = 0;
+	this.lastDuck = 0;
 }
 
 BossMed.prototype.update = function() 
@@ -55,6 +58,26 @@ BossMed.prototype.update = function()
 	this.checkPlayerDamage();
 	this.checkEnemyCreation();
 
+	this.updateSmoke();
+	this.updateDamageTimer();
+};
+
+
+BossMed.prototype.updateDamageTimer = function()
+{
+	if (this.damageTimer > 0)
+	{
+		this.damageTimer -= 1;
+		this.sprite.alpha = this.sprite.alpha > 0.5 ? this.sprite.alpha - 0.1 : 1;
+	}
+	else
+	{
+		this.sprite.alpha = 1;
+	}
+}
+
+BossMed.prototype.updateSmoke = function()
+{
 	if (this.smoke.visible && this.smoke.frame == 10)
 	{
 		enemies.push(this.nextEnemy);
@@ -64,7 +87,7 @@ BossMed.prototype.update = function()
 		this.smoke.frame = 0;
 		this.smoke.visible = false;
 	}
-};
+}
 
 BossMed.prototype.checkEnemyCreation = function()
 {
@@ -139,22 +162,30 @@ BossMed.prototype.checkHit = function()
 	while (i < friendBullets.length)
 	{
 		var bullet = friendBullets[i];
-		var hit = game.physics.arcade.collide(this.sprite, bullet.sprite);
+		var physicsHit = game.physics.arcade.collide(this.sprite, bullet.sprite);
+
+		if (physicsHit)
+		{
+			this.sprite.body.velocity.x = 0;
+			this.sprite.body.velocity.y = 0;	
+
+			bullet.sprite.kill();
+			friendBullets.splice(i, 1);
+		}
+
+		var hit = physicsHit && bullet.sprite.frame != 0;
 
 		if (hit)
 		{
 			this.hp -= 1;
-			this.sprite.body.velocity.x = 0;
-			this.sprite.body.velocity.y = 0;
+			console.log(this.hp);
+			this.damageTimer = 100;	
 
 			if (this.state != 'walk')
 			{
 				this.startStand();
 				this.startChangePosition();
 			}
-
-			bullet.sprite.kill();
-			friendBullets.splice(i, 1);
 		}
 		else i += 1;
 	}
@@ -323,9 +354,9 @@ BossMed.prototype.tryShot = function()
 	if (this.shotCount < this.maxShotCount)
 	{
 		var shotDirection = Math.sign(player.x - this.sprite.x);
-		var canRevert = this.shotDuck();
-		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, canRevert);
-		if (canRevert)
+		var isDuck = this.shotDuck();
+		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, isDuck);
+		if (isDuck)
 			bullet.sprite.frame = 3;
 		else
 			bullet.sprite.frame = getRandomInt(1, 3);
@@ -333,6 +364,8 @@ BossMed.prototype.tryShot = function()
 
 		this.shotCount += 1;
 		this.timer = 50;
+
+		this.lastDuck = isDuck ? 0 : this.lastDuck + 1;
 	}
 	else
 	{
@@ -342,7 +375,7 @@ BossMed.prototype.tryShot = function()
 
 BossMed.prototype.shotDuck = function()
 {
-	return this.hp >= 12
+	return this.hp >= 12 || this.lastDuck > 4
 		   ? true
 		   : getRandomInt(0, 4) == 0;
 }

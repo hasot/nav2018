@@ -106,7 +106,7 @@ function create()
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
 
-    money();   
+    // money();   
 
     bullets = [];
     friendBullets = [];
@@ -126,7 +126,7 @@ function create()
     	// create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 
-    // boss = new BossMed(384, 210);
+    boss = new BossMed(384, 210);
 
     hud = new HUD(hp, 0);
 }
