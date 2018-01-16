@@ -27,7 +27,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 10;
-	this.hp = 5;
+	this.hp = 2;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -38,6 +38,11 @@ BossMed = function(x, y)
 	this.sprite.animations.add('standR', [0, 1, 2, 1], 3, true);
 
 	this.sprite.frame = 12;
+
+	this.smoke = game.add.sprite(x, y, 'smoke');
+	this.smoke.visible = false;
+	this.smoke.animations.add('smoke', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10, false);
+	this.nextEnemy = null;
 }
 
 BossMed.prototype.update = function() 
@@ -47,13 +52,24 @@ BossMed.prototype.update = function()
 	this.checkHit();
 	this.checkPlayerDamage();
 	this.checkEnemyCreation();
+
+	if (this.smoke.visible && this.smoke.frame == 10)
+	{
+		enemies.push(this.nextEnemy);
+
+		this.nextEnemy = null;
+		this.smoke.animations.stop();
+		this.smoke.frame = 0;
+		this.smoke.visible = false;
+	}
 };
 
 BossMed.prototype.checkEnemyCreation = function()
 {
 	var needCreateEnemy = this.hp <= 4
 						  && enemies.length < 5 
-						  && this.enemyCreationTimer <= 0;
+						  && this.enemyCreationTimer <= 0
+						  && this.nextEnemy == null;
 
     if (needCreateEnemy)
     	this.tryCreateEnemy();
@@ -65,13 +81,18 @@ BossMed.prototype.tryCreateEnemy = function()
 {
 	var createShoting = getRandomInt(0, 2) == 0;
 
-	var enemy = createShoting
+	this.nextEnemy = createShoting
 				? this.tryCreateShoting()
 				: this.tryCreateHeavy();
-	if (enemy == null) return;
+	if (this.nextEnemy == null) return;
 
-	enemies.push(enemy);
 	this.enemyCreationTimer = 500;
+
+	this.smoke.bringToTop();
+	this.smoke.x = this.nextEnemy.sprite.x - 40;
+	this.smoke.y = this.nextEnemy.sprite.y - 40;
+	this.smoke.visible = true;
+	this.smoke.animations.play('smoke');
 }
 
 BossMed.prototype.tryCreateHeavy = function()

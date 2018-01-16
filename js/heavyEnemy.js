@@ -22,7 +22,7 @@ HeavyEnemy = function(x, y, minX, maxX, useHelmet, useShield, game)
 	this.useShield = useShield;
 	if (useShield)
 	{
-		this.shield = game.add.sprite(x, y - 16, 'heavyEnemyShield');
+		this.shield = game.add.sprite(x, y, 'heavyEnemyShield');
 		this.shield.frame = 1;
 	}
 }
