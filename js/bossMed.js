@@ -7,7 +7,7 @@ BossMed = function(x, y)
 	this.landingDist = 35;
 
 	this.downSpeed = 4;
-	this.horSpeed = 1;
+	this.horSpeed = 2;
 	this.upSpeed = 8;
 
 	this.shotPositions = [
@@ -26,8 +26,8 @@ BossMed = function(x, y)
 	this.targetPos = new Phaser.Point(0, 0);
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
-	this.maxShotCount = 10;
-	this.hp = 2;
+	this.maxShotCount = 5;
+	this.hp = 12;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -66,7 +66,7 @@ BossMed.prototype.update = function()
 
 BossMed.prototype.checkEnemyCreation = function()
 {
-	var needCreateEnemy = this.hp <= 4
+	var needCreateEnemy = this.hp <= 9
 						  && enemies.length < 5 
 						  && this.enemyCreationTimer <= 0
 						  && this.nextEnemy == null;
@@ -144,7 +144,12 @@ BossMed.prototype.checkHit = function()
 			this.hp -= 1;
 			this.sprite.body.velocity.x = 0;
 			this.sprite.body.velocity.y = 0;
-			this.startStand();
+
+			if (this.state != 'walk')
+			{
+				this.startStand();
+				this.startChangePosition();
+			}
 
 			bullet.sprite.kill();
 			friendBullets.splice(i, 1);
@@ -335,7 +340,7 @@ BossMed.prototype.tryShot = function()
 
 BossMed.prototype.shotDuck = function()
 {
-	return this.hp >= 8
+	return this.hp >= 12
 		   ? true
 		   : getRandomInt(0, 4) == 0;
 }

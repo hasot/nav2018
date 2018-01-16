@@ -102,7 +102,12 @@ function isNeedReverseBullet(bullet)
 	if (playerFootHit == null) return false;
 	if (!bullet.canRevert) return false;
 
-	var needRevert = game.physics.arcade.collide(playerFootHit, bullet.sprite);
+	var footX = discover == 'right' ? player.x + 32 : player.x - 32;
+	var footY = player.y;
+
+	var needRevert = Math.abs(footX - bullet.sprite.x) < 32
+					 && Math.abs(footY - bullet.sprite.y) < 64;
+
 	return needRevert;
 }
 
