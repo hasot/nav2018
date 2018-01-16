@@ -7,8 +7,9 @@ var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
 
-var startHp = 12;
+var maxPlayerHP = 3;
 var hp = startHp;
+var startHp = maxPlayerHP;
 
 var playerDead = false;
 var helicopterTimer = 0;
@@ -153,7 +154,7 @@ function updatePlayer(enemies)
 
     if (playerDamageInterval <= 0)
     {
-        player.visible = true;
+        player.alpha = 1;
         for (var i = 0; i < enemies.length; ++i)
         {
             var enemy = enemies[i];
@@ -172,7 +173,7 @@ function updatePlayer(enemies)
     else
     {
         playerDamageInterval -= 1;
-        player.visible = !player.visible;
+        player.alpha = player.alpha > 0.5 ? player.alpha - 0.1 : 1;
     }
 }
 
@@ -184,6 +185,7 @@ function isPlayerDamaged()
 function hitPlayer()
 {
     hp -= 1;
+    hud.removeHP();
     if (hp <= 0)
     {
         var playerCorpse = new Corpse(

@@ -17,6 +17,9 @@
     <script src="js/corpse.js"></script>
     <script src="js/boom.js"></script>
     <script src="js/bossMed.js"></script>
+    <script src="js/greenSpot.js"></script>
+    <script src="js/hud.js"></script>
+    <script src="js/doshik.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -33,6 +36,7 @@ var friendBullets;
 var enemies;
 var deadEnemies;
 var corpses;
+var hud;
 
 function preload() {
     game.load.image('background', 'assets/level1Background.png');
@@ -54,6 +58,10 @@ function preload() {
     game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
     game.load.spritesheet('bossMed', 'assets/bossMed.png', 48, 78);
     game.load.spritesheet('smoke', 'assets/smoke.png', 128, 128);
+    game.load.image('greenSpot', 'assets/green.png');
+    game.load.image('mandat', 'assets/hp.png');
+    game.load.image('bossMedHP', 'assets/bossMedHP.png');
+    game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
 }
 var player;
 var map;
@@ -62,6 +70,7 @@ var layer;
 var EnemySpeed = 40;
 var boss = null;
 var createEnemy;
+var greenSpot = null;
 
 var level;
 function create() 
@@ -116,7 +125,7 @@ function create()
 
     enemies = [
     	// create.simpleOn(384, 224).thatMovesOn(288, 488),
-    	// create.shotingOn(608, 224),
+    	// createEnemy.shotingOn(300, 270),
     	// create.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
     	// create.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
 
@@ -124,6 +133,13 @@ function create()
     	// create.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
     	// create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
+
+    initDoshiki();
+
+    createDoshik(400, 400);
+    createDoshik(450, 400);
+
+    hud = new HUD(hp, 0);
 
     boss = new BossMed(384, 210);
 }
@@ -134,10 +150,11 @@ function update()
 {
     game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectMoney, null, this);
+    game.physics.arcade.overlap(player, doshiki, collectDoshik, null, this);
 
     score = getScore();
      	   //  Collide the player and the stars with the platforms
-   var hitPlatform = game.physics.arcade.collide(player, layer);
+    var hitPlatform = game.physics.arcade.collide(player, layer);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectMoney function
 
     copterAttack = updateCopter(layer, player, enemies);
@@ -156,9 +173,13 @@ function update()
 
 
     updateCorpses();
+
+    hud.update();
   
     if (boss != null)
         boss.update();
+    if (greenSpot != null)
+        greenSpot.update();
 }
 
 function updateCorpses()
@@ -192,20 +213,8 @@ function restart()
 
 function render () 
 {	
-	game.debug.text('HP: ' + hp, 10, 10);
-
 	var mousePoint = game.input.mousePointer;
-
-    game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
-    game.debug.text('Score: ' + score, 550, 20, 'black' ,{ fontSize: '32px', fill: '#000' });
-
-    // var divX = Math.floor(mousePoint.x / 32) * 32;
-    // var divY = Math.floor(mousePoint.y / 32) * 32;
-    if (boss.sprite.animations != undefined)
-    game.debug.text(boss.sprite.animations.name, 32, 64);
-
-    game.debug.text(boss.state, 128, 64);
-    game.debug.text(boss.hp, 128, 74);
+    game.debug.text(mousePoint.x + ' ' + mousePoint.y, 500, 50);
 }
 
 function getRandomInt(min, max) 

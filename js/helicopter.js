@@ -35,7 +35,8 @@ function callHelicopter() {
         if (score >= 10 )
         {    
             helicopter(); 
-            score -= 10;         
+            score -= 10;       
+            hud.updateScore();  
         }
 };
 
