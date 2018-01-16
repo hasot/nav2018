@@ -7,8 +7,9 @@ var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
 
-var startHp = 3;
+var maxPlayerHP = 3;
 var hp = startHp;
+var startHp = maxPlayerHP;
 
 var playerDead = false;
 var helicopterTimer = 0;

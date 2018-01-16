@@ -19,6 +19,7 @@
     <script src="js/bossMed.js"></script>
     <script src="js/greenSpot.js"></script>
     <script src="js/hud.js"></script>
+    <script src="js/doshik.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -60,6 +61,7 @@ function preload() {
     game.load.image('greenSpot', 'assets/green.png');
     game.load.image('mandat', 'assets/hp.png');
     game.load.image('bossMedHP', 'assets/bossMedHP.png');
+    game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
 }
 var player;
 var map;
@@ -127,6 +129,11 @@ function create()
     	// create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 
+    initDoshiki();
+
+    createDoshik(400, 400);
+    createDoshik(450, 400);
+
     hud = new HUD(hp, 0);
 
     boss = new BossMed(384, 210);
@@ -138,6 +145,7 @@ function update()
 {
     game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectMoney, null, this);
+    game.physics.arcade.overlap(player, doshiki, collectDoshik, null, this);
 
     score = getScore();
      	   //  Collide the player and the stars with the platforms
@@ -200,8 +208,8 @@ function restart()
 
 function render () 
 {	
-	// var mousePoint = game.input.mousePointer;
- //    game.debug.text(mousePoint.x + ' ' + mousePoint.y, 32, 32);
+	var mousePoint = game.input.mousePointer;
+    game.debug.text(mousePoint.x + ' ' + mousePoint.y, 500, 50);
 }
 
 function getRandomInt(min, max) 
