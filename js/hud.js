@@ -5,6 +5,14 @@ HUD = function(hp, money)
 	this.lifes = [];
 	for (var i = 0; i < hp; ++i)
 		this.addHP();
+
+	this.moneyText = game.add.text(16, 40, 'DONATES: ' + money, 
+		{ 
+		    font: 'Arial Black',
+    	    fontSize: 14,
+    		fontWeight: 'bold',
+		});
+	this.moneyText.fixedToCamera = true;
 }
 
 HUD.prototype.addHP = function() 
@@ -31,3 +39,8 @@ HUD.prototype.removeHP = function()
 
 	this.lifes.splice(last);
 };
+
+HUD.prototype.updateScore = function()
+{
+	this.moneyText.setText('DONATES: ' + score);
+}

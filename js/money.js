@@ -1,7 +1,6 @@
 var moneys;
 
 var score = 0;
-var scoreText;
 
 function money(){
     moneys = game.add.group();
@@ -21,11 +20,15 @@ function money(){
         moneys.callAll('animations.add', 'animations', 'spin', [0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15], 10, true);  
         moneys.callAll('animations.play', 'animations', 'spin');  
 }
+
 function collectMoney (player, money) {
         // Removes the star from the screen
         money.kill();
         //  Add and update the score
+
         score += 10;
+
+        hud.updateScore();
 }
 
 function getScore(){
