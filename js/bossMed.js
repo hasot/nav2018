@@ -18,6 +18,8 @@ BossMed = function(x, y)
 		new Phaser.Point(480, 258),
 		new Phaser.Point(220, 401),
 		new Phaser.Point(403, 401),
+		new Phaser.Point(21, 401),
+		new Phaser.Point(600, 401),
 		];
 
 	this.timer = 0;
@@ -27,7 +29,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 5;
-	this.hp = 12;
+	this.hp = 9;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -108,7 +110,7 @@ BossMed.prototype.tryCreateHeavy = function()
 
 BossMed.prototype.tryCreateShoting = function()
 {
-	var index = getRandomInt(0, this.shotPositions.length - 2);
+	var index = getRandomInt(0, this.shotPositions.length);
 	var pos = this.shotPositions[index];
 	for (var i = 0; i < enemies.length; ++i)
 	{

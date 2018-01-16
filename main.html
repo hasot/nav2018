@@ -17,6 +17,7 @@
     <script src="js/corpse.js"></script>
     <script src="js/boom.js"></script>
     <script src="js/bossMed.js"></script>
+    <script src="js/greenSpot.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -54,6 +55,7 @@ function preload() {
     game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
     game.load.spritesheet('bossMed', 'assets/bossMed.png', 48, 78);
     game.load.spritesheet('smoke', 'assets/smoke.png', 128, 128);
+    game.load.image('greenSpot', 'assets/green.png');
 }
 var player;
 var map;
@@ -62,6 +64,7 @@ var layer;
 var EnemySpeed = 40;
 var boss = null;
 var createEnemy;
+var greenSpot = null;
 
 function create() 
 {
@@ -111,7 +114,7 @@ function create()
 
     enemies = [
     	// create.simpleOn(384, 224).thatMovesOn(288, 488),
-    	// create.shotingOn(608, 224),
+    	// createEnemy.shotingOn(300, 270),
     	// create.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
     	// create.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
 
@@ -154,6 +157,8 @@ function update()
   
     if (boss != null)
         boss.update();
+    if (greenSpot != null)
+        greenSpot.update();
 }
 
 function updateCorpses()
@@ -196,11 +201,11 @@ function render ()
 
     // var divX = Math.floor(mousePoint.x / 32) * 32;
     // var divY = Math.floor(mousePoint.y / 32) * 32;
-    if (boss.sprite.animations != undefined)
-    game.debug.text(boss.sprite.animations.name, 32, 64);
+    // if (boss != null boss.sprite.animations != undefined)
+    // game.debug.text(boss.sprite.animations.name, 32, 64);
 
-    game.debug.text(boss.state, 128, 64);
-    game.debug.text(boss.hp, 128, 74);
+    // game.debug.text(boss.state, 128, 64);
+    // game.debug.text(boss.hp, 128, 74);
 }
 
 function getRandomInt(min, max) 

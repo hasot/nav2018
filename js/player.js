@@ -153,7 +153,7 @@ function updatePlayer(enemies)
 
     if (playerDamageInterval <= 0)
     {
-        player.visible = true;
+        player.alpha = 1;
         for (var i = 0; i < enemies.length; ++i)
         {
             var enemy = enemies[i];
@@ -172,7 +172,7 @@ function updatePlayer(enemies)
     else
     {
         playerDamageInterval -= 1;
-        player.visible = !player.visible;
+        player.alpha = player.alpha > 0.5 ? player.alpha - 0.1 : 1;
     }
 }
 

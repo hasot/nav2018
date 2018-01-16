@@ -79,7 +79,17 @@ EnemyBullet.prototype.isCollidesWith = function(layer, player)
                             && game.physics.arcade.collide(this.sprite, player)
                             && playerFootHit == null;
     if (collideWithPlayer)
+    {
+        if (this.sprite.frame == 0)
+        {
+            if (greenSpot == null)
+                greenSpot = new GreenSpot();
+            else
+                greenSpot.reset();
+        }
+
         hitPlayer();
+    }
 
     var res = isOutOfCamera || collideWithlayer || collideWithPlayer;
 
