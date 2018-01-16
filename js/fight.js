@@ -86,6 +86,7 @@ function updateEnemyBullets(bullets, friendBullets)
     		if (needRevert)
     		{
     			var friendBullet = new FriendBullet(bullet.sprite.x, bullet.sprite.y, bullet.direction);
+    			friendBullet.sprite.frame = bullet.sprite.frame;
     			friendBullets.push(friendBullet);
     		}
 

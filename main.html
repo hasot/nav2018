@@ -42,7 +42,7 @@ function preload() {
     game.load.spritesheet('helicopter', 'assets/helicopter.png', 99, 64);
     game.load.spritesheet('money', 'assets/money.png', 32, 32);    
 	game.load.spritesheet('shotingEnemy', 'assets/shotingEnemy.png', 32, 64);
-    game.load.image('enemyBullet', 'assets/enemyBullet.png');
+    game.load.spritesheet('enemyBullet', 'assets/enemyBullet.png', 32, 32);
     game.load.spritesheet('flyingEnemy', 'assets/flyingEnemy.png', 32, 64);
     game.load.spritesheet('heavyEnemy', 'assets/heavyEnemy.png', 32, 64);
 
@@ -55,7 +55,6 @@ function preload() {
     game.load.image('tiles-1', 'assets/tiles-1.png');
     game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
     game.load.spritesheet('bossMed', 'assets/bossMed.png', 48, 78);
-    game.load.image('bossMedBullet', 'assets/bossMedBullet.png', );
 }
 var player;
 var map;
@@ -102,7 +101,7 @@ function create()
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
 
-    money();   
+    // money();   
 
     bullets = [];
     friendBullets = [];

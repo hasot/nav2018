@@ -27,7 +27,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 10;
-	this.hp = 12;
+	this.hp = 5;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -296,8 +296,11 @@ BossMed.prototype.tryShot = function()
 	{
 		var shotDirection = Math.sign(player.x - this.sprite.x);
 		var canRevert = this.shotDuck();
-		var spriteKey = canRevert ? 'enemyBullet' : 'bossMedBullet';
-		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, canRevert, spriteKey);
+		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, canRevert);
+		if (canRevert)
+			bullet.sprite.frame = 3;
+		else
+			bullet.sprite.frame = getRandomInt(1, 3);
 		bullets.push(bullet);
 
 		this.shotCount += 1;
