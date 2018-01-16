@@ -44,3 +44,29 @@ HUD.prototype.updateScore = function()
 {
 	this.moneyText.setText('DONATES: ' + score);
 }
+
+HUD.prototype.createBossHP = function(lives, spriteName)
+{
+	this.bossLives = [];
+	for (var i = 0; i < lives; ++i)
+		this.addBossHP(spriteName);
+}
+
+HUD.prototype.addBossHP = function(spriteName)
+{
+	var x = game.camera.width - (this.bossLives.length + 1) * (16 + this.indent);
+	var live = game.add.sprite(x, 5, spriteName);
+	live.fixedToCamera = true;
+
+	this.bossLives.push(live);
+}
+
+HUD.prototype.removeBossHP = function(lives, spriteName)
+{
+	var last = this.bossLives.length - 1;
+	var live = this.bossLives[last];
+
+	live.kill();
+
+	this.bossLives.splice(last);	
+}

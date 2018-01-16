@@ -48,6 +48,8 @@ BossMed = function(x, y)
 
 	this.damageTimer = 0;
 	this.lastDuck = 0;
+
+	hud.createBossHP(this.hp, 'bossMedHP');
 }
 
 BossMed.prototype.update = function() 
@@ -178,7 +180,7 @@ BossMed.prototype.checkHit = function()
 		if (hit)
 		{
 			this.hp -= 1;
-			console.log(this.hp);
+			hud.removeBossHP();
 			this.damageTimer = 100;	
 
 			if (this.state != 'walk')

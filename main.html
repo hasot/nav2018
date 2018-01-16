@@ -59,6 +59,7 @@ function preload() {
     game.load.spritesheet('smoke', 'assets/smoke.png', 128, 128);
     game.load.image('greenSpot', 'assets/green.png');
     game.load.image('mandat', 'assets/hp.png');
+    game.load.image('bossMedHP', 'assets/bossMedHP.png');
 }
 var player;
 var map;
@@ -126,9 +127,9 @@ function create()
     	// create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 
-    boss = new BossMed(384, 210);
-
     hud = new HUD(hp, 0);
+
+    boss = new BossMed(384, 210);
 }
 
 var score = 0;
