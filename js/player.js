@@ -7,7 +7,7 @@ var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
 
-var startHp = 12;
+var startHp = 3;
 var hp = startHp;
 
 var playerDead = false;
@@ -184,6 +184,7 @@ function isPlayerDamaged()
 function hitPlayer()
 {
     hp -= 1;
+    hud.removeHP();
     if (hp <= 0)
     {
         var playerCorpse = new Corpse(
