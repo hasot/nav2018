@@ -9,7 +9,6 @@ function initDoor()
 function createDoor()
 {
     if(levelNow != levelOne.length-1){
-        console.log()
         doors = game.add.group();
         doors.enableBody = true;
         var door = doors.create(game.world.bounds.width-20, 448, 'door');
