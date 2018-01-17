@@ -20,6 +20,7 @@
     <script src="js/greenSpot.js"></script>
     <script src="js/hud.js"></script>
     <script src="js/doshik.js"></script>
+    <script src="js/newLevelDoor.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -62,6 +63,8 @@ function preload() {
     game.load.image('mandat', 'assets/hp.png');
     game.load.image('bossMedHP', 'assets/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
+
+    game.load.spritesheet('door', 'assets/door.png', 128, 128);
 }
 var player;
 var map;
@@ -72,7 +75,8 @@ var boss = null;
 var createEnemy;
 var greenSpot = null;
 
-var level;
+var levelOne = ['level1', 'level1Boss'];
+var levelNow = 0;
 function create() 
 {
 	bullets = []
@@ -88,10 +92,7 @@ function create()
     bg.fixedToCamera = true;
 
 //    map = game.add.tilemap('level1Boss');
-    if (level == null) { map = game.add.tilemap('level1'); } 
-    else {
-        map = game.add.tilemap(level);
-    }
+     map = game.add.tilemap(levelOne[levelNow]);
     
     map.addTilesetImage('tiles-1');
 
@@ -121,8 +122,8 @@ function create()
 
     this.game.make.image(100, 100, 'helicopter');
 
-	createEnemy = new EnemyFactory(game, bullets);
-
+    createEnemy = new EnemyFactory(game, bullets);
+    createDoor();
     enemies = [
     	// create.simpleOn(384, 224).thatMovesOn(288, 488),
     	// createEnemy.shotingOn(300, 270),
@@ -151,7 +152,7 @@ function update()
     game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectMoney, null, this);
     game.physics.arcade.overlap(player, doshiki, collectDoshik, null, this);
-
+    game.physics.arcade.overlap(player, doors, goNewLvl, null, this);
     score = getScore();
      	   //  Collide the player and the stars with the platforms
     var hitPlatform = game.physics.arcade.collide(player, layer);
@@ -188,9 +189,7 @@ function updateCorpses()
 	while (i < corpses.length)
 	{
 		var corpse = corpses[i];
-
 		var bottomPos = game.camera.view.y + game.camera.view.height
-
 		var needKill = corpse.sprite.y > bottomPos;
 		if (needKill)
 		{
