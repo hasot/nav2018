@@ -20,6 +20,7 @@
     <script src="js/greenSpot.js"></script>
     <script src="js/hud.js"></script>
     <script src="js/doshik.js"></script>
+    <script src="js/introText.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -62,6 +63,8 @@ function preload() {
     game.load.image('mandat', 'assets/hp.png');
     game.load.image('bossMedHP', 'assets/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
+    game.load.image('introText', 'assets/textView.png');
+    game.load.spritesheet('face', 'assets/face.png', 32, 32);
 }
 var player;
 var map;
@@ -71,6 +74,7 @@ var EnemySpeed = 40;
 var boss = null;
 var createEnemy;
 var greenSpot = null;
+var intro;
 
 function create() 
 {
@@ -175,6 +179,8 @@ function update()
         boss.update();
     if (greenSpot != null)
         greenSpot.update();
+    if (intro != null)
+        intro.update();
 }
 
 function updateCorpses()
