@@ -21,6 +21,7 @@
     <script src="js/hud.js"></script>
     <script src="js/doshik.js"></script>
     <script src="js/introText.js"></script>
+    <script src="js/newLevelDoor.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -65,6 +66,16 @@ function preload() {
     game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
     game.load.image('introText', 'assets/textView.png');
     game.load.spritesheet('face', 'assets/face.png', 32, 32);
+
+
+    game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles-1', 'assets/tiles-1.png');
+
+    game.load.spritesheet('door', 'assets/door.png', 128, 128);
+
+
+    game.load.audio('money', [ 'assets/audio/money.wav' ]);
 }
 var player;
 var map;
@@ -76,6 +87,11 @@ var createEnemy;
 var greenSpot = null;
 var intro;
 
+var levelOne = ['level1', 'level1Boss'];
+var levelNow = 0;
+
+
+var fx;
 function create() 
 {
 	bullets = []
@@ -87,19 +103,19 @@ function create()
 	playerDead = false;
 
     //  A simple background for our game
-    bg = game.add.tileSprite(0, 0, 640,480, 'background');
-    bg.fixedToCamera = true;
+    bg = game.add.tileSprite(0, 0, 4096,480, 'background');
 
-    map = game.add.tilemap('level1Boss');
-
+    fx = game.add.audio('money');
+    fx.allowMultiple = false;
+    fx.addMarker('money', 0, 0.3);
+//    map = game.add.tilemap('level1Boss');
+    map = game.add.tilemap(levelOne[levelNow]);
+    
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+    map.setCollisionByExclusion([ 273,274,293,294,277,278,297,298,317,318, 46 ]);
 
     layer = map.createLayer('Tile Layer 1');
-
-    //  Un-comment this on to see the collision tiles
-    // layer.debug = true;
 
     layer.resizeWorld();
 
@@ -113,15 +129,15 @@ function create()
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
 
-    // money();   
+    money();   
 
     bullets = [];
     friendBullets = [];
 
     this.game.make.image(100, 100, 'helicopter');
 
-	createEnemy = new EnemyFactory(game, bullets);
-
+    createEnemy = new EnemyFactory(game, bullets);
+    createDoor();
     enemies = [
     	// create.simpleOn(384, 224).thatMovesOn(288, 488),
     	// createEnemy.shotingOn(300, 270),
@@ -150,37 +166,32 @@ function update()
     game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectMoney, null, this);
     game.physics.arcade.overlap(player, doshiki, collectDoshik, null, this);
-
+    game.physics.arcade.overlap(player, doors, goNewLvl, null, this);
     score = getScore();
      	   //  Collide the player and the stars with the platforms
     var hitPlatform = game.physics.arcade.collide(player, layer);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectMoney function
 
     copterAttack = updateCopter(layer, player, enemies);
-    if (copterAttack) {
+    if (goNavNewlvl) { startNewLvl(); // for new go new lvl
+    } else {
+        if (copterAttack) {
         keyPlayer(hitPlatform);
     }
     updateEnemyBullets(bullets, friendBullets);
     updateEnemies(player);
-
-  
-
-
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
     updatePreviousPos(player);
-
-
     updateCorpses();
-
     hud.update();
-  
     if (boss != null)
         boss.update();
     if (greenSpot != null)
         greenSpot.update();
     if (intro != null)
         intro.update();
+    }
 }
 
 function updateCorpses()
@@ -189,9 +200,7 @@ function updateCorpses()
 	while (i < corpses.length)
 	{
 		var corpse = corpses[i];
-
 		var bottomPos = game.camera.view.y + game.camera.view.height
-
 		var needKill = corpse.sprite.y > bottomPos;
 		if (needKill)
 		{

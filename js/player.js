@@ -6,7 +6,8 @@ var jumpButton;
 var prevPos;
 var playerFootHit;
 var playerDamageInterval = 0;
-
+var discover = "right";
+var jumpTimer = 0;
 var maxPlayerHP = 3;
 var hp = startHp;
 var startHp = maxPlayerHP;
@@ -58,8 +59,7 @@ function fight(x,y)
     }, 100)
 }
 
-var discover = "right";
-var jumpTimer = 0;
+
 function keyPlayer(hitPlatform) 
 {
     if (playerDead) return;
@@ -112,7 +112,7 @@ function keyPlayer(hitPlatform)
         //  Let gravity do its thing
         player.body.velocity.y = -400;
         player.body.gravity.y = 500;
-        jumpTimer = game.time.now + 750;
+        jumpTimer = game.time.now + 70;
     }
   
     if (fightButton.isDown)
