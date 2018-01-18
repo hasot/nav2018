@@ -64,6 +64,11 @@ function preload() {
     game.load.image('bossMedHP', 'assets/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
 
+
+    game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles-1', 'assets/tiles-1.png');
+
     game.load.spritesheet('door', 'assets/door.png', 128, 128);
 }
 var player;
@@ -92,16 +97,13 @@ function create()
     bg.fixedToCamera = true;
 
 //    map = game.add.tilemap('level1Boss');
-     map = game.add.tilemap(levelOne[levelNow]);
+    map = game.add.tilemap(levelOne[levelNow]);
     
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([ 273,274,293,294,277,278,297,298,317,318 ]);
+    map.setCollisionByExclusion([ 273,274,293,294,277,278,297,298,317,318, 46 ]);
 
     layer = map.createLayer('Tile Layer 1');
-
-    //  Un-comment this on to see the collision tiles
-    // layer.debug = true;
 
     layer.resizeWorld();
 
@@ -159,21 +161,21 @@ function update()
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectMoney function
 
     copterAttack = updateCopter(layer, player, enemies);
-    if (copterAttack) {
+    if (goNavNewlvl) { startNewLvl(); // for new go new lvl
+    } else {
+        if (copterAttack) {
         keyPlayer(hitPlatform);
     }
     updateEnemyBullets(bullets, friendBullets);
     updateEnemies(player);
-
-  
 
 
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
     updatePreviousPos(player);
 
-
     updateCorpses();
+
 
     hud.update();
   
@@ -181,6 +183,9 @@ function update()
         boss.update();
     if (greenSpot != null)
         greenSpot.update();
+    }
+   
+ 
 }
 
 function updateCorpses()
