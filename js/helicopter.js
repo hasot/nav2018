@@ -1,7 +1,7 @@
 var copter;
 var imageCopter;
 var imageCopterM = [];
-var copterPrice = 10;
+var copterPrice = 50;
 var index = 0
 
 function helicopter(){
@@ -29,9 +29,10 @@ function helicopter(){
             copter = null;
             copterKillEnemy(enemies);
             booms.forEach(killAllBoom, this, true);
+            if(imageCopterM[index]){
             imageCopterM[index].kill();
             imageCopterM.splice(index,1);
-           
+            }
         }
         return false;
     } else {
@@ -69,7 +70,7 @@ function copterLogo(){
         } else {
             position = 15;
         }
-        imageCopter = game.add.sprite(position, 25, 'helicopter');
+        imageCopter = game.add.sprite(position, 50, 'helicopter');
         imageCopter.scale.setTo(0.3,0.4);
         imageCopterM.push(imageCopter);
         imageCopter.fixedToCamera = true;

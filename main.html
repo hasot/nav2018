@@ -70,6 +70,9 @@ function preload() {
     game.load.image('tiles-1', 'assets/tiles-1.png');
 
     game.load.spritesheet('door', 'assets/door.png', 128, 128);
+
+
+    game.load.audio('money', [ 'assets/audio/money.wav' ]);
 }
 var player;
 var map;
@@ -82,6 +85,9 @@ var greenSpot = null;
 
 var levelOne = ['level1', 'level1Boss'];
 var levelNow = 0;
+
+
+var fx;
 function create() 
 {
 	bullets = []
@@ -93,9 +99,11 @@ function create()
 	playerDead = false;
 
     //  A simple background for our game
-    bg = game.add.tileSprite(0, 0, 640,480, 'background');
-    bg.fixedToCamera = true;
+    bg = game.add.tileSprite(0, 0, 4096,480, 'background');
 
+    fx = game.add.audio('money');
+    fx.allowMultiple = false;
+    fx.addMarker('money', 0, 0.3);
 //    map = game.add.tilemap('level1Boss');
     map = game.add.tilemap(levelOne[levelNow]);
     
