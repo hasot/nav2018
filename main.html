@@ -66,7 +66,8 @@ function preload() {
     game.load.image('bossMedHP', 'assets/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
     game.load.image('introText', 'assets/textView.png');
-    game.load.spritesheet('face', 'assets/face.png', 32, 32);
+    game.load.spritesheet('face', 'assets/face.png', 128, 128);
+    game.load.spritesheet('bossMedFace', 'assets/bossMedFace.png', 128, 128);
 
 
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
@@ -156,7 +157,9 @@ function create()
 
     hud = new HUD(hp, 0);
 
-  //  boss = new BossMed(384, 210);
+    // boss = new BossMed(384, 210);
+
+    // intro = GetTestIntro();
 }
 
 var score = 0;

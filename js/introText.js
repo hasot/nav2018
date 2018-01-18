@@ -5,14 +5,14 @@ IntroText = function(leftSprite, rightSprite, content)
 
 	if (leftSprite != null)
 	{
-		this.leftSprite = game.add.sprite(50, 50, leftSprite);
+		this.leftSprite = game.add.sprite(4, 28, leftSprite);
 		this.leftSprite.fixedToCamera = true;
 		this.leftSprite.animations.add('speak', [0, 1], 5, true);
 	}
 
 	if (rightSprite != null)
 	{
-		this.rightSprite = game.add.sprite(550, 50, rightSprite);
+		this.rightSprite = game.add.sprite(515, 28, rightSprite);
 		this.rightSprite.fixedToCamera = true;
 		this.rightSprite.animations.add('speak', [0, 1], 5, true);
 	}
@@ -26,12 +26,12 @@ IntroText = function(leftSprite, rightSprite, content)
 	this.text = game.add.text(155, 20, '', {font: "15px Arial", fill: this.dialogColor });
 	this.text.fixedToCamera = true;
 
-	this.continueText = game.add.text(266, 202, 'press X to continue...', {font: "13px Arial", fill: "#ffffff"});
+	this.continueText = game.add.text(266, 202, 'press V to continue...', {font: "13px Arial", fill: "#ffffff"});
 	this.continueText.fixedToCamera = true;
 	this.continueText.visible = false;
 
 	this.wordDelay = 150;
-	this.continueButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
+	this.continueButton = game.input.keyboard.addKey(Phaser.Keyboard.V);
 
 	this.startIntro();
 }
@@ -128,10 +128,10 @@ IntroTextItem = function(speaker, text)
 
 function GetTestIntro()
 {
-	return new IntroText('face', null,
+	return new IntroText('face', 'bossMedFace',
 	        [
 	            new IntroTextItem('left', ["Время первых", "Время смелых", "Есть особые люди, они не боятся мечтать"]),
 	            new IntroTextItem('none', ["Они че то там", "Че то там", "Че то там"]),
-	            new IntroTextItem('left', ["Ты че", "Решил ко мне лезть?", "Н Е Г О Д Я Й ? ? ?"]),
+	            new IntroTextItem('right', ["Ты че", "Решил ко мне лезть?", "Н Е Г О Д Я Й ? ? ?"]),
 	        ]);
 }
