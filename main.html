@@ -20,6 +20,7 @@
     <script src="js/greenSpot.js"></script>
     <script src="js/hud.js"></script>
     <script src="js/doshik.js"></script>
+    <script src="js/introText.js"></script>
     <script src="js/newLevelDoor.js"></script>
     <script src="js/sounds.js"></script>
     <style type="text/css">
@@ -64,10 +65,14 @@ function preload() {
     game.load.image('mandat', 'assets/hp.png');
     game.load.image('bossMedHP', 'assets/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
+    game.load.image('introText', 'assets/textView.png');
+    game.load.spritesheet('face', 'assets/face.png', 32, 32);
+
 
     game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/tiles-1.png');
+
     game.load.spritesheet('door', 'assets/door.png', 128, 128);
 
     initSounds();
@@ -80,8 +85,11 @@ var EnemySpeed = 40;
 var boss = null;
 var createEnemy;
 var greenSpot = null;
+var intro;
+
 var levelOne = ['level1', 'level1Boss'];
 var levelNow = 0;
+
 
 
 function create() 
@@ -97,6 +105,7 @@ function create()
     //  A simple background for our game
     bg = game.add.tileSprite(0, 0, 4096,480, 'background');
 
+    
 //    map = game.add.tilemap('level1Boss');
     map = game.add.tilemap(levelOne[levelNow]);
     
@@ -180,6 +189,8 @@ function update()
         boss.update();
     if (greenSpot != null)
         greenSpot.update();
+    if (intro != null)
+        intro.update();
     }
 }
 
