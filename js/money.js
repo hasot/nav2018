@@ -22,7 +22,7 @@ function money(){
 }
 
 function collectMoney (player, money) {
-        fx.play('money');
+        moneySound.play('money');
         // Removes the star from the screen
         money.kill();
         //  Add and update the score

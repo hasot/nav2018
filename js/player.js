@@ -110,6 +110,7 @@ function keyPlayer(hitPlatform)
     if (cursors.up.isDown && player.body.onFloor() && game.time.now > jumpTimer)
     {
         //  Let gravity do its thing
+        jumpSound.play('jump');
         player.body.velocity.y = -400;
         player.body.gravity.y = 500;
         jumpTimer = game.time.now + 70;
@@ -120,6 +121,7 @@ function keyPlayer(hitPlatform)
         if (fightTimer == 0 )
         {    
             fight(player.body.x, player.body.y);
+            kickSound.play('kick')
             fightTimer = 20;
             
         }
@@ -173,6 +175,7 @@ function updatePlayer(enemies)
     else
     {
         playerDamageInterval -= 1;
+      
         player.alpha = player.alpha > 0.5 ? player.alpha - 0.1 : 1;
     }
 }
@@ -196,8 +199,12 @@ function hitPlayer()
         corpses.push(playerCorpse);
 
         playerDead = true;
+        dieNavSound.play("dieNav");
         player.kill();
     }
-    else
+    else {
+        painNavSound.play('painNav');
         playerDamageInterval = 50;
+    }
+      
 }
