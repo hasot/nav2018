@@ -112,7 +112,7 @@ function keyPlayer(hitPlatform)
         //  Let gravity do its thing
         player.body.velocity.y = -400;
         player.body.gravity.y = 500;
-        jumpTimer = game.time.now + 750;
+        jumpTimer = game.time.now + 70;
     }
   
     if (fightButton.isDown)

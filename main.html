@@ -117,7 +117,7 @@ function create()
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
 
-    // money();   
+    money();   
 
     bullets = [];
     friendBullets = [];
@@ -168,24 +168,16 @@ function update()
     }
     updateEnemyBullets(bullets, friendBullets);
     updateEnemies(player);
-
-
 	updateFriendBullets(friendBullets, enemies);
 	updatePlayer(enemies);
     updatePreviousPos(player);
-
     updateCorpses();
-
-
     hud.update();
-  
     if (boss != null)
         boss.update();
     if (greenSpot != null)
         greenSpot.update();
     }
-   
- 
 }
 
 function updateCorpses()
