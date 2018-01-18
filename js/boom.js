@@ -21,3 +21,10 @@ function killAllBoom (boom) {
         booms.remove(boom, true);
         //  Add and update the score
 }
+
+function boomSounds(){
+        var id = 0;
+         setTimeout(function(){
+                                        boomSound.play('boom');
+        },300)
+}

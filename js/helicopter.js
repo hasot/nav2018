@@ -1,7 +1,7 @@
 var copter;
 var imageCopter;
 var imageCopterM = [];
-var copterPrice = 50;
+var copterPrice = 0;
 var index = 0
 
 function helicopter(){
@@ -9,6 +9,8 @@ function helicopter(){
     copter = game.add.sprite(game.camera.view.x, 40, 'helicopter');
     game.physics.enable(copter, Phaser.Physics.ARCADE);
     copter.animations.add('anim', [0, 1], 20, true);
+    copterSound.play('copter');
+    boomSounds();
     copter.animations.play('anim');
 }
 
@@ -23,11 +25,11 @@ function helicopter(){
         var isOutOfCamera = x > game.camera.view.x + game.camera.view.width ;
         copter.body.velocity.x = 300 ;
         if (isOutOfCamera) {
-            console.log("kill all", isOutOfCamera);
             isOutOfCamera = false;
             copter.kill();
             copter = null;
             copterKillEnemy(enemies);
+            
             booms.forEach(killAllBoom, this, true);
             if(imageCopterM[index]){
             imageCopterM[index].kill();

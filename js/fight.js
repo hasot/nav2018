@@ -5,7 +5,6 @@ function updateEnemies(player)
 	{
 		var enemy = enemies[i];
 		enemy.update();
-
 		var isJumpToEnemy = isPlayerHitJumpTo(enemy);	
 		var enemyNeedToDie = isJumpToEnemy 
 							 || isPlayerFootHit(enemy)
