@@ -17,6 +17,7 @@ function collectDoshik(player, doshik)
 {
 	if (hp < maxPlayerHP)
 	{
+		healthSound.play('health');
 		doshik.kill();
 		hp += 1;
 		hud.addHP();

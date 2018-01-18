@@ -30,8 +30,8 @@ function killEnemy(enemy)
     					enemy.direction, 
     					enemy.sprite.key, 
     					enemy.direction == 1 ? 0 : 1);
-    corpses.push(corpse);
-
+	corpses.push(corpse);
+	deathMobSound.play('deathMob');
     enemy.sprite.kill();
     enemy.isAlive = false;
 }

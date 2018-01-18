@@ -1,7 +1,7 @@
 var copter;
 var imageCopter;
 var imageCopterM = [];
-var copterPrice = 0;
+var copterPrice = 50;
 var index = 0
 
 function helicopter(){
@@ -29,7 +29,6 @@ function helicopter(){
             copter.kill();
             copter = null;
             copterKillEnemy(enemies);
-            
             booms.forEach(killAllBoom, this, true);
             if(imageCopterM[index]){
             imageCopterM[index].kill();

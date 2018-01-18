@@ -40,6 +40,10 @@ function tryShotFor(enemy)
     if (enemy.shotWaitingInterval == 0)
     {
         var location = enemy.sprite;
+        if(game.camera.view.x <= enemy.sprite.x && enemy.sprite.x <= game.camera.view.x + game.camera.view.width) {
+            shotSound.play('shot');
+        }
+        
         var bullet = new EnemyBullet(location.x, location.y + 16, enemy.direction, true); 
         enemy.bullets.push(bullet);
 

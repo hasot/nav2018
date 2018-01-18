@@ -162,9 +162,7 @@ function updatePlayer(enemies)
             var enemy = enemies[i];
             var vertDist = Math.abs(player.y - enemy.sprite.y);
             var horDist = Math.abs(player.x - enemy.sprite.x);
-
             var hit = vertDist < 64 && horDist < 32;
-
             if (hit)
             {
                 hitPlayer();

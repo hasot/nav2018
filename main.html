@@ -139,14 +139,14 @@ function create()
     createEnemy = new EnemyFactory(game, bullets);
     createDoor();
     enemies = [
-    	// create.simpleOn(384, 224).thatMovesOn(288, 488),
-    	// createEnemy.shotingOn(300, 270),
-    	// create.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
-    	// create.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
+    createEnemy.simpleOn(384, 224).thatMovesOn(288, 488),
+    	createEnemy.shotingOn(300, 270),
+    	createEnemy.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
+    	createEnemy.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
 
-    	// create.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
-    	// create.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
-    	// create.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
+    	createEnemy.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
+    	createEnemy.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
+    	createEnemy.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 
     initDoshiki();
@@ -156,7 +156,7 @@ function create()
 
     hud = new HUD(hp, 0);
 
-    boss = new BossMed(384, 210);
+  //  boss = new BossMed(384, 210);
 }
 
 var score = 0;
