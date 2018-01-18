@@ -17,7 +17,7 @@ function money(){
             //  This just gives each star a slightly random bounce value
             money.body.bounce.y = 0.3 + Math.random() * 0.02;
         }
-        moneys.callAll('animations.add', 'animations', 'spin', [0, 1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15], 10, true);  
+        moneys.callAll('animations.add', 'animations', 'spin', [0, 1, 2, 3, 2, 1, 0], 5, true);  
         moneys.callAll('animations.play', 'animations', 'spin');  
 }
 
