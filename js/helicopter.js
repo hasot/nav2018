@@ -12,10 +12,13 @@ function helicopter(){
     copterSound.play('copter');
     boomSounds();
     copter.animations.play('anim');
+
+    booms = game.add.group();   
+    booms.enableBody = true;
 }
 
-
  function updateCopter(layer, player, enemies) {
+
     if (copter) {
         index = Math.floor(score / copterPrice);
         EnemySpeed = 0;
@@ -29,7 +32,7 @@ function helicopter(){
             copter.kill();
             copter = null;
             copterKillEnemy(enemies);
-            booms.forEach(killAllBoom, this, true);
+            booms.kill();
             if(imageCopterM[index]){
             imageCopterM[index].kill();
             imageCopterM.splice(index,1);
