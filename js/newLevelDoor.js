@@ -4,11 +4,13 @@ var goNavNewlvl = false;
 
 function createDoor()
 {
+    console.log("new", doors);
     if(levelNow != levelOne.length-1){
+ 
         doors = game.add.group();
         doors.enableBody = true;
-    //    var door = doors.create(game.world.bounds.width-20, 448, 'door');
-     door = doors.create(4075, 448, 'door');
+        door = doors.create(100, 448, 'door', 0);
+        console.log("new1",doors);
     }
 }
 
@@ -27,8 +29,9 @@ function startNewLvl(){
             if (player.alpha < 0.1) {
                 goNavNewlvl = false;
                 levelNow += 1;
-                restart();
                 door.kill();
+                restart();
+              
             }
        
     }
