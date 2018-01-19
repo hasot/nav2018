@@ -70,6 +70,7 @@ function preload() {
 
     initLevelsJson();
     initSounds();
+    hp = startHp;
 }
 var player;
 var map;
@@ -89,7 +90,6 @@ function create()
 	enemies = [];
 	deadEnemies = [];
 	corpses = [];
-	hp = startHp;
 	playerDead = false;
 
     createMap();
@@ -116,7 +116,7 @@ function create()
     createEnemy = new EnemyFactory(game, bullets);
     createDoor();
     enemies = [
-        // createEnemy.simpleOn(384, 224).thatMovesOn(288, 488),
+        createEnemy.simpleOn(384, 224).thatMovesOn(288, 488),
     	// createEnemy.shotingOn(300, 270),
     	// createEnemy.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
     	// createEnemy.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
@@ -182,13 +182,15 @@ function updateCorpses()
 		var needKill = corpse.sprite.y > bottomPos;
 		if (needKill)
 		{
+            corpse.sprite.kill();
+            corpses.splice(i, 1);
+
 			if (corpse.sprite.key == 'player')
 			{
+                hp = startHp
 				restart();
+                return;
 			}
-
-			corpse.sprite.kill();
-			corpses.splice(i, 1);
 		}
 		else i += 1;
 	}
