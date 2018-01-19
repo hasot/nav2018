@@ -31,7 +31,7 @@ function startNewLvl(){
                 levelNow += 1;
                 door.kill();
                 restart();
-              
+                copterNewLvl();
             }
        
     }
