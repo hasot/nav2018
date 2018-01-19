@@ -40,7 +40,7 @@ function isPlayerFootHit(enemy)
 {
 	if (playerFootHit == null) return false;
 
-	var hit = game.physics.arcade.collide(playerFootHit, enemy.sprite);
+	var hit = isPointInFootHitArea(enemy.sprite.x, enemy.sprite.y, enemy.sprite.height);
 
 	var playerDirection = discover == 'right' ? 1 : -1;
 	var enemyProtected = enemy.isHeavy
@@ -52,11 +52,12 @@ function isPlayerFootHit(enemy)
 
 function isPlayerHitJumpTo(enemy)
 {
-	var vertDist = Math.abs(player.y - enemy.sprite.y);
+	var playerBottom = player.y + player.height;
+	var vertDist = enemy.sprite.y - playerBottom;
 	var horDist = Math.abs(player.x - enemy.sprite.x);
 	var playerFalls = player.y > prevPos.y;
 
-	var hit = vertDist < 65 && vertDist > 50
+	var hit = vertDist > -5 && vertDist < 10
 			  && horDist < 32
 			  && playerFalls;
 
@@ -84,7 +85,10 @@ function updateEnemyBullets(bullets, friendBullets)
     	{
     		if (needRevert)
     		{
-    			var friendBullet = new FriendBullet(bullet.sprite.x, bullet.sprite.y, bullet.direction);
+    			var friendBullet = new FriendBullet(
+    									bullet.sprite.x, 
+    									bullet.sprite.y, 
+    									discover == 'right' ? 1 : -1);
     			friendBullet.sprite.frame = bullet.sprite.frame;
     			friendBullets.push(friendBullet);
     		}
@@ -101,13 +105,27 @@ function isNeedReverseBullet(bullet)
 	if (playerFootHit == null) return false;
 	if (!bullet.canRevert) return false;
 
-	var footX = discover == 'right' ? player.x + 32 : player.x - 32;
-	var footY = player.y;
-
-	var needRevert = Math.abs(footX - bullet.sprite.x) < 32
-					 && Math.abs(footY - bullet.sprite.y) < 64;
+	var needRevert = isPointInFootHitArea(bullet.sprite.x, bullet.sprite.y, bullet.sprite.height);
 
 	return needRevert;
+}
+
+function isPointInFootHitArea(pointX, pointY, height)
+{
+	var footX = discover == 'right' ? player.x + 32 : player.x - 32;
+	var footY = player.y + 8;
+
+	var distX = footX - pointX;
+	var pointHeightMiddle = pointY + height/2;
+	var distY = pointHeightMiddle - footY;
+
+	var collidesByX = discover == 'right' 
+					  ? distX >= -32 && distX <= 20
+					  : distX >= -20 && distX <= 32;
+
+	var collidesByY = distY >= 0 && distY <= 52;
+
+	return collidesByX && collidesByY;
 }
 
 function updateFriendBullets(bullets, enemies)

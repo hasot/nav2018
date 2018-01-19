@@ -23,17 +23,12 @@ FlyingEnemy.prototype.update = function()
 {
     if (!this.isAlive) return;
 
-    var location = this.isHorizontal ? this.sprite.body.x : this.sprite.body.y;
+    var location = this.isHorizontal ? this.sprite.x : this.sprite.y;
 
     if (location < this.minValue)
-    {
         this.movementDirection = 1;
-    }
     else if (location > this.maxValue)
-    {
-
         this.movementDirection = -1;
-    }
 
     var velocity = EnemySpeed * this.movementDirection;
     if (this.isHorizontal)
@@ -41,7 +36,7 @@ FlyingEnemy.prototype.update = function()
     else
         this.sprite.body.velocity.y = velocity;
 
-    if (player.body.x < this.sprite.body.x)
+    if (player.x < this.sprite.x)
     {
         this.sprite.animations.play('standL');
         this.direction = -1;
