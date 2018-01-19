@@ -116,22 +116,22 @@ function create()
     createEnemy = new EnemyFactory(game, bullets);
     createDoor();
     enemies = [
-        // createEnemy.simpleOn(384, 224).thatMovesOn(288, 488),
-    	// createEnemy.shotingOn(300, 270),
-    // 	createEnemy.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
-    // 	createEnemy.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
+        createEnemy.simpleOn(384, 224).thatMovesOn(288, 488),
+    	createEnemy.shotingOn(300, 270),
+    	createEnemy.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
+    	createEnemy.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
 
-    // 	createEnemy.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
-    // 	createEnemy.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
-    // 	createEnemy.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
+    	createEnemy.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
+    	createEnemy.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
+    	createEnemy.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
     	];
 
     initDoshiki();
 
-    // createDoshik(400, 400);
+    createDoshik(400, 400);
     // createDoshik(450, 400);
 
-    hud = new HUD(hp, 0);
+    hud = new HUD(hp, score);
 
     // boss = new BossMed(384, 210);
 
@@ -161,6 +161,7 @@ function update()
 	updatePlayer(enemies);
     updatePreviousPos(player);
     updateCorpses();
+
     hud.update();
     if (boss != null)
         boss.update();
@@ -200,6 +201,15 @@ function restart()
     bg.kill();
     layer.kill();
     doshiki.kill();
+    moneys.kill();
+
+    for (var i = 0; i < enemies.length; ++i)
+    {
+        if (enemies[i].isHeavy)
+            killHeavyEnemy(enemies[i]);
+    }
+
+
     killArray(enemies);
     killArray(bullets);
     killArray(friendBullets);
