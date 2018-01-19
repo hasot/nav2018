@@ -15,6 +15,14 @@ HUD = function(hp, money)
 	this.moneyText.fixedToCamera = true;
 }
 
+HUD.prototype.clear = function()
+{
+	for (var i = 0; i < this.lifes.length; ++i)
+		this.lifes[i].kill();
+
+	this.moneyText.kill();
+}
+
 HUD.prototype.addHP = function() 
 {
 	var x = (this.lifes.length + 1) * (16 + this.indent);
