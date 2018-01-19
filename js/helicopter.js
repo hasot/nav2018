@@ -4,8 +4,8 @@ var imageCopterM = [];
 var copterPrice = 50;
 var index = 0
 
-function helicopter(){
-    console.log(game.camera.view.x)
+function helicopter()
+{
     copter = game.add.sprite(game.camera.view.x, 40, 'helicopter');
     game.physics.enable(copter, Phaser.Physics.ARCADE);
     copter.animations.add('anim', [0, 1], 20, true);

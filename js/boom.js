@@ -3,7 +3,7 @@ var booms;
 function boom()
 {
     //  Create a star inside of the 'stars' group
-    var boom = booms.create(game.world.randomX, game.world.randomY, 'boom');
+    var boom = booms.create(game.camera.view.randomX, game.camera.view.randomY, 'boom');
     //  Let gravity do its thing
     boom.body.bounce.x = 0.3 + Math.random() * 0.02;
     boom.body.bounce.y = 0.3 + Math.random() * 0.02;
