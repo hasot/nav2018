@@ -12,7 +12,7 @@ function initLevelsJson(){
 
 function createMap(){
       //  A simple background for our game
-      bg = game.add.tileSprite(0, 0, 4096,480, 'background');
+      bg = game.add.tileSprite(0, 0, 4096, 550, 'background');
       
         map = game.add.tilemap(levelOne[levelNow]);
           map.addTilesetImage('tiles-1');

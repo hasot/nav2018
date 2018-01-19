@@ -176,6 +176,17 @@ function updatePlayer(enemies)
       
         player.alpha = player.alpha > 0.5 ? player.alpha - 0.1 : 1;
     }
+
+    checkFallToBottom();
+}
+
+function checkFallToBottom()
+{
+    if (player.y >= 445)
+    {
+        while (hp > 0)
+            hitPlayer();
+    }
 }
 
 function isPlayerDamaged()

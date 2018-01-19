@@ -75,9 +75,9 @@ EnemyBullet.prototype.update = function(layer, player)
 
 EnemyBullet.prototype.isCollidesWith = function(layer, player)
 {
-    var x = this.sprite.body.x;
-    var isOutOfCamera = x  < game.camera.view.x 
-                        || x > game.camera.view.x + game.camera.view.width;
+    var bulletX = this.sprite.x;
+    var isOutOfCamera = bulletX  < game.camera.view.x 
+                        || bulletX > game.camera.view.x + game.camera.view.width;
     var collideWithlayer =  game.physics.arcade.collide(this.sprite, layer);
     var collideWithPlayer = !isPlayerDamaged() 
                             && game.physics.arcade.collide(this.sprite, player)
@@ -96,6 +96,5 @@ EnemyBullet.prototype.isCollidesWith = function(layer, player)
     }
 
     var res = isOutOfCamera || collideWithlayer || collideWithPlayer;
-
     return res;
 };

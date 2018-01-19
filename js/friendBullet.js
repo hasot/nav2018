@@ -3,7 +3,7 @@ FriendBullet = function(x, y, direction)
 {
     this.sprite = game.add.sprite(x, y, 'enemyBullet');
     game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
-    this.direction = direction * (-1);
+    this.direction = direction;
 }
 
 FriendBullet.prototype.update = function(platforms, player) 
