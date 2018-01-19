@@ -23,6 +23,7 @@
     <script src="js/introText.js"></script>
     <script src="js/newLevelDoor.js"></script>
     <script src="js/sounds.js"></script>
+    <script src="js/world/levelChapter1.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -42,40 +43,32 @@ var corpses;
 var hud;
 
 function preload() {
-    game.load.image('background', 'assets/level1Background.png');
-    game.load.image('ground', 'assets/platform.png');
-    game.load.spritesheet('player', 'assets/player.png', 32, 64);
-    game.load.spritesheet('enemy', 'assets/enemy.png', 32, 64);
-    game.load.spritesheet('helicopter', 'assets/helicopter.png', 99, 64);
-    game.load.spritesheet('money', 'assets/money.png', 32, 32);    
-	game.load.spritesheet('shotingEnemy', 'assets/shotingEnemy.png', 32, 64);
-    game.load.spritesheet('enemyBullet', 'assets/enemyBullet.png', 32, 32);
-    game.load.spritesheet('flyingEnemy', 'assets/flyingEnemy.png', 32, 64);
-    game.load.spritesheet('heavyEnemy', 'assets/heavyEnemy.png', 32, 64);
-    game.load.spritesheet('boom', 'assets/explode.png', 128, 128, 18);
-    game.load.spritesheet('heavyEnemyShield', 'assets/heavyEnemyShield.png', 32, 64);
-    game.load.spritesheet('heavyEnemyHelmet', 'assets/heavyEnemyHelmet.png', 32, 64);
-    game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles-1', 'assets/tiles-1.png');
-    game.load.spritesheet('playerFoot', 'assets/hit.png', 64, 64);
-    game.load.spritesheet('bossMed', 'assets/bossMed.png', 48, 78);
-    game.load.spritesheet('smoke', 'assets/smoke.png', 128, 128);
-    game.load.image('greenSpot', 'assets/green.png');
-    game.load.image('mandat', 'assets/hp.png');
-    game.load.image('bossMedHP', 'assets/bossMedHP.png');
-    game.load.spritesheet('playerHP', 'assets/playerHP.png', 32, 32);
-    game.load.image('introText', 'assets/textView.png');
-    game.load.spritesheet('face', 'assets/face.png', 128, 128);
-    game.load.spritesheet('bossMedFace', 'assets/bossMedFace.png', 128, 128);
+    game.load.image('background', 'assets/image/level1Background.png');
+    game.load.image('ground', 'assets/image/platform.png');
+    game.load.spritesheet('player', 'assets/image/player.png', 32, 64);
+    game.load.spritesheet('enemy', 'assets/image/enemy.png', 32, 64);
+    game.load.spritesheet('helicopter', 'assets/image/helicopter.png', 99, 64);
+    game.load.spritesheet('money', 'assets/image/money.png', 32, 32);    
+	game.load.spritesheet('shotingEnemy', 'assets/image/shotingEnemy.png', 32, 64);
+    game.load.spritesheet('enemyBullet', 'assets/image/enemyBullet.png', 32, 32);
+    game.load.spritesheet('flyingEnemy', 'assets/image/flyingEnemy.png', 32, 64);
+    game.load.spritesheet('heavyEnemy', 'assets/image/heavyEnemy.png', 32, 64);
+    game.load.spritesheet('boom', 'assets/image/explode.png', 128, 128, 18);
+    game.load.spritesheet('heavyEnemyShield', 'assets/image/heavyEnemyShield.png', 32, 64);
+    game.load.spritesheet('heavyEnemyHelmet', 'assets/image/heavyEnemyHelmet.png', 32, 64);
+    game.load.spritesheet('playerFoot', 'assets/image/hit.png', 64, 64);
+    game.load.spritesheet('bossMed', 'assets/image/bossMed.png', 48, 78);
+    game.load.spritesheet('smoke', 'assets/image/smoke.png', 128, 128);
+    game.load.image('greenSpot', 'assets/image/green.png');
+    game.load.image('mandat', 'assets/image/hp.png');
+    game.load.image('bossMedHP', 'assets/image/bossMedHP.png');
+    game.load.spritesheet('playerHP', 'assets/image/playerHP.png', 32, 32);
+    game.load.image('introText', 'assets/image/textView.png');
+    game.load.spritesheet('face', 'assets/image/face.png', 128, 128);
+    game.load.spritesheet('bossMedFace', 'assets/image/bossMedFace.png', 128, 128);
+    game.load.spritesheet('door', 'assets/image/door.png', 128, 128);
 
-
-    game.load.tilemap('level1', 'assets/level1.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.tilemap('level1Boss', 'assets/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles-1', 'assets/tiles-1.png');
-
-    game.load.spritesheet('door', 'assets/door.png', 128, 128);
-
+    initLevelsJson();
     initSounds();
 }
 var player;
@@ -87,11 +80,7 @@ var boss = null;
 var createEnemy;
 var greenSpot = null;
 var intro;
-
-var levelOne = ['level1', 'level1Boss'];
-var levelNow = 0;
-
-
+var score = 0;
 
 function create() 
 {
@@ -103,20 +92,7 @@ function create()
 	hp = startHp;
 	playerDead = false;
 
-    //  A simple background for our game
-    bg = game.add.tileSprite(0, 0, 4096,480, 'background');
-
-    
-//    map = game.add.tilemap('level1Boss');
-    map = game.add.tilemap(levelOne[levelNow]);
-    
-    map.addTilesetImage('tiles-1');
-
-    map.setCollisionByExclusion([ 273,274,293,294,277,278,297,298,317,318, 46 ]);
-
-    layer = map.createLayer('Tile Layer 1');
-
-    layer.resizeWorld();
+    createMap();
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -161,8 +137,6 @@ function create()
 
     // intro = GetTestIntro();
 }
-
-var score = 0;
 
 function update() 
 {
