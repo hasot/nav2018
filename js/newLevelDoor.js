@@ -8,7 +8,7 @@ function createDoor()
         doors = game.add.group();
         doors.enableBody = true;
     //    var door = doors.create(game.world.bounds.width-20, 448, 'door');
-     door = doors.create(100, 448, 'door');
+     door = doors.create(4075, 448, 'door');
     }
 }
 
