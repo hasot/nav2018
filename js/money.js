@@ -2,16 +2,38 @@ var moneys;
 
 var score = 0;
 
+var moneyCoordinate = [
+    [
+        { x: 205, y: 310},
+        { x: 235, y: 310},
+        { x: 265, y: 310},
+        { x: 490, y: 195},
+        { x: 520, y: 195},
+        { x: 550, y: 195},
+        { x: 500, y: 452},
+        { x: 530, y: 452},
+        { x: 560, y: 452}
+    ],
+    [
+        { x: 100, y: 300}
+    ],
+    [
+        { x: 100, y: 300}
+    ],
+    [
+        
+    ]
+]
 function money(){
     moneys = game.add.group();
     
         moneys.enableBody = true;
     
         //  Here we'll create 12 of them evenly spaced apart
-        for (var i = 0; i < 30; i++)
+        for (var i = 0; i < moneyCoordinate[levelNow].length; i++)
         {
             //  Create a star inside of the 'stars' group
-            var money = moneys.create(game.world.randomX, game.world.randomY, 'money', 0);
+            var money = moneys.create(moneyCoordinate[levelNow][i].x, moneyCoordinate[levelNow][i].y, 'money', 0);
             //  Let gravity do its thing
             money.body.gravity.y = 0;
             //  This just gives each star a slightly random bounce value
@@ -27,7 +49,7 @@ function collectMoney (player, money) {
         money.kill();
         //  Add and update the score
 
-        score += 10;
+        score += 1;
 
         hud.updateScore();
 }

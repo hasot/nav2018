@@ -1,7 +1,7 @@
 var copter;
 var imageCopter;
 var imageCopterM = [];
-var copterPrice = 10;
+var copterPrice = 50;
 var index = 0
 
 function helicopter()
