@@ -180,7 +180,15 @@ BossMed.prototype.checkHit = function()
 		if (hit)
 		{
 			this.hp -= 1;
+			if(this.hp == 0 )
+			{
+				dieMedSound.play('dieMed');
+			} else {
+				painMedSound.play('painMed');
+			}
+		
 			hud.removeBossHP();
+		
 			this.damageTimer = 100;	
 
 			if (this.state != 'walk')
@@ -355,6 +363,7 @@ BossMed.prototype.tryShot = function()
 {
 	if (this.shotCount < this.maxShotCount)
 	{
+		shotMedSound.play('shotMed');
 		var shotDirection = Math.sign(player.x - this.sprite.x);
 		var isDuck = this.shotDuck();
 		var bullet = new EnemyBullet(this.sprite.x, this.sprite.y + 40, shotDirection, isDuck);

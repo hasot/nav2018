@@ -10,6 +10,9 @@ var painNavSound;
 var shotSound;
 var dieNavSound;
 
+var dieMedSound;
+var shotMedSound;
+var painMedSound;
 function initSounds() {
     game.load.audio('money', [ 'assets/audio/money.wav' ]);
     game.load.audio('kick', [ 'assets/audio/kick.wav' ]);
@@ -22,6 +25,10 @@ function initSounds() {
     
     game.load.audio('shot', [ 'assets/audio/shot.wav' ]);
     game.load.audio('deathMob', [ 'assets/audio/deathMob.wav' ]);
+
+    game.load.audio('dieMed', [ 'assets/audio/dieMed.wav' ]);
+    game.load.audio('shotMed', [ 'assets/audio/shotMed.wav' ]);
+    game.load.audio('painMed', [ 'assets/audio/painMed.wav' ]);
 }
 
 function createSounds() {
@@ -36,6 +43,10 @@ function createSounds() {
     shotSound = game.add.audio('shot');
     dieNavSound = game.add.audio('dieNav');
 
+    dieMedSound = game.add.audio('dieMed');
+    shotMedSound = game.add.audio('shotMed');
+    painMedSound = game.add.audio('painMed');
+
     moneySound.addMarker('money', 0, 0.9, 0.1);
     kickSound.addMarker('kick', 0, 0.9, 0.1);
     jumpSound.addMarker('jump', 0, 0.9, 0.1);
@@ -46,6 +57,10 @@ function createSounds() {
     painNavSound.addMarker('painNav', 0, 0.9, 0.1);
     shotSound.addMarker('shot', 0, 0.9, 0.1);
     dieNavSound.addMarker('dieNav', 0, 0.9, 0.1);
+
+    dieMedSound.addMarker('dieMed', 0, 0.9, 0.1);
+    shotMedSound.addMarker('shotMed', 0, 0.9, 0.1);
+    painMedSound.addMarker('painMed', 0, 0.9, 0.1);
 
 }
 
