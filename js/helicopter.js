@@ -67,7 +67,7 @@ function copterKillEnemy(enemies) {
 var position;
 function copterLogo(){
 
-    if (score > copterPrice-1 && index != Math.floor(score / copterPrice)) {W
+    if (score > copterPrice-1 && index != Math.floor(score / copterPrice)) {
         index +=1;
         if (Math.floor(score / copterPrice) > 1) {
             position = 20 + 30 * (Math.floor(score / copterPrice)-1);
