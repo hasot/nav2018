@@ -189,7 +189,8 @@ function updateCorpses()
 			if (corpse.sprite.key == 'player')
 			{
                 hp = startHp
-				restart();
+                restart();
+                copterNewLvl();
                 return;
 			}
 		}
@@ -219,7 +220,8 @@ function restart()
 
     player.kill();
 
-	create();
+    create();
+    
 }
 
 function killArray(arr)
