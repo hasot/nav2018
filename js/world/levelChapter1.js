@@ -3,10 +3,10 @@ var levelOne = ['level1Part1','level1Part2', 'level1Part3','level1Boss'];
 var levelNow = 0;
 
 function initLevelsJson(){
-    game.load.tilemap('level1Part1', 'assets/levelsJson/level1Part1.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.tilemap('level1Part2', 'assets/levelsJson/level1Part2.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.tilemap('level1Part3', 'assets/levelsJson/level1Part3.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.tilemap('level1Boss', 'assets/levelsJson/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Part1', 'levelsJson/level1Part1.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Part2', 'levelsJson/level1Part2.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Part3', 'levelsJson/level1Part3.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.tilemap('level1Boss', 'levelsJson/level1Boss.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles-1', 'assets/image/tiles-1.png');
 }
 
