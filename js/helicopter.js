@@ -67,8 +67,7 @@ function copterKillEnemy(enemies) {
 var position;
 function copterLogo(){
 
-    if (score > copterPrice-1 && index != Math.floor(score / copterPrice)) {
-        console.log('2', index);
+    if (score > copterPrice-1 && index != Math.floor(score / copterPrice)) {W
         index +=1;
         if (Math.floor(score / copterPrice) > 1) {
             position = 20 + 30 * (Math.floor(score / copterPrice)-1);
@@ -85,7 +84,6 @@ function copterNewLvl(){
     imageCopterM = [];
     if (score > 0) {
         for (var j=1; j<= Math.floor(score / copterPrice); j++){
-            console.log('1imageCopterM');
         if (j > 1) {
             position = 20 + 30 * (j-1);
         } else {
