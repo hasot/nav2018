@@ -2,13 +2,19 @@ var doors;
 var door
 var goNavNewlvl = false;
 
+var lvlDoorCoordinate = [
+        {x:4060, y:448},
+        {x:4060, y:448},
+        {x:4060, y:448}
+]
+
 function createDoor()
 {
     if(levelNow != levelOne.length-1)
     {
         doors = game.add.group();
         doors.enableBody = true;
-        door = doors.create(100, 448, 'door', 0);
+        door = doors.create(lvlDoorCoordinate[levelNow].x, lvlDoorCoordinate[levelNow].y, 'door', 0);
     }
 }
 
