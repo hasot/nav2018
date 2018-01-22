@@ -29,7 +29,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 5;
-	this.hp = 12;
+	this.hp = 3;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -48,6 +48,7 @@ BossMed = function(x, y)
 
 	this.damageTimer = 0;
 	this.lastDuck = 0;
+	this.alive = true;
 
 	hud.createBossHP(this.hp, 'bossMedHP');
 }
@@ -56,12 +57,20 @@ BossMed.prototype.update = function()
 {
 	this.updateState();
 
-	this.checkHit();
-	this.checkPlayerDamage();
-	this.checkEnemyCreation();
+	if (this.alive)
+	{
+		this.checkHit();
+		this.checkPlayerDamage();
+		this.checkEnemyCreation();
 
-	this.updateSmoke();
-	this.updateDamageTimer();
+		this.updateSmoke();
+		this.updateDamageTimer();
+	}
+	else
+	{
+		if (this.deadSprite.frame == 5)
+			console.log('GAME OVER)))');
+	}
 };
 
 
@@ -181,20 +190,30 @@ BossMed.prototype.checkHit = function()
 		{
 			this.hp -= 1;
 			if(this.hp == 0 )
-			{
 				dieMedSound.play('dieMed');
-			} else {
+			else 
 				painMedSound.play('painMed');
-			}
 		
 			hud.removeBossHP();
-		
-			this.damageTimer = 100;	
 
-			if (this.state != 'walk')
+			if (this.hp == 0)
 			{
-				this.startStand();
-				this.startChangePosition();
+				this.state = 'die';
+				this.deadSprite = game.add.sprite(this.sprite.x - 10, this.sprite.y, 'bossMedDeath');
+				this.deadSprite.animations.add('die', [0, 0, 1, 2, 2, 3, 3, 4, 4, 4, 5], 1, false);
+				this.deadSprite.animations.play('die');
+				this.alive = false;
+				this.sprite.kill();
+			}
+			else
+			{
+				this.damageTimer = 100;	
+
+				if (this.state != 'walk')
+				{
+					this.startStand();
+					this.startChangePosition();
+				}
 			}
 		}
 		else i += 1;
