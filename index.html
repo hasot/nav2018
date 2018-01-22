@@ -25,6 +25,7 @@
     <script src="js/newLevelDoor.js"></script>
     <script src="js/sounds.js"></script>
     <script src="js/world/levelChapter1.js"></script>
+    <script src="js/enemyCoordinate/enemyLvl1.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -116,19 +117,9 @@ function create()
 
     createEnemy = new EnemyFactory(game, bullets);
     createDoor();
-    enemies = [
-        //createEnemy.simpleOn(384, 224).thatMovesOn(288, 488),
-    	// createEnemy.shotingOn(300, 270),
-    	// createEnemy.flyingOn(416, 96).thatMovesHorizontalOn(256, 480),
-    	// createEnemy.flyingOn(544, 160).thatMovesVerticalOn(32, 288),
 
-    	// createEnemy.heavyOn(384, 352).thatMovesOn(192, 512).withShield(),
-    	// createEnemy.heavyOn(64, 236).thatMovesOn(0, 160).withFullArmor(),
-    	// createEnemy.heavyOn(32, 86).thatMovesOn(32, 192).withHelmet(),
-    	];
-
+    initEnemy();
     initDoshiki();
-
     createDoshik(400, 400);
     // createDoshik(450, 400);
 
