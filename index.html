@@ -30,6 +30,9 @@
     <script src="js/itemLvl/money.js"></script>
     <script src="js/itemLvl/doshik.js"></script>
     <script src="js/itemLvl/enemyLvl1.js"></script>
+
+    <script src="js/deathScreen.js"></script>
+
     <style type="text/css">
         body {
             margin: 0;
@@ -164,31 +167,6 @@ function update()
     if (intro != null)
         intro.update();
     }
-}
-
-function updateCorpses()
-{
-	var i = 0;
-	while (i < corpses.length)
-	{
-		var corpse = corpses[i];
-		var bottomPos = game.camera.view.y + game.camera.view.height
-		var needKill = corpse.sprite.y > bottomPos;
-		if (needKill)
-		{
-            corpse.sprite.kill();
-            corpses.splice(i, 1);
-
-			if (corpse.sprite.key == 'player')
-			{
-                hp = startHp;
-                score = 0;
-                restart();
-                return;
-			}
-		}
-		else i += 1;
-	}
 }
 
 function restart()

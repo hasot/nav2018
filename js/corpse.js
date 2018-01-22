@@ -10,3 +10,29 @@ Corpse = function(x, y, direction, spriteName, frame)
 	this.sprite.body.velocity.y = -150;
 	this.sprite.body.gravity.y = 600;
 }
+
+function updateCorpses()
+{
+	var i = 0;
+	while (i < corpses.length)
+	{
+		var corpse = corpses[i];
+		var bottomPos = game.camera.view.y + game.camera.view.height
+		var needKill = corpse.sprite.y > bottomPos;
+		if (needKill)
+		{
+            corpse.sprite.kill();
+            corpses.splice(i, 1);
+
+			if (corpse.sprite.key == 'player')
+			{
+				ClearDeathScreen();
+                hp = startHp;
+                score = 0;
+                restart();
+                return;
+			}
+		}
+		else i += 1;
+	}
+}
