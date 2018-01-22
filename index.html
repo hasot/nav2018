@@ -147,25 +147,33 @@ function update()
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectMoney function
 
     copterAttack = updateCopter(layer, player, enemies);
-    if (goNavNewlvl) { startNewLvl(); // for new go new lvl
-    } else {
-        if (copterAttack) {
-        keyPlayer(hitPlatform);
-    }
-    updateEnemyBullets(bullets, friendBullets);
-    updateEnemies(player);
-	updateFriendBullets(friendBullets, enemies);
-	updatePlayer(enemies);
-    updatePreviousPos(player);
-    updateCorpses();
+    if (goNavNewlvl) 
+    { 
+        startNewLvl(); // for new go new lvl
+    } 
+    else 
+    {
+        if (copterAttack) 
+        {
+            keyPlayer(hitPlatform);
+        }
 
-    hud.update();
-    if (boss != null)
-        boss.update();
-    if (greenSpot != null)
-        greenSpot.update();
-    if (intro != null)
-        intro.update();
+        updateEnemyBullets(bullets, friendBullets);
+        updateEnemies(player);
+    	updateFriendBullets(friendBullets, enemies);
+    	updatePlayer(enemies);
+        updatePreviousPos(player);
+        updateCorpses();
+
+        hud.update();
+        if (boss != null)
+            boss.update();
+        if (greenSpot != null)
+            greenSpot.update();
+        if (intro != null)
+            intro.update();
+        if (gamepad != null)
+            gamepad.update();
     }
 }
 

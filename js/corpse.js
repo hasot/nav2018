@@ -23,15 +23,6 @@ function updateCorpses()
 		{
             corpse.sprite.kill();
             corpses.splice(i, 1);
-
-			if (corpse.sprite.key == 'player')
-			{
-				ClearDeathScreen();
-                hp = startHp;
-                score = 0;
-                restart();
-                return;
-			}
 		}
 		else i += 1;
 	}

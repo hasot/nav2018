@@ -200,8 +200,8 @@ function hitPlayer()
     hud.removeHP();
     if (hp <= 0)
     {
-        new DeathScreen();
-        
+        ShowDeathScreen();
+
         var playerCorpse = new Corpse(
                                 player.x, player.y, 
                                 discover == "right" ? 1 : -1, 

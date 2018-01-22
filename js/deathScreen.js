@@ -6,7 +6,7 @@ var deathQuotes =
 	"Где-то радостно смеется коррупционер",
 ];
 
-DeathScreen = function()
+function ShowDeathScreen()
 {
 	if (deathScreen != null) ClearDeathScreen();
 
@@ -31,6 +31,7 @@ DeathScreen = function()
 						});
 
 	deathScreen = this;
+	gamepad = new GamepadListener();
 }
 
 function ClearDeathScreen()
@@ -38,14 +39,22 @@ function ClearDeathScreen()
 	deathScreen.mainText.kill();
 	deathScreen.quote.kill();
 	deathScreen.continueText.kill();
+	gamepad = null;
 }
 
+var gamepad;
 GamepadListener = function()
 {
-
+	this.continueButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 }
 
 GamepadListener.prototype.update = function()
 {
-	
+	if (this.continueButton.isDown)
+	{
+		ClearDeathScreen();
+		hp = startHp;
+        score = 0;
+        restart();
+	}
 };
