@@ -1,10 +1,24 @@
 var doshiki;
 
+var doshikCoordinate = [[
+	{x:2297, y: 450},
+	{x:1700, y: 339},
+	{x:3280, y: 195},
+],
+[],
+[],
+[]
+]
+
 function initDoshiki()
 {
 	doshiki = game.add.group();
 	doshiki.enableBody = true;
+	for (var i=0; i < doshikCoordinate[levelNow].length; i++) {
+		createDoshik(doshikCoordinate[levelNow][i].x, doshikCoordinate[levelNow][i].y);
+	}
 }
+
 
 function createDoshik(x, y)
 {
