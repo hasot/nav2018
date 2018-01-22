@@ -35,7 +35,7 @@ function initEnemy() {
         case 1:  enemies =[]; break;
         case 2:  enemies =[]; break;
         default:
-          console.log('Sorry, we are out of ' + levelNow + '.');
+            enemies =[];
       }
 
     enemies
