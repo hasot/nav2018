@@ -1,7 +1,6 @@
 GreenSpot = function()
 {
 	this.sprite = game.add.sprite(game.camera.view.x, game.camera.view.y, 'greenSpot');
-	this.sprite.fixedToCamera = true;
 }
 
 GreenSpot.prototype.update = function() 

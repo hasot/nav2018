@@ -13,7 +13,7 @@ FriendBullet.prototype.update = function(platforms, player)
 
 FriendBullet.prototype.isCollidesWith = function(platforms)
 {
-    var x = this.sprite.body.x;
+    var x = this.sprite.x;
     var isOutOfCamera = x  < game.camera.view.x 
                         || x > game.camera.view.x + game.camera.view.width;
     var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
