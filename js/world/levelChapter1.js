@@ -17,7 +17,6 @@ function createMap(){
         map = game.add.tilemap(levelOne[levelNow]);
           map.addTilesetImage('tiles-1');
           map.setCollisionByExclusion([ 273,274,293,294,277,278,297,298,317,318, 46 ]);
-      
           layer = map.createLayer('Tile Layer 1');
       
           layer.resizeWorld();

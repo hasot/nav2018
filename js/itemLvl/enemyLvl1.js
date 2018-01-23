@@ -113,7 +113,7 @@ function initEnemy() {
             
         ]; break;
         default:
-            enemies =[];
+            boss = new BossMed(384, 210);
       }
 
     enemies

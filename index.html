@@ -127,12 +127,12 @@ function create()
     createEnemy = new EnemyFactory(game, bullets);
     createDoor();
 
+    hud = new HUD(hp, score);
+
     initEnemy();
     initDoshiki();
 
-    hud = new HUD(hp, score);
 
-    // boss = new BossMed(384, 210);
 
     // intro = GetTestIntro();
 }
