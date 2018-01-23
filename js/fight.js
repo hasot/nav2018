@@ -57,7 +57,9 @@ function isPlayerHitJumpTo(enemy)
 	var horDist = Math.abs(player.x - enemy.sprite.x);
 	var playerFalls = player.y > prevPos.y;
 
-	var hit = vertDist > -5 && vertDist < 10
+	var maxHeight = enemy.isHeavy && enemy.useHelmet ? 15 : 10;
+
+	var hit = vertDist > -5 && vertDist < maxHeight
 			  && horDist < 32
 			  && playerFalls;
 
