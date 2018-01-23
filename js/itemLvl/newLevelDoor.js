@@ -27,9 +27,7 @@ function goNewLvl(player, door)
 
 function startNewLvl(){
     if (goNavNewlvl) {
-        console.log('first', player.alpha);
             player.alpha -= 0.1;
-            console.log('second', player.alpha);
             if (player.alpha < 0.1) {
                 goNavNewlvl = false;
                 levelNow += 1;
