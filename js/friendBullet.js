@@ -30,12 +30,14 @@ FriendBullet.prototype.isCollidesWithEnemy = function(enemies)
     {  
         var enemy = enemies[i];
         var bulletHit = game.physics.arcade.collide(this.sprite, enemy.sprite);
-
+        var protected = enemy.isHeavy && enemy.useShield && this.direction != enemy.direction;
         if (bulletHit)
         {
-            killEnemy(enemy);
-
-            enemies.splice(i, 1);
+            if (!protected)
+            {
+                killEnemy(enemy);
+                enemies.splice(i, 1);
+            }
             return true;
         }
         else i += 1;
