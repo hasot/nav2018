@@ -1,6 +1,6 @@
 
 var levelOne = ['level1Part1','level1Part2', 'level1Part3','level1Boss'];
-var levelNow = 0;
+var levelNow = 2;
 
 function initLevelsJson(){
     game.load.tilemap('level1Part1', 'levelsJson/level1Part1.json', null, Phaser.Tilemap.TILED_JSON);

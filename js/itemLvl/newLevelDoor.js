@@ -5,7 +5,7 @@ var goNavNewlvl = false;
 var lvlDoorCoordinate = [
         {x:100, y:448},
         {x:4060, y:170},
-        {x:4060, y:448}
+        {x:4060, y:176}
 ]
 
 function createDoor()

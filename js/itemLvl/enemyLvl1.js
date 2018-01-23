@@ -84,7 +84,34 @@ function initEnemy() {
 
 
         ]; break;
-        case 2:  enemies =[]; break;
+        case 2:  enemies =[
+            createEnemy.shotingOn(525, 320),
+            createEnemy.shotingOn(405, 145),
+            createEnemy.shotingOn(1920, 145),
+            createEnemy.shotingOn(3160, 145),
+
+
+            createEnemy.flyingOn(871, 73).thatMovesHorizontalOn(771, 971),
+            createEnemy.flyingOn(1616, 325).thatMovesHorizontalOn(1516, 1716),
+            createEnemy.flyingOn(2215, 83).thatMovesHorizontalOn(2115, 2315),
+            createEnemy.flyingOn(2265, 338).thatMovesHorizontalOn(2115, 2365),
+            createEnemy.flyingOn(3800, 100).thatMovesHorizontalOn(3700, 3900),
+            createEnemy.flyingOn(1155, 255).thatMovesVerticalOn(155, 355),
+            createEnemy.flyingOn(2665, 340).thatMovesVerticalOn(240, 440),
+
+            createEnemy.heavyOn(2140, 417).thatMovesOn(2036, 2240).withFullArmor(),
+            createEnemy.heavyOn(2040, 417).thatMovesOn(2036, 2240).withFullArmor(),
+
+            createEnemy.simpleOn(3000, 417).thatMovesOn(2941, 3100),
+            createEnemy.heavyOn(3100, 417).thatMovesOn(2941, 3200).withHelmet(),
+            createEnemy.heavyOn(3200, 417).thatMovesOn(3100, 3300).withShield(),
+            createEnemy.heavyOn(3300, 417).thatMovesOn(3200, 3400).withFullArmor(),
+            createEnemy.heavyOn(3500, 417).thatMovesOn(3400, 3700).withShield(),
+            createEnemy.heavyOn(3650, 417).thatMovesOn(3500, 3800).withFullArmor(),
+            createEnemy.shotingOn(3400, 417),
+            createEnemy.shotingOn(3700, 417),
+            
+        ]; break;
         default:
             enemies =[];
       }

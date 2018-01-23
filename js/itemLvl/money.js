@@ -309,6 +309,17 @@ function money(){
         moneys.enableBody = true;
     
         //  Here we'll create 12 of them evenly spaced apart
+        if (levelNow == 2) {
+            for (var i = 0; i < 150; i++)
+            {
+                //  Create a star inside of the 'stars' group
+                var money = moneys.create(game.world.randomX, game.world.randomY, 'money', 0);
+                //  Let gravity do its thing
+                money.body.gravity.y = 0;
+                //  This just gives each star a slightly random bounce value
+                money.body.bounce.y = 0.3 + Math.random() * 0.02;
+            }
+        } else {
         for (var i = 0; i < moneyCoordinate[levelNow].length; i++)
         {
             //  Create a star inside of the 'stars' group
@@ -318,6 +329,7 @@ function money(){
             //  This just gives each star a slightly random bounce value
             money.body.bounce.y = 0.3 + Math.random() * 0.02;
         }
+    }
         moneys.callAll('animations.add', 'animations', 'spin', [0, 1, 2, 3, 2, 1, 0], 5, true);  
         moneys.callAll('animations.play', 'animations', 'spin');  
 }
