@@ -16,10 +16,10 @@ BossMed = function(x, y)
 		new Phaser.Point(132, 258),
 		new Phaser.Point(315, 258),
 		new Phaser.Point(480, 258),
-		new Phaser.Point(220, 401),
-		new Phaser.Point(403, 401),
-		new Phaser.Point(21, 401),
-		new Phaser.Point(600, 401),
+		new Phaser.Point(220, 402),
+		new Phaser.Point(403, 402),
+		new Phaser.Point(21, 402),
+		new Phaser.Point(600, 402),
 		];
 
 	this.timer = 0;
@@ -29,7 +29,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 5;
-	this.hp = 3;
+	this.hp = 12;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -102,7 +102,7 @@ BossMed.prototype.updateSmoke = function()
 
 BossMed.prototype.checkEnemyCreation = function()
 {
-	var needCreateEnemy = this.hp <= 9
+	var needCreateEnemy = this.hp <= 7
 						  && enemies.length < 5 
 						  && this.enemyCreationTimer <= 0
 						  && this.nextEnemy == null;
@@ -198,12 +198,7 @@ BossMed.prototype.checkHit = function()
 
 			if (this.hp == 0)
 			{
-				this.state = 'die';
-				this.deadSprite = game.add.sprite(this.sprite.x - 10, this.sprite.y, 'bossMedDeath');
-				this.deadSprite.animations.add('die', [0, 0, 1, 2, 2, 3, 3, 4, 4, 4, 5], 1, false);
-				this.deadSprite.animations.play('die');
-				this.alive = false;
-				this.sprite.kill();
+				this.die();
 			}
 			else
 			{
@@ -405,7 +400,25 @@ BossMed.prototype.tryShot = function()
 
 BossMed.prototype.shotDuck = function()
 {
-	return this.hp >= 12 || this.lastDuck > 4
+	return this.hp >= 10 || this.lastDuck > 4
 		   ? true
 		   : getRandomInt(0, 4) == 0;
+}
+
+BossMed.prototype.die = function()
+{
+	this.state = 'die';
+	this.deadSprite = game.add.sprite(this.sprite.x - 10, this.sprite.y, 'bossMedDeath');
+	this.deadSprite.animations.add('die', [0, 0, 1, 2, 2, 3, 3, 4, 4, 4, 5], 1, false);
+	this.deadSprite.animations.play('die');
+	this.alive = false;
+	this.sprite.kill();
+
+	for (var i = 0; i < enemies.length; ++i)
+		killEnemy(enemies[i]);
+	enemies = [];
+
+	for (var i = 0; i < bullets.length; ++i)
+		bullets[i].sprite.kill();
+	bullets = [];
 }
