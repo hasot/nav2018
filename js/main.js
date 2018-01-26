@@ -32,7 +32,7 @@ function preload() {
     game.load.image('introText', 'assets/image/textView.png');
     game.load.spritesheet('face', 'assets/image/face.png', 128, 128);
     game.load.spritesheet('bossMedFace', 'assets/image/bossMedFace.png', 128, 128);
-    game.load.spritesheet('door', 'assets/image/door.png', 128, 128);
+    game.load.spritesheet('door', 'assets/image/door.png');
     game.load.image('deathScreen', 'assets/image/deathScreen.png');
     game.load.spritesheet('bossMedDeath', 'assets/image/bossMedDeath.png', 78, 78);
 
