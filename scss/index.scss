@@ -1,0 +1,40 @@
+body {  
+    background: #000000;  
+    width:100%
+}
+h1
+{  
+    color: #ffffff;  
+    text-align: center;
+}/*center canvas*/
+canvas {    
+    margin: auto;     
+    position: absolute;
+    top: 50%; 
+    left: 25%;
+    line-height: 1px;
+
+}
+
+#header{
+    color: red;
+    font-size: 5em;
+    text-align: center;
+    margin-top: 100px;
+}
+
+@media (max-width: 870px) {
+    canvas {        
+        left: 20%;
+    }
+}
+@media (max-width: 815px) {
+    canvas {        
+        left: 10%;
+    }
+}
+@media (max-width: 730px) {
+    canvas {        
+        left: 0;
+    }
+}

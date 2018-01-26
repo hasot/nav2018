@@ -1,0 +1,26 @@
+{
+  "name": "nav2018",
+  "version": "1.0.0",
+  "description": "Разработка игры специально под выборы 2018 года.",
+  "main": "index.js",
+  "dependencies": {
+    "gulp": "^3.9.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hasot/nav2018.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hasot/nav2018/issues"
+  },
+  "homepage": "https://github.com/hasot/nav2018#readme"
+}
