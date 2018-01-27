@@ -1,5 +1,6 @@
 StartScreen = function()
 {
+	soundsStart(); 
 	var textColor = "#eeeeee";
 
 	this.background = game.add.sprite(0, 0, 'startScreen');
@@ -10,6 +11,7 @@ StartScreen = function()
 
 	this.blinkPeriod = 40;
 	this.timer = this.blinkPeriod;
+	
 }
 
 StartScreen.prototype.kill = function() 
@@ -21,15 +23,23 @@ StartScreen.prototype.kill = function()
 
 StartScreen.prototype.update = function()
 {
+	
 	this.timer -= 1;
 	if (this.timer <= 0)
 	{
 		this.text.visible = !this.text.visible;
 		this.timer = this.blinkPeriod;
 	}
+	
 }
 
 StartScreen.prototype.isReadyToContinue = function()
 {
 	return true;
+}
+
+function soundsStart () {
+	startMusic = game.add.audio('start');
+	startMusic.addMarker('start', 0, 8, 0.4);
+	startMusic.play('start');
 }

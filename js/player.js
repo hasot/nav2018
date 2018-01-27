@@ -211,6 +211,7 @@ function hitPlayer()
 
         playerDead = true;
         dieNavSound.play("dieNav");
+      
         player.kill();
     }
     else {
