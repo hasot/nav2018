@@ -44,6 +44,7 @@ function preload() {
     game.load.image('blackScreen', 'assets/image/intro/blackScreen.png');
     game.load.image('afterBossDialogScene', 'assets/image/intro/afterBossDialog.png');
     game.load.spritesheet('bossMedFaceDamaged', 'assets/image/intro/bossMedFaceDamaged.png', 128, 128);
+    game.load.image('screamer', 'assets/image/intro/screamer.png');
     // this.game.make.image(100, 100, 'helicopter'); //???
 
     initLevelsJson();
@@ -65,7 +66,7 @@ var intro;
 
 function create() 
 {
-    intro.start('StartScreen');
+    intro.start('AfterBoss');
 	// startGame();
 }
 
