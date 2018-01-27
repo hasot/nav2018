@@ -30,11 +30,11 @@ function preload() {
     game.load.image('mandat', 'assets/image/hp.png');
     game.load.image('bossMedHP', 'assets/image/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/image/playerHP.png', 32, 32);
-    game.load.image('introText', 'assets/image/textView.png');
+    game.load.image('introText', 'assets/image/intro/textView.png');
 
     game.load.image('deathScreen', 'assets/image/deathScreen.png');
     game.load.spritesheet('bossMedDeath', 'assets/image/bossMedDeath.png', 78, 78);
-    game.load.image('startScreen', 'assets/image/startScreen.png');
+    game.load.image('startScreen', 'assets/image/intro/startScreen.png');
     game.load.image('beforeBossDialogIntroScene', 'assets/image/intro/beforeBossDialog.png');
     game.load.spritesheet('face', 'assets/image/intro/face.png', 128, 128);
     game.load.spritesheet('bossMedFace', 'assets/image/intro/bossMedFace.png', 128, 128);
@@ -66,8 +66,8 @@ var intro;
 
 function create() 
 {
-    // intro.start('BeforeBossDialog');
-	startGame();
+    intro.start('StartScreen');
+	// startGame();
 }
 
 function startGame()

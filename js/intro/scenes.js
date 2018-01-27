@@ -14,6 +14,10 @@ Intro.prototype.startIntro = function()
 			]);
 			break;
 
+		case 'BeforeBossDemo':
+			this.currentIntro = new EpicTextScreen(["Однажды они все-таки встретились"]);
+			break;
+
 		case 'FewTimesAgo':
 			this.currentIntro = new EpicTextScreen(["За несколько часов до этого..."]);
 			break;
@@ -24,9 +28,8 @@ Intro.prototype.startIntro = function()
 									'face', 
 									'bossMedFace',
 	        [
-	            new IntroTextItem('left', [". . . . . ", "Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
-	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
-	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
+	            new IntroTextItem('left', [". . . . . ", "Я нашел тебя", "Ты ответишь за всё,", "за каждый украденный рубль."]),
+	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?", "Просто вспомни", "ЧТО ты натворил..."]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;
@@ -39,7 +42,6 @@ Intro.prototype.startIntro = function()
 	        [
 	        	new IntroTextItem('none', ["Место действия: Плёс", "Дача известного политика"]),
 	            new IntroTextItem('left', ["Наконец-то!", "Я должен найти хозяина этой дачи", "и показать всей стране его истиное лицо!"]),
-	            new IntroTextItem('none', ["Доберитесь до премьер-министра"]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;
@@ -70,7 +72,7 @@ Intro.prototype.startIntro = function()
 			break;
 
 		case 'BeforeBattle':
-			this.currentIntro = new EpicTextScreen(["Он вам не Димон"]);
+			this.currentIntro = new EpicTextScreen(["Однажды они все-таки встретились"]);
 			break;
 
 		case 'BeforeBossDialog':
@@ -79,9 +81,8 @@ Intro.prototype.startIntro = function()
 									'face', 
 									'bossMedFace',
 	        [
-	            new IntroTextItem('left', ["Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
-	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
-	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
+	            new IntroTextItem('left', ["Я нашел тебя.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
+	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?", "Просто вспомни", "ЧТО ты натворил..."]),
 	            new IntroTextItem('right', ["Ты отпинал кучу людей.", "Ты прыгал на невинных полицейских.", "Ты собирал доллары!", "Я видел.", "Признавайся, кто тебя послал?"]),
 	            new IntroTextItem('left', ["Тот, кого ты боишься больше всего.", "Народ."]),
 	            new IntroTextItem('none', ["Победите премьер-министра"]),
@@ -126,6 +127,10 @@ Intro.prototype.finishIntro = function()
 			break;
 
 		case 'WarningScreen':
+			this.start('BeforeBossDemo');
+			break;
+
+		case 'BeforeBossDemo':
 			this.start('BeforeBossDialogDemo');
 			break;
 
