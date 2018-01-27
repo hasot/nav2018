@@ -54,8 +54,17 @@ Intro.prototype.startIntro = function()
 			]);
 			break;
 
-		case 'FirstDialog':
-			this.currentIntro = new DialogScreen(GetTestIntro());
+		case 'BeforeBossDialogDemo':
+			var introText = new IntroText(
+									'beforeBossDialogIntroScene', 
+									'face', 
+									'bossMedFace',
+	        [
+	            new IntroTextItem('left', ["Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
+	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
+	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
+	        ]);
+			this.currentIntro = new DialogScreen(introText);
 			break;
 
 		default:
@@ -72,10 +81,10 @@ Intro.prototype.finishIntro = function()
 			break;
 
 		case 'WarningScreen':
-			this.start('FirstDialog');
+			this.start('BeforeBossDialogDemo');
 			break;
 
-		case 'FirstDialog':
+		case 'BeforeBossDialogDemo':
 			startGame();
 			break;
 

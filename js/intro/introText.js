@@ -21,12 +21,13 @@ IntroText = function(sceneSpriteName, leftSprite, rightSprite, content)
 	this.currentContentIndex = 0;
 
 	this.dialogColor = "#eeeeee";
+	this.bossDialogColor = "#ee2222";
 	this.simpleTextColor = "#ff00ff";
 
 	this.text = game.add.text(155, 20, '', {font: "15px Arial", fill: this.dialogColor });
 	this.text.fixedToCamera = true;
 
-	this.continueText = game.add.text(266, 202, 'Нажмите X для продолжения...', {font: "13px Arial", fill: "#ffffff"});
+	this.continueText = game.add.text(300, 212, 'Нажмите X для продолжения...', {font: "13px Arial", fill: "#ffffff"});
 	this.continueText.fixedToCamera = true;
 	this.continueText.visible = false;
 
@@ -53,7 +54,9 @@ IntroText.prototype.startIntro = function()
 	{
 		var speaker = this.currentContent.speaker == 'left' ? this.leftSprite : this.rightSprite;
 		speaker.animations.play('speak');
-		this.text.style.fill = this.dialogColor;
+		this.text.style.fill = this.currentContent.speaker == 'left'
+							   ? this.dialogColor
+							   : this.bossDialogColor;
 	}
 	else
 	{
