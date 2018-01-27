@@ -203,8 +203,7 @@ function hitPlayer()
         ShowDeathScreen();
         music.pause();
         var playerCorpse = new Corpse(
-                                player.x, player.y, 
-                                discover == "right" ? 1 : -1, 
+                                player.x, player.y,  
                                 'player', 
                                 discover == "right" ? 12 : 13);
         corpses.push(playerCorpse);

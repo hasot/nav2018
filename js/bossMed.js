@@ -191,6 +191,12 @@ BossMed.prototype.checkHit = function()
 
 		var hit = physicsHit && bullet.sprite.frame != 0;
 
+		if (physicsHit && bullet.sprite.frame == 0)
+		{
+			var bulletCorpse = new BulletCorpse(bullet.sprite, bullet.direction);
+            corpses.push(bulletCorpse);      
+		}
+
 		if (hit)
 		{
 			this.hp -= 1;

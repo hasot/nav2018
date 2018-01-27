@@ -6,7 +6,7 @@ HUD = function(hp, money)
 	for (var i = 0; i < hp; ++i)
 		this.addHP();
 
-	this.moneyText = game.add.text(16, 40, 'DONATES: ' + money, 
+	this.moneyText = game.add.text(16, 40, 'ДОНЕЙТЫ: ' + money + '$', 
 		{ 
 		    font: 'Arial Black',
     	    fontSize: 14,
@@ -50,7 +50,7 @@ HUD.prototype.removeHP = function()
 
 HUD.prototype.updateScore = function()
 {
-	this.moneyText.setText('DONATES: ' + score);
+	this.moneyText.setText('ДОНЕЙТЫ: ' + (score * 100) + '$');
 }
 
 HUD.prototype.createBossHP = function(lives, spriteName)
