@@ -6,7 +6,7 @@ HUD = function(hp, money)
 	for (var i = 0; i < hp; ++i)
 		this.addHP();
 
-	this.moneyText = game.add.text(16, 40, 'ДОНЕЙТЫ: ' + money + '$', 
+	this.moneyText = game.add.text(16, 40, 'ДОНЕЙТЫ: ' + (money * 100) + '$', 
 		{ 
 		    font: 'Arial Black',
     	    fontSize: 14,

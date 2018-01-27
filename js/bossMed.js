@@ -19,7 +19,7 @@ BossMed = function(x, y)
 		new Phaser.Point(220, 402),
 		new Phaser.Point(403, 402),
 		new Phaser.Point(21, 402),
-		new Phaser.Point(600, 402),
+		new Phaser.Point(580, 402),
 		];
 
 	this.timer = 0;
@@ -422,7 +422,7 @@ BossMed.prototype.die = function()
 	finalMusic.play('final');
 	this.state = 'die';
 	this.deadSprite = game.add.sprite(this.sprite.x - 10, this.sprite.y, 'bossMedDeath');
-	this.deadSprite.animations.add('die', [0, 0, 1, 2, , 3, 4, 5], 1, false);
+	this.deadSprite.animations.add('die', [0, 0, 1, 2, 3, 3, 4, 5], 1, false);
 	this.deadSprite.animations.play('die');
 	this.alive = false;
 	this.sprite.kill();
@@ -434,4 +434,8 @@ BossMed.prototype.die = function()
 	for (var i = 0; i < bullets.length; ++i)
 		bullets[i].sprite.kill();
 	bullets = [];
+
+	this.smoke.visible = false;
+	if (this.nextEnemy != null)
+		killEnemy(this.nextEnemy);
 }

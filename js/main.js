@@ -66,8 +66,8 @@ var intro;
 
 function create() 
 {
-    intro.start('StartScreen');
-	// startGame();
+    // intro.start('EndScreen');
+	startGame();
 }
 
 function startGame()

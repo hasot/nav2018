@@ -15,7 +15,6 @@ function createDoor()
         doors = game.add.group();
         doors.enableBody = true;
         door = doors.create(lvlDoorCoordinate[levelNow].x, lvlDoorCoordinate[levelNow].y, 'door', 0);
-        door.scale.setTo(0.07,0.07);
     }
 }
 
