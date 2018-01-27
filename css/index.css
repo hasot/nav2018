@@ -9,7 +9,7 @@ h1 {
 /*center canvas*/
 canvas {
   position: absolute;
-  top: 50%;
+  top: 100px;
   left: 25%;
   line-height: 1px; }
 

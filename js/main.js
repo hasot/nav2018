@@ -186,9 +186,9 @@ function killArray(arr)
 
 function render () 
 {	
-	var mousePoint = game.input.mousePointer;
-    game.debug.text(mousePoint.worldX + ' ' + mousePoint.worldY, 500, 50);
-    game.debug.text(game.world.countLiving(), 500, 70);
+	// var mousePoint = game.input.mousePointer;
+    // game.debug.text(mousePoint.worldX + ' ' + mousePoint.worldY, 500, 50);
+    // game.debug.text(game.world.countLiving(), 500, 70);
 }
 
 function getRandomInt(min, max) 
