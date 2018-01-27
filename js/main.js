@@ -39,6 +39,9 @@ function preload() {
     game.load.spritesheet('face', 'assets/image/intro/face.png', 128, 128);
     game.load.spritesheet('bossMedFace', 'assets/image/intro/bossMedFace.png', 128, 128);
     game.load.image('level1IntroScene', 'assets/image/intro/level1Start.png');
+    game.load.image('level2IntroScene', 'assets/image/intro/level2Start.png');
+    game.load.image('level3IntroScene', 'assets/image/intro/level3Start.png');
+    game.load.image('blackScreen', 'assets/image/intro/blackScreen.png');
     // this.game.make.image(100, 100, 'helicopter'); //???
 
     initLevelsJson();
@@ -60,8 +63,8 @@ var intro;
 
 function create() 
 {
-    intro.start('StartScreen', startGame);
-	// startGame();
+    // intro.start('StartScreen');
+	startGame();
 }
 
 function startGame()
