@@ -14,10 +14,6 @@ Intro.prototype.startIntro = function()
 			]);
 			break;
 
-		case 'BeforeBossDemo':
-			this.currentIntro = new EpicTextScreen(["Однажды они все-таки встретились"]);
-			break;
-
 		case 'FewTimesAgo':
 			this.currentIntro = new EpicTextScreen(["За несколько часов до этого..."]);
 			break;
@@ -29,7 +25,7 @@ Intro.prototype.startIntro = function()
 									'bossMedFace',
 	        [
 	            new IntroTextItem('left', [". . . . . ", "Я нашел тебя", "Ты ответишь за всё,", "за каждый украденный рубль."]),
-	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?", "Просто вспомни", "ЧТО ты натворил..."]),
+	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?", "Просто вспомни,", "ЧТО ты натворил..."]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;
@@ -41,7 +37,7 @@ Intro.prototype.startIntro = function()
 									null,
 	        [
 	        	new IntroTextItem('none', ["Место действия: Плёс", "Дача известного политика"]),
-	            new IntroTextItem('left', ["Наконец-то!", "Я должен найти хозяина этой дачи", "и показать всей стране его истиное лицо!"]),
+	            new IntroTextItem('left', ["Наконец-то!", "Я должен найти хозяина этой дачи", "и показать всей стране его истинное лицо!"]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;
@@ -131,10 +127,6 @@ Intro.prototype.finishIntro = function()
 			break;
 
 		case 'WarningScreen':
-			this.start('BeforeBossDemo');
-			break;
-
-		case 'BeforeBossDemo':
 			this.start('BeforeBossDialogDemo');
 			break;
 

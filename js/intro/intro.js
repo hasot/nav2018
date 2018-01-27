@@ -11,6 +11,7 @@ Intro.prototype.start = function(introSceneName)
 {
 	game.camera.unfollow();
 	game.camera.view.y = 0;
+	game.camera.view.x = 0;
 
 	this.isActive = true;
 	this.introSceneName = introSceneName;

@@ -35,7 +35,7 @@ EpicTextScreen.prototype.kill = function()
 EpicTextScreen.prototype.update = function()
 {
 	for (var i = 0 ; i < this.texts.length; ++i)
-		this.texts[i].alpha = Math.min(1, this.texts[i].alpha + 0.005);
+		this.texts[i].alpha = Math.min(1, this.texts[i].alpha + 0.01);
 
 	this.continueText.visible = this.isReadyToContinue();
 }

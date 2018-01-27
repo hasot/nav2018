@@ -29,7 +29,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 5;
-	this.hp = 1;
+	this.hp = 12;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);

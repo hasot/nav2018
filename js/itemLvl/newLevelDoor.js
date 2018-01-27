@@ -6,7 +6,7 @@ var lvlDoorCoordinate = [
         {x:4040, y:386},
         {x:4040, y:130},
         {x:4040, y:114},
-        // {x:100, y:386},
+        // {x:1000, y:386},
         // {x:100, y:130},
         // {x:100, y:114}
 ]
@@ -47,17 +47,17 @@ function startPlayIntro()
 {
     switch (levelNow)
     {
-        // case 1:
-        //     intro.start('Level2Start');
-        //     break;
+        case 1:
+            intro.start('Level2Start');
+            break;
 
-        // case 2:
-        //     intro.start('Level2Start');
-        //     break;
+        case 2:
+            intro.start('Level3Start');
+            break;
 
-        // case 3:
-        //     intro.start('BeforeBattle');
-        //     break;
+        case 3:
+            intro.start('BeforeBattle');
+            break;
 
         default:
             changeLevel();
