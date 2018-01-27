@@ -113,6 +113,10 @@ Intro.prototype.startIntro = function()
 			this.currentIntro = new ScreamerScreen();
 			break;
 
+		case 'Titles':
+			this.currentIntro = new TitlesScreen();
+			break;
+
 		default:
 			console.log("ERROR ERROR ERROR WRONG INTRO NAME");
 	}
@@ -171,7 +175,7 @@ Intro.prototype.finishIntro = function()
 			break;
 
 		case 'Screamer':
-			this.start('AfterBoss');
+			this.start('Titles');
 			break;
 
 		default:
