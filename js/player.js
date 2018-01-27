@@ -201,7 +201,7 @@ function hitPlayer()
     if (hp <= 0)
     {
         ShowDeathScreen();
-
+        music.pause();
         var playerCorpse = new Corpse(
                                 player.x, player.y, 
                                 discover == "right" ? 1 : -1, 

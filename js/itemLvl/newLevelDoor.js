@@ -28,6 +28,7 @@ function goNewLvl(player, door)
 
 function startNewLvl(){
     if (goNavNewlvl) {
+            music.pause();
             player.alpha -= 0.1;
             if (player.alpha < 0.1) {
                 goNavNewlvl = false;
