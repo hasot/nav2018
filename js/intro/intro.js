@@ -145,12 +145,9 @@ Intro.prototype.startIntro = function()
 									'face', 
 									'bossMedFaceDamaged',
 	        [
-	            new IntroTextItem('left', ["Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
-	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
-	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
-	            new IntroTextItem('right', ["Ты отпинал кучу людей.", "Ты прыгал на невинных полицейских.", "Ты собирал доллары!", "Я видел.", "Признавайся, кто тебя послал?"]),
-	            new IntroTextItem('left', ["Тот, кого ты боишься больше всего.", "Народ."]),
-	            new IntroTextItem('none', ["Победите премьер-министра"]),
+	            new IntroTextItem('right', ["Нет...", "Ты не мог меня победить..."]),
+	            new IntroTextItem('left', ["Ну что, может хоть в последний раз", "ты все-таки назовешь мое имя?"]),
+	            new IntroTextItem('right', [". . . . . . . . . . . . . . .", "Б л э д . . . ", "Н Э В Э Л Ь Н Ы Й"]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;
