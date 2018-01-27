@@ -1,7 +1,8 @@
 ScreamerScreen = function()
 {
 	this.background = game.add.sprite(0, 0, 'blackScreen');
-
+	finalMusic.stop();
+	scary.play('scary');
 	this.screamer = game.add.sprite(0, 0, 'screamer');
 	this.blinkInterval = 5;
 	this.timer = this.blinkInterval;
