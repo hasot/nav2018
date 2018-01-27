@@ -4,6 +4,18 @@ var deathQuotes =
 [
 	"Ради прекрасной России будущего",
 	"Где-то радостно смеется коррупционер",
+	"И что теперь делать?",
+	"И кто теперь будет звать на митинг?",
+	"Чиновники будут довольны",
+	"И в этом виноват ты",
+	"Завтра они придут за тобой",
+	"А тебя посадят за репост",
+	"И на твои деньги построят еще один храм",
+	"И на твои налоги начнут еще одну войну",
+	"И нефть тебе не принадлежит",
+	"А ты останешься без пенсии",
+	"Но в новостях про это ничего не скажут",
+	"Сможешь смотреть в глаза своим детям?",
 ];
 
 function ShowDeathScreen()
@@ -13,7 +25,7 @@ function ShowDeathScreen()
 	this.backgroundSprite = game.add.sprite(game.camera.x, game.camera.y, 'deathScreen');
 	this.backgroundSprite.alpha = 0;
 
-	this.mainText = game.add.text(game.camera.x + 200, game.camera.y + 140, "Он погиб...", { 
+	this.mainText = game.add.text(game.camera.x + 220, game.camera.y + 140, "Он погиб...", { 
 					    font: 'Arial',
 					    fontSize: 40,
 						fontWeight: 'bold',
@@ -28,7 +40,7 @@ function ShowDeathScreen()
 		    		fontWeight: 'bold',
 				});
 
-	this.continueText = game.add.text(game.camera.x + 155, game.camera.y + 350, "Нажми X, чтобы начать заново", {
+	this.continueText = game.add.text(game.camera.x + 155, game.camera.y + 400, "Нажми X, чтобы начать заново", {
 							font: 'Arial',
 						    fontSize: 20,
 							fontWeight: 'bold',
