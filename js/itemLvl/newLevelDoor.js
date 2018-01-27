@@ -6,7 +6,7 @@ var lvlDoorCoordinate = [
         {x:4040, y:386},
         {x:4040, y:130},
         {x:4040, y:114},
-        // {x:100, y:386},
+        // {x:1000, y:386},
         // {x:100, y:130},
         // {x:100, y:114}
 ]
@@ -52,7 +52,7 @@ function startPlayIntro()
             break;
 
         case 2:
-            intro.start('Level2Start');
+            intro.start('Level3Start');
             break;
 
         case 3:
