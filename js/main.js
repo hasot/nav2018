@@ -9,6 +9,7 @@ var corpses;
 var hud;
 
 function preload() {
+    game.load.spritesheet('door', 'assets/image/door.png');
     game.load.image('background', 'assets/image/level1Background.png');
     game.load.image('ground', 'assets/image/platform.png');
     game.load.spritesheet('player', 'assets/image/player.png', 32, 64);
@@ -32,7 +33,7 @@ function preload() {
     game.load.image('introText', 'assets/image/textView.png');
     game.load.spritesheet('face', 'assets/image/face.png', 128, 128);
     game.load.spritesheet('bossMedFace', 'assets/image/bossMedFace.png', 128, 128);
-    game.load.spritesheet('door', 'assets/image/door.png');
+
     game.load.image('deathScreen', 'assets/image/deathScreen.png');
     game.load.spritesheet('bossMedDeath', 'assets/image/bossMedDeath.png', 78, 78);
 
@@ -61,7 +62,7 @@ function create()
 	playerDead = false;
 
     createMap();
-
+    createDoor();
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -71,7 +72,7 @@ function create()
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
-
+   
     createSounds();
 
     money();   
@@ -82,7 +83,7 @@ function create()
     this.game.make.image(100, 100, 'helicopter');
 
     createEnemy = new EnemyFactory(game, bullets);
-    createDoor();
+
 
     hud = new HUD(hp, score);
 
