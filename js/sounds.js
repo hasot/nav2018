@@ -10,16 +10,24 @@ var painNavSound;
 var shotSound;
 var dieNavSound;
 
+var startMusic;
+var finalMusic;
+
 var dieMedSound;
 var shotMedSound;
 var painMedSound;
 
 var currentMusic;
+
 function initSounds() {
     game.load.audio('part1', 'assets/audio/part1.wav');
     game.load.audio('part2', 'assets/audio/part2.wav');
     game.load.audio('part3', 'assets/audio/part3.wav');
     game.load.audio('bossMusic', 'assets/audio/bossMusic.wav');
+
+
+    game.load.audio('start', [ 'assets/audio/start.wav' ]);
+    game.load.audio('final', [ 'assets/audio/final.wav' ]);
 
     game.load.audio('money', [ 'assets/audio/money.wav' ]);
     game.load.audio('kick', [ 'assets/audio/kick.wav' ]);
@@ -43,6 +51,8 @@ function createSounds() {
 
     initBackgroundMusic();
 
+    finalMusic = game.add.audio('final');
+
     moneySound = game.add.audio('money');
     kickSound = game.add.audio('kick');
     jumpSound = game.add.audio('jump');
@@ -59,6 +69,7 @@ function createSounds() {
     painMedSound = game.add.audio('painMed');
 
 
+    finalMusic.addMarker('final', 0, 180, 0.4);
 
     moneySound.addMarker('money', 0, 0.9, 0.3);
     kickSound.addMarker('kick', 0, 0.9, 0.3);
