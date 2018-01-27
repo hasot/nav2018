@@ -1,3 +1,5 @@
+var skipIntro = false;
+
 Intro = function() 
 {
 	this.isActive = false
@@ -11,6 +13,8 @@ Intro.prototype.start = function(introSceneName)
 	this.introSceneName = introSceneName;
 
 	this.startIntro();
+
+	if (skipIntro) this.finish();
 };
 
 Intro.prototype.finish = function()
@@ -54,15 +58,34 @@ Intro.prototype.startIntro = function()
 			]);
 			break;
 
+		case 'FewTimesAgo':
+			this.currentIntro = new EpicTextScreen(["За несколько часов до этого..."]);
+			break;
+
 		case 'BeforeBossDialogDemo':
 			var introText = new IntroText(
 									'beforeBossDialogIntroScene', 
 									'face', 
 									'bossMedFace',
 	        [
+	        	new IntroTextItem('none', [". . ."]),
 	            new IntroTextItem('left', ["Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
 	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
 	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
+	        ]);
+			this.currentIntro = new DialogScreen(introText);
+			break;
+
+		case 'Level1Start':
+			var introText = new IntroText(
+									'level1IntroScene', 
+									'face', 
+									null,
+	        [
+	        	new IntroTextItem('none', ["Место действия: Плёс", "Дача известного политика"]),
+	            new IntroTextItem('left', ["Наконец-то!", "Я отыскал это злостное место!"]),
+	            new IntroTextItem('left', ["Я должен найти хозяина этой дачи", "и показать всей стране его истиное лицо!"]),
+	            new IntroTextItem('none', ["Доберитесь до премьер-министра"]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;
@@ -85,6 +108,14 @@ Intro.prototype.finishIntro = function()
 			break;
 
 		case 'BeforeBossDialogDemo':
+			this.start('FewTimesAgo');
+			break;
+
+		case 'FewTimesAgo':
+			this.start('Level1Start');
+			break;
+
+		case 'Level1Start':
 			startGame();
 			break;
 

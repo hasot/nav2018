@@ -38,6 +38,7 @@ function preload() {
     game.load.image('beforeBossDialogIntroScene', 'assets/image/intro/beforeBossDialog.png');
     game.load.spritesheet('face', 'assets/image/intro/face.png', 128, 128);
     game.load.spritesheet('bossMedFace', 'assets/image/intro/bossMedFace.png', 128, 128);
+    game.load.image('level1IntroScene', 'assets/image/intro/level1Start.png');
     // this.game.make.image(100, 100, 'helicopter'); //???
 
     initLevelsJson();
@@ -59,7 +60,7 @@ var intro;
 
 function create() 
 {
-    intro.start('BeforeBossDialogDemo', startGame);
+    intro.start('StartScreen', startGame);
 	// startGame();
 }
 
