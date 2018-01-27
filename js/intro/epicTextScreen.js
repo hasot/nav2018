@@ -1,5 +1,7 @@
 EpicTextScreen = function(textArr)
 {
+	this.background = game.add.sprite(0, 0, 'blackScreen');
+
 	this.texts = [];
 	this.createText(textArr);
 
@@ -24,6 +26,7 @@ EpicTextScreen.prototype.createText = function(textArr)
 
 EpicTextScreen.prototype.kill = function()
 {
+	this.background.kill();
 	for (var i = 0 ; i < this.texts.length; ++i)
 		this.texts[i].kill();
 	this.continueText.kill();

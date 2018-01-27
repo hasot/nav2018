@@ -1,7 +1,7 @@
-IntroText = function(leftSprite, rightSprite, content)
+IntroText = function(sceneSpriteName, leftSprite, rightSprite, content)
 {
+	this.sceneSprite = game.add.sprite(0, 0, sceneSpriteName);
 	this.sprite = game.add.sprite(0, 0, 'introText');
-	this.sprite.fixedToCamera = true;
 
 	if (leftSprite != null)
 	{
@@ -21,19 +21,20 @@ IntroText = function(leftSprite, rightSprite, content)
 	this.currentContentIndex = 0;
 
 	this.dialogColor = "#eeeeee";
+	this.bossDialogColor = "#ee2222";
 	this.simpleTextColor = "#ff00ff";
 
 	this.text = game.add.text(155, 20, '', {font: "15px Arial", fill: this.dialogColor });
 	this.text.fixedToCamera = true;
 
-	this.continueText = game.add.text(266, 202, 'press V to continue...', {font: "13px Arial", fill: "#ffffff"});
+	this.continueText = game.add.text(300, 212, 'Нажмите X для продолжения...', {font: "13px Arial", fill: "#ffffff"});
 	this.continueText.fixedToCamera = true;
 	this.continueText.visible = false;
 
 	this.wordDelay = 150;
-	this.continueButton = game.input.keyboard.addKey(Phaser.Keyboard.V);
+	this.continueButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
 
-	this.startIntro();
+	this.isEnd = false;
 }
 
 IntroText.prototype.startIntro = function() 
@@ -53,7 +54,9 @@ IntroText.prototype.startIntro = function()
 	{
 		var speaker = this.currentContent.speaker == 'left' ? this.leftSprite : this.rightSprite;
 		speaker.animations.play('speak');
-		this.text.style.fill = this.dialogColor;
+		this.text.style.fill = this.currentContent.speaker == 'left'
+							   ? this.dialogColor
+							   : this.bossDialogColor;
 	}
 	else
 	{
@@ -109,16 +112,23 @@ IntroText.prototype.update = function()
 		this.continueText.visible = false;
 		this.currentContentIndex++;
 
-		if (this.currentContentIndex == this.content.length)
-		{
-			console.log("END!")
-		}
-		else
-		{
+		if (this.currentContentIndex == this.content.length - 1)
+			this.isEnd = true;
+
+		if (this.currentContentIndex != this.content.length)
 			this.startIntro();
-		}
 	}
 };
+
+IntroText.prototype.kill = function()
+{
+	this.sceneSprite.kill();
+	this.sprite.kill();
+	if (this.leftSprite != null) this.leftSprite.kill();
+	if (this.rightSprite != null) this.rightSprite.kill();
+	this.text.kill();
+	this.continueText.kill();
+}
 
 IntroTextItem = function(speaker, text)
 {
@@ -128,7 +138,7 @@ IntroTextItem = function(speaker, text)
 
 function GetTestIntro()
 {
-	return new IntroText('face', 'bossMedFace',
+	return new IntroText('background', 'face', 'bossMedFace',
 	        [
 	            new IntroTextItem('left', ["Время первых", "Время смелых", "Есть особые люди, они не боятся мечтать"]),
 	            new IntroTextItem('none', ["Они че то там", "Че то там", "Че то там"]),

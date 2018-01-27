@@ -31,12 +31,19 @@ function preload() {
     game.load.image('bossMedHP', 'assets/image/bossMedHP.png');
     game.load.spritesheet('playerHP', 'assets/image/playerHP.png', 32, 32);
     game.load.image('introText', 'assets/image/textView.png');
-    game.load.spritesheet('face', 'assets/image/face.png', 128, 128);
-    game.load.spritesheet('bossMedFace', 'assets/image/bossMedFace.png', 128, 128);
 
     game.load.image('deathScreen', 'assets/image/deathScreen.png');
     game.load.spritesheet('bossMedDeath', 'assets/image/bossMedDeath.png', 78, 78);
     game.load.image('startScreen', 'assets/image/startScreen.png');
+    game.load.image('beforeBossDialogIntroScene', 'assets/image/intro/beforeBossDialog.png');
+    game.load.spritesheet('face', 'assets/image/intro/face.png', 128, 128);
+    game.load.spritesheet('bossMedFace', 'assets/image/intro/bossMedFace.png', 128, 128);
+    game.load.image('level1IntroScene', 'assets/image/intro/level1Start.png');
+    game.load.image('level2IntroScene', 'assets/image/intro/level2Start.png');
+    game.load.image('level3IntroScene', 'assets/image/intro/level3Start.png');
+    game.load.image('blackScreen', 'assets/image/intro/blackScreen.png');
+    game.load.image('afterBossDialogScene', 'assets/image/intro/afterBossDialog.png');
+    game.load.spritesheet('bossMedFaceDamaged', 'assets/image/intro/bossMedFaceDamaged.png', 128, 128);
     // this.game.make.image(100, 100, 'helicopter'); //???
 
     initLevelsJson();
@@ -58,8 +65,8 @@ var intro;
 
 function create() 
 {
-    intro.start('StartScreen', startGame);
-	// startGame();
+    // intro.start('AfterBoss');
+	startGame();
 }
 
 function startGame()

@@ -21,22 +21,51 @@ function createDoor()
 
 function goNewLvl(player, door)
 { 
-    if(cursors.up.isDown) {
+    if(cursors.up.isDown) 
+    {
         goNavNewlvl = true;
     }
 }
 
-function startNewLvl(){
-    if (goNavNewlvl) {
-            music.pause();
-            player.alpha -= 0.1;
-            if (player.alpha < 0.1) {
-                goNavNewlvl = false;
-                levelNow += 1;
-                door.kill();
-                restart();
-                copterNewLvl();
-            }
-       
+function startNewLvl()
+{
+    if (goNavNewlvl) 
+    {
+        music.pause();
+        player.alpha -= 0.1;
+        if (player.alpha < 0.1) 
+        {
+            levelNow += 1;
+            startPlayIntro();       
+        }
     }
+}
+
+function startPlayIntro()
+{
+    switch (levelNow)
+    {
+        // case 1:
+        //     intro.start('Level2Start');
+        //     break;
+
+        // case 2:
+        //     intro.start('Level2Start');
+        //     break;
+
+        // case 3:
+        //     intro.start('BeforeBattle');
+        //     break;
+
+        default:
+            changeLevel();
+    }
+}
+
+function changeLevel()
+{
+    goNavNewlvl = false;
+    door.kill();
+    restart();
+    copterNewLvl();
 }
