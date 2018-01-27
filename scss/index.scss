@@ -32,6 +32,12 @@ canvas {
     background-color: $header_color;
 }
 
+.header-social{
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle; 
+    
+}
 @media (max-width: 870px) {
     canvas {        
         left: 20%;
