@@ -17,6 +17,11 @@ FriendBullet.prototype.isCollidesWith = function(platforms)
     var isOutOfCamera = x  < game.camera.view.x 
                         || x > game.camera.view.x + game.camera.view.width;
     var collideWithPlatforms =  game.physics.arcade.collide(this.sprite, platforms);
+    if (collideWithPlatforms)
+    {
+        var bulletCorpse = new BulletCorpse(this.sprite, this.direction);
+        corpses.push(bulletCorpse);
+    }
 
     var res = isOutOfCamera || collideWithPlatforms;
 
@@ -33,6 +38,11 @@ FriendBullet.prototype.isCollidesWithEnemy = function(enemies)
         var protected = enemy.isHeavy && enemy.useShield && this.direction != enemy.direction;
         if (bulletHit)
         {
+            if (protected)
+            {
+                var bulletCorpse = new BulletCorpse(this.sprite, this.direction);
+                corpses.push(bulletCorpse);           
+            }
             if (!protected)
             {
                 killEnemy(enemy);

@@ -1,12 +1,11 @@
 var CorpseSpeed = 30;
 
-Corpse = function(x, y, direction, spriteName, frame)
+Corpse = function(x, y, spriteName, frame)
 {
 	this.sprite = game.add.sprite(x, y, spriteName);
 	game.physics.arcade.enable(this.sprite);
 	this.sprite.frame = frame;
 
-	this.direction = -1;
 	this.sprite.body.velocity.y = -150;
 	this.sprite.body.gravity.y = 600;
 }
@@ -26,4 +25,18 @@ function updateCorpses()
 		}
 		else i += 1;
 	}
+}
+
+BulletCorpse = function(bulletSprite, direction)
+{
+	this.sprite = game.add.sprite(bulletSprite.x, bulletSprite.y, 'enemyBullet');
+	
+	game.physics.arcade.enable(this.sprite);
+	this.sprite.frame = bulletSprite.frame;
+	this.sprite.angle = bulletSprite.angle;
+	this.sprite.alpha = 0.75;
+
+	this.sprite.body.gravity.y = 600;	
+	this.sprite.body.velocity.y = -100;
+	this.sprite.body.velocity.x = direction * -1 * 100;
 }

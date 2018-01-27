@@ -26,8 +26,7 @@ function killEnemy(enemy)
     	killHeavyEnemy(enemy);
 
     var corpse = new Corpse(
-    					enemy.sprite.x, enemy.sprite.y, 
-    					enemy.direction, 
+    					enemy.sprite.x, enemy.sprite.y,  
     					enemy.sprite.key, 
     					enemy.direction == 1 ? 0 : 1);
 	corpses.push(corpse);

@@ -80,6 +80,12 @@ EnemyBullet.prototype.isCollidesWith = function(layer, player)
                         || bulletX > game.camera.view.x + game.camera.view.width;
     var collideWithlayer =  game.physics.arcade.collide(this.sprite, layer);
 
+    if (collideWithlayer)
+    {
+        var bulletCorpse = new BulletCorpse(this.sprite, this.direction);
+        corpses.push(bulletCorpse);
+    }
+
     var distY = (this.sprite.y - player.y) * (this.sprite.y - player.y);
     var distX = (this.sprite.x - player.x) * (this.sprite.x - player.x);
     var dist = Math.sqrt(distX + distY);
