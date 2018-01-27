@@ -54,6 +54,10 @@ Intro.prototype.startIntro = function()
 			]);
 			break;
 
+		case 'FirstDialog':
+			this.currentIntro = new DialogScreen(GetTestIntro());
+			break;
+
 		default:
 			console.log("ERROR ERROR ERROR WRONG INTRO NAME");
 	}
@@ -68,6 +72,10 @@ Intro.prototype.finishIntro = function()
 			break;
 
 		case 'WarningScreen':
+			this.start('FirstDialog');
+			break;
+
+		case 'FirstDialog':
 			startGame();
 			break;
 
