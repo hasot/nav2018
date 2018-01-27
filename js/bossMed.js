@@ -29,7 +29,7 @@ BossMed = function(x, y)
 	this.prevPosIndex = -1;
 	this.shotCount = 0;
 	this.maxShotCount = 5;
-	this.hp = 12;
+	this.hp = 1;
 	this.enemyCreationTimer = 0;
 
 	this.sprite.animations.add('runL', [10, 11], 3, true);
@@ -55,6 +55,8 @@ BossMed = function(x, y)
 
 BossMed.prototype.update = function() 
 {
+	if (this.state == "GAME OVER") return;
+
 	this.updateState();
 
 	if (this.alive)
@@ -69,7 +71,10 @@ BossMed.prototype.update = function()
 	else
 	{
 		if (this.deadSprite.frame == 5)
-			console.log('GAME OVER)))');
+		{
+			this.state = "GAME OVER";
+			intro.start('AfterBoss');
+		}
 	}
 };
 
@@ -409,7 +414,7 @@ BossMed.prototype.die = function()
 {
 	this.state = 'die';
 	this.deadSprite = game.add.sprite(this.sprite.x - 10, this.sprite.y, 'bossMedDeath');
-	this.deadSprite.animations.add('die', [0, 0, 1, 2, 2, 3, 3, 4, 4, 4, 5], 1, false);
+	this.deadSprite.animations.add('die', [0, 0, 1, 2, , 3, 4, 5], 1, false);
 	this.deadSprite.animations.play('die');
 	this.alive = false;
 	this.sprite.kill();

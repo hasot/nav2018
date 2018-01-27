@@ -139,6 +139,22 @@ Intro.prototype.startIntro = function()
 			this.currentIntro = new DialogScreen(introText);
 			break;
 
+		case 'AfterBoss':
+			var introText = new IntroText(
+									'afterBossDialogScene', 
+									'face', 
+									'bossMedFaceDamaged',
+	        [
+	            new IntroTextItem('left', ["Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
+	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
+	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
+	            new IntroTextItem('right', ["Ты отпинал кучу людей.", "Ты прыгал на невинных полицейских.", "Ты собирал доллары!", "Я видел.", "Признавайся, кто тебя послал?"]),
+	            new IntroTextItem('left', ["Тот, кого ты боишься больше всего.", "Народ."]),
+	            new IntroTextItem('none', ["Победите премьер-министра"]),
+	        ]);
+			this.currentIntro = new DialogScreen(introText);
+			break;
+
 		default:
 			console.log("ERROR ERROR ERROR WRONG INTRO NAME");
 	}
@@ -182,6 +198,10 @@ Intro.prototype.finishIntro = function()
 
 		case 'BeforeBossDialog':
 			changeLevel();	
+			break;
+
+		case 'AfterBoss':
+			//...
 			break;
 
 		default:
