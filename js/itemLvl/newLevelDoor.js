@@ -47,17 +47,17 @@ function startPlayIntro()
 {
     switch (levelNow)
     {
-        // case 1:
-        //     intro.start('Level2Start');
-        //     break;
+        case 1:
+            intro.start('Level2Start');
+            break;
 
-        // case 2:
-        //     intro.start('Level2Start');
-        //     break;
+        case 2:
+            intro.start('Level2Start');
+            break;
 
-        // case 3:
-        //     intro.start('BeforeBattle');
-        //     break;
+        case 3:
+            intro.start('BeforeBattle');
+            break;
 
         default:
             changeLevel();

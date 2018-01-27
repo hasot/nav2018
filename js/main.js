@@ -66,8 +66,8 @@ var intro;
 
 function create() 
 {
-    // intro.start('EndScreen');
-	startGame();
+    intro.start('StartScreen');
+	// startGame();
 }
 
 function startGame()
@@ -88,8 +88,7 @@ function startGame()
     cursors = game.input.keyboard.createCursorKeys();
     fightButton = game.input.keyboard.addKey(Phaser.Keyboard.Z);
     copterButton = game.input.keyboard.addKey(Phaser.Keyboard.X);
-
-   
+ 
     createSounds();
 
     money();   
