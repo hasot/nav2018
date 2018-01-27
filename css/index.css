@@ -7,16 +7,24 @@ h1 {
   text-align: center; }
 
 /*center canvas*/
+.main {
+  position: absolute;
+  right: 0;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  text-align: center;
+  width: 200px;
+  font-size: 0.9m; }
+
 canvas {
   position: absolute;
-  top: 100px;
+  top: 120px;
   left: 25%;
   line-height: 1px; }
 
 .headerDiv {
   vertical-align: middle;
   display: table-cell;
-  padding-left: 10px; }
+  padding-left: 50px; }
 
 #header {
   display: table;
@@ -25,15 +33,26 @@ canvas {
   height: 100px;
   width: 100%;
   background-color: #008594; }
+  #header a {
+    padding: 2px; }
+
+.text {
+  position: relative;
+  top: -13%;
+  color: #FFFFFF; }
 
 .header-social {
+  position: relative;
+  height: 5em;
   text-align: center;
   display: table-cell;
   vertical-align: middle; }
 
 @media (max-width: 870px) {
   canvas {
-    left: 20%; } }
+    left: 20%; }
+  .header-social {
+    padding-right: 30px; } }
 
 @media (max-width: 815px) {
   canvas {
