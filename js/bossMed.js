@@ -422,7 +422,7 @@ BossMed.prototype.die = function()
 	finalMusic.play('final');
 	this.state = 'die';
 	this.deadSprite = game.add.sprite(this.sprite.x - 10, this.sprite.y, 'bossMedDeath');
-	this.deadSprite.animations.add('die', [0, 0, 1, 2, 3, 3, 4, 5], 1, false);
+	this.deadSprite.animations.add('die', [0, 0, 1, 2, 3, 4, 5], 1, false);
 	this.deadSprite.animations.play('die');
 	this.alive = false;
 	this.sprite.kill();
