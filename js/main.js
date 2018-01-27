@@ -36,11 +36,15 @@ function preload() {
 
     game.load.image('deathScreen', 'assets/image/deathScreen.png');
     game.load.spritesheet('bossMedDeath', 'assets/image/bossMedDeath.png', 78, 78);
+    game.load.image('startScreen', 'assets/image/startScreen.png');
+    // this.game.make.image(100, 100, 'helicopter'); //???
 
     initLevelsJson();
     initSounds();
     hp = startHp;
+    intro = new Intro();
 }
+
 var player;
 var map;
 var tileset;
@@ -49,21 +53,26 @@ var EnemySpeed = 40;
 var boss = null;
 var createEnemy;
 var greenSpot = null;
-var intro;
 var score = 0;
+var intro;
 
 function create() 
 {
-	bullets = []
-	friendBullets = [];
-	enemies = [];
-	deadEnemies = [];
-	corpses = [];
-	playerDead = false;
+    intro.start('StartScreen', startGame);
+	// startGame();
+}
+
+function startGame()
+{
+    bullets = []
+    friendBullets = [];
+    enemies = [];
+    deadEnemies = [];
+    corpses = [];
+    playerDead = false;
 
     createMap();
     createDoor();
-    //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
     player =  createPlayer();
@@ -80,8 +89,6 @@ function create()
     bullets = [];
     friendBullets = [];
 
-    this.game.make.image(100, 100, 'helicopter');
-
     createEnemy = new EnemyFactory(game, bullets);
 
 
@@ -89,27 +96,30 @@ function create()
 
     initEnemy();
     initDoshiki();
-
-
-
-    // intro = GetTestIntro();
 }
 
 function update() 
+{
+    if (intro.isActive)
+        intro.update();
+    else
+        updateGame();
+}
+
+function updateGame()
 {
     game.physics.arcade.collide(moneys, layer);
     game.physics.arcade.overlap(player, moneys, collectMoney, null, this);
     game.physics.arcade.overlap(player, doshiki, collectDoshik, null, this);
     game.physics.arcade.overlap(player, doors, goNewLvl, null, this);
     score = getScore();
-     	   //  Collide the player and the stars with the platforms
+           
     var hitPlatform = game.physics.arcade.collide(player, layer);
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectMoney function
-
+    
     copterAttack = updateCopter(layer, player, enemies);
     if (goNavNewlvl) 
     { 
-        startNewLvl(); // for new go new lvl
+        startNewLvl();
     } 
     else 
     {
@@ -120,8 +130,8 @@ function update()
 
         updateEnemyBullets(bullets, friendBullets);
         updateEnemies(player);
-    	updateFriendBullets(friendBullets, enemies);
-    	updatePlayer(enemies);
+        updateFriendBullets(friendBullets, enemies);
+        updatePlayer(enemies);
         updatePreviousPos(player);
         updateCorpses();
 
@@ -130,8 +140,6 @@ function update()
             boss.update();
         if (greenSpot != null)
             greenSpot.update();
-        if (intro != null)
-            intro.update();
         if (gamepad != null)
             gamepad.update();
     }
@@ -159,7 +167,7 @@ function restart()
 
     player.kill();
 
-    create();
+    startGame();
     
 }
 
