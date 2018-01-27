@@ -9,11 +9,26 @@ h1 {
 /*center canvas*/
 .main {
   position: absolute;
-  right: 0;
+  top: 100%;
+  background-color: #008594;
+  margin-top: 5px;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   text-align: center;
-  width: 200px;
+  width: 100%;
+  color: white;
   font-size: 0.9m; }
+
+.contact {
+  float: right; }
+
+.container {
+  overflow: hidden; }
+
+.box {
+  white-space: nowrap; }
+
+.box div {
+  display: inline-block; }
 
 canvas {
   position: absolute;
@@ -34,6 +49,24 @@ canvas {
   width: 100%;
   background-color: #008594; }
   #header a {
+    padding: 2px; }
+
+.but {
+  font-size: 0.9em !important;
+  float: center;
+  text-align: left;
+  display: table-cell;
+  vertical-align: middle; }
+
+.footer {
+  display: table;
+  position: absolute;
+  top: 100%;
+  height: 100px;
+  width: 100%;
+  background-color: #008594;
+  margin-top: 50px; }
+  .footer a {
     padding: 2px; }
 
 .text {
