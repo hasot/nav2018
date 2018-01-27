@@ -66,7 +66,7 @@ var intro;
 
 function create() 
 {
-    intro.start('StartScreen');
+    intro.start('BeforeBossDialog');
 	//startGame();
 }
 

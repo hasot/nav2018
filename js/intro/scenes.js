@@ -24,8 +24,7 @@ Intro.prototype.startIntro = function()
 									'face', 
 									'bossMedFace',
 	        [
-	        	new IntroTextItem('none', [". . ."]),
-	            new IntroTextItem('left', ["Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
+	            new IntroTextItem('left', [". . . . . ", "Наконец-то мы встретились.", "Лицом к лицу.", "Ты ответишь за всё,", "за каждый украденный рубль."]),
 	            new IntroTextItem('right', ["И перед кем же мне отвечать?", "Перед тобой?", "Это ты у нас, значит, г е р о й ?"]),
 	            new IntroTextItem('right', ["Просто вспомни", "ЧТО ты натворил..."]),
 	        ]);
@@ -39,8 +38,7 @@ Intro.prototype.startIntro = function()
 									null,
 	        [
 	        	new IntroTextItem('none', ["Место действия: Плёс", "Дача известного политика"]),
-	            new IntroTextItem('left', ["Наконец-то!", "Я отыскал это злостное место!"]),
-	            new IntroTextItem('left', ["Я должен найти хозяина этой дачи", "и показать всей стране его истиное лицо!"]),
+	            new IntroTextItem('left', ["Наконец-то!", "Я должен найти хозяина этой дачи", "и показать всей стране его истиное лицо!"]),
 	            new IntroTextItem('none', ["Доберитесь до премьер-министра"]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
@@ -97,9 +95,9 @@ Intro.prototype.startIntro = function()
 									'face', 
 									'bossMedFaceDamaged',
 	        [
-	            new IntroTextItem('right', ["Нет...", "Ты не мог меня победить..."]),
+	            new IntroTextItem('right', [". . . . . ", "Нет...", "Ты не мог меня победить..."]),
 	            new IntroTextItem('left', ["Ну что, может хоть в последний раз", "ты все-таки назовешь мое имя?"]),
-	            new IntroTextItem('right', [". . . . . . . . . . . . . . .", "Б л э д . . . ", "Н Э В Э Л Ь Н Ы Й"]),
+	            new IntroTextItem('right', [". . . . . . . . . . . . . . .", "Б л э д . . . ", "Н Э В Э Л Ь Н Ы Й . . ."]),
 	        ]);
 			this.currentIntro = new DialogScreen(introText);
 			break;

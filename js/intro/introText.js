@@ -74,7 +74,10 @@ IntroText.prototype.nextLine = function()
 	this.wordIndex = 0;
 
 	game.time.events.repeat(this.wordDelay, this.line.length, this.nextWord, this);
+};
 
+IntroText.prototype.continueNextLine = function()
+{
 	this.lineIndex++;
 
 	if (this.lineIndex == this.currentText.length)
@@ -89,7 +92,9 @@ IntroText.prototype.nextLine = function()
 			speaker.frame = 0;
 		}
 	}
-};
+
+	this.nextLine();
+}
 
 IntroText.prototype.nextWord = function() 
 {
@@ -100,7 +105,8 @@ IntroText.prototype.nextWord = function()
 	{
 		this.text.text = this.text.text.concat("\n");
 
-		game.time.events.add(this.wordDelay, this.nextLine, this);
+		// game.time.events.add(this.wordDelay + 100, this.nextLine, this);
+		this.continueNextLine();
 	}
 };
 
