@@ -1,5 +1,6 @@
 TitlesScreen = function()
 {
+	this.background = game.add.sprite(0, 0, 'blackScreen');
 	this.subText = game.add.text(210, 170, "СПАСИБО ЗА ИГРУ", 
 		{font: "25px Arial", fill: "#eeeeee" })
 	this.mainText = game.add.text(500, 450, "(c) Room 63. 2018", 
