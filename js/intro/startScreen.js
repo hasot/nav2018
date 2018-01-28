@@ -1,8 +1,8 @@
 StartScreen = function()
 {
+	spinner.stop();
 	soundsStart(); 
 	var textColor = "#eeeeee";
-
 	this.background = game.add.sprite(0, 0, 'startScreen');
 	this.text = game.add.text(110, 300, 'Нажмите X, чтобы начать игру', 
 				{font: "30px Arial", fill: textColor });

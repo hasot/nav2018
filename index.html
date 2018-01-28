@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="node_modules/social-sharing/dist/css/social-sharing.css">    
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="assets/image/nav.ico" />
-   
-    
     <title>20!8</title>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+    <script src="js/phaser.min.js"></script>
     <script src="js/intro/intro.js"></script>
     <script src="js/intro/introText.js"></script>
     <script src="js/intro/startScreen.js"></script>
@@ -16,7 +17,7 @@
     <script src="js/intro/scenes.js"></script>
     <script src="js/intro/screamerScreen.js"></script>
     <script src="js/intro/titlesScreen.js"></script>
-    <script src="js/phaser.min.js"></script>
+    
     <script src="js/main.js"></script>
     <script src="js/enemy.js"></script>
     <script src="js/shotingEnemy.js"></script>
@@ -53,7 +54,7 @@
         <a target="_blank" href="https://vk.com/share.php?url=https://navalny2018game.com/&title=Играй в игру 20!8 и спаси Россию&description=YOUR-DESCRIPTION&image=https://navalny2018game.com/assets/image/vkScreen.png&noparse=true"><img src="assets/image/vk.png" alt="" style="width: 35px; heigth: 35px;"></a>    
     </div>
 </div>
-<div >    
+<div id ="main" >    
 <img src = 'assets/image/website/nav.png' style="width: 300px; heigth: 200px;" > 
 <img src = 'assets/image/website/med.png' style="width: 300px; heigth: 300px; float: right" > 
 </div>
@@ -80,5 +81,28 @@
             </div>    
         </div>
 </div>
+<script>
+        var opts = {
+            lines: 10, // The number of lines to draw
+            length: 4, // The length of each line
+            width: 3, // The line thickness
+            radius: 5, // The radius of the inner circle
+            scale: 1.0,           // Scales overall size of the spinner               
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            color: '#fff', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2000000000, // The z-index (defaults to 2000000000)
+            top: '230%', // Top position relative to parent
+            left: '580%', // Left position relative to parent
+            
+    };
+                var target = document.getElementById('main');
+                var spinner = new Spinner(opts).spin(target);
+            </script>
 
 </body>
